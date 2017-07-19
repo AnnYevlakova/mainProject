@@ -4,7 +4,8 @@
     "react"
   ],
   "rules": {
-    "max-len": [1, 120, 2, {"ignoreComments": true}],
+    "max-len": [1, 120, 2, {
+      "ignoreComments": true}],
     "indent": [
       "error",
       "tab"
@@ -13,6 +14,7 @@
       "error",
       "windows"
     ],
+    "no-tabs": 0,
     "quotes": [
       "error",
       "single"
