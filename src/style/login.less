@@ -1,12 +1,4 @@
-.component-box {
-  display: flex;
-  flex: 1 1 auto;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  font-size: 1.6rem;
-}
-.registration-box {
+.login-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,8 +29,15 @@
   padding: 0;
   list-style: none;
 }
-@media (max-width: 460px) {
-  .registry-field {
-    justify-content: center;
+
+@media (max-width: 600px) {
+  .login-box {
+    width: 90%;
+    max-width: 90%;
+    padding: 5px;
+    font-size: 1.6rem;
+  }
+  .field {
+    font-size: 1.6rem;
   }
 }

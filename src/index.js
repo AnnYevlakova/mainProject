@@ -20,8 +20,7 @@ class App extends Component {
         <main className="main-container">
           <Switch>
             <Route exact path='/' component={Login}/>
-            <Route path='/login' component={Login}/>
-            <Route path='/registration' component={Registration}/>
+            <Route exact path='/registration' component={Registration}/>
           </Switch>
         </main>
         <footer className="footer">

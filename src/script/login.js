@@ -7,7 +7,7 @@ export class Login extends Component {
   render() {
     return (
       <div className="component-box">
-        <div className="registration-box">
+        <form id="login-box" method="post" action="" className="login-box">
           <p className="caption">Sing in</p>
           <input className="field" type="text" placeholder="Login" />
           <input className="field" type="password" />
@@ -16,7 +16,7 @@ export class Login extends Component {
             <li><Link className="link-base" to='/login/identify'>Forgot password?</Link></li>
           </ul>
           <MainButton type="submit" value="sing in"></MainButton>
-        </div>
+        </form>
       </div>
     )
   }
