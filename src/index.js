@@ -1,50 +1,32 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { Login } from './script/login';
+import { EntryButton } from './script/components/entry-button';
+import { Registration } from './script/registration';
+require('style-loader!css-loader!less-loader!./style/main.less');
 
-class Home extends Component {
-	render() {
-		return (
-			<div>
-				<p>home</p>
-			</div>
-		);
-	}
-}
-class Login extends Component {
-	render() {
-		return (
-			<div>
-				<p>Login</p>
-			</div>
-		);
-	}
-}
-class Registration extends Component {
-	render() {
-		return (
-			<p>Registration</p>
-		);
-	}
-}
 class App extends Component {
 	render() {
 		return (
-			<div>
-				<header>
-          <ul>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/login'>Login</Link></li>
-            <li><Link to='/registration'>Registration</Link></li>
-          </ul>
+			<div className="container">
+				<header className="header">
+          <image className="logo" src="https://www.itechart.com/static/img/logo.png" alt="" />
+          <nav className="header-nav">
+            <a className="link link-base about-company" href='https://www.itechart.com/'>about us</a>
+            <EntryButton></EntryButton>
+          </nav>
 				</header>
-        <main>
+        <main className="main-container">
           <Switch>
-            <Route exact path='/' component={Home}/>
+            <Route exact path='/' component={Login}/>
             <Route path='/login' component={Login}/>
             <Route path='/registration' component={Registration}/>
           </Switch>
         </main>
+        <footer className="footer">
+          <p>Copyright @ 2017 iTechArt</p>
+        </footer>
 			</div>
 		);
 	}
