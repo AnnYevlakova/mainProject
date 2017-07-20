@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import { Login } from './script/login';
-import { EntryButton } from './script/components/entry-button';
+import { MyLink } from './script/components/my-link';
 import { Registration } from './script/registration';
 require('style-loader!css-loader!less-loader!./style/main.less');
 
@@ -13,8 +13,8 @@ class App extends Component {
 				<header className="header">
           <image className="logo" src="https://www.itechart.com/static/img/logo.png" alt="" />
           <nav className="header-nav">
-            <a className="link link-base about-company" href='https://www.itechart.com/'>about us</a>
-            <EntryButton></EntryButton>
+            <a></a>
+            <MyLink  header value="log in" to="/"/>
           </nav>
 				</header>
         <main className="main-container">
