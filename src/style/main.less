@@ -2,8 +2,7 @@
 @light-c: #e3e3e3;
 @dark-c: #333333;
 @accent-c: #eb1c23;
-@f: 'Open Sans';
-@f: 'OpenSansRegular';
+@f: 'Arial';
 @f-bold: 'OpenSansExtraBold';
 
 /*
@@ -42,10 +41,6 @@ html, body {
   flex: 1 1 auto;
   height: 100%;
 }
-input {
-  font-family: @f-bold;
-  outline: none;
-}
 
 /************ header *******************/
 .header {
@@ -60,44 +55,29 @@ input {
   width: 200px;
   height: auto;
 }
+.about-us {
+  color: @dark-c;
+  text-decoration: none;
+  margin-left: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.about-us:hover {
+  color: @accent-c;
+}
 .header-nav {
   display: flex;
   align-items: center;
 }
-.link:hover,
-.link-base:hover {
-  color: @accent-c;
-}
-.about-company {
-  text-decoration: none;
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 /************ main-container*******************/
 .main-container {
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
   flex: 1 1 auto;
   height: 70%;
 }
-.component-box {
-   display: flex;
-   flex: 1 1 auto;
-   justify-content: center;
-   align-items: flex-start;
-   width: 100%;
-   font-size: 1.6rem;
- }
 
 /************ footer *******************/
 .footer {
@@ -119,7 +99,23 @@ input {
   .logo {
     width: 70px;
   }
-  .link {
-    margin-left: 20px;
-  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -36,7 +36,11 @@ module.exports = {
       {
         test: /\.ttf$/,
         loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
-      }
+      },
+			{
+				test: /\.(jpe?g|png|gif|svg)$/i,
+				loader: "file-loader?name=./img/[name].[ext]"
+			}
 	  ]
 	},
 	resolve: {
