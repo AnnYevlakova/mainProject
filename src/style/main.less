@@ -2,22 +2,7 @@
 @light-c: #e3e3e3;
 @dark-c: #333333;
 @accent-c: #eb1c23;
-@f: 'Arial';
-@f-bold: 'OpenSansExtraBold';
-
-/*
-@font-face {
-  font-family: 'OpenSansRegular';
-  src: url('../fonts/OpenSans-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'OpenSansExtraBold';
-  src: url('../fonts/OpenSans-ExtraBold.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}*/
+@f: 'Open Sans';
 
 html, body {
   width: 100%;
@@ -25,7 +10,7 @@ html, body {
   margin: 0;
   color: @dark-c;
   font-size: 62.5%;
-  font-family: @f;
+  font-family: @f, sans-serif;
 }
 .app{
   display: flex;
@@ -52,8 +37,9 @@ html, body {
   background-color: @light-c;
 }
 .logo {
-  width: 200px;
-  height: auto;
+  width: auto;
+  height: 50%;
+  padding: 20px 0;
 }
 .about-us {
   color: @dark-c;
@@ -95,24 +81,12 @@ html, body {
   .header {
     height: 40px;
     font-size: 1.4rem;
+    padding: 5px 10px;
   }
   .logo {
-    width: 70px;
+    padding: 10px 0;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

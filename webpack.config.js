@@ -40,8 +40,12 @@ module.exports = {
 			{
 				test: /\.(jpe?g|png|gif|svg)$/i,
 				loader: "file-loader?name=./img/[name].[ext]"
+			},
+			{
+				test: /\.json$/,
+				loader: 'json-loader'
 			}
-	  ]
+		]
 	},
 	resolve: {
 	  extensions: ['*', '.js', '.jsx']

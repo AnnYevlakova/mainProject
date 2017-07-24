@@ -1,7 +1,8 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import {Switch, Route } from 'react-router-dom';
-import { Nav, MainButton } from './components';
+import { Switch, Route } from 'react-router-dom';
+import MainButton from './components/mainButton';
+import Nav from './components/nav';
 
 export class User extends Component {
 	render() {
@@ -22,23 +23,23 @@ export class User extends Component {
 					</Switch>
 				</Main>
 			</UserBox>
-		)
-	}
+		);
+		}
 }
 
 const UserBox = styled.div`
-	display: flex;
-	flex: 1 1 auto;
-	align-items: stretch;
-	width: 100%;
-	height: 100%;
-	@media (max-width: 768px) {
-		flex-direction: column;
-	}
+		display: flex;
+		flex: 1 1 auto;
+		align-items: stretch;
+		width: 100%;
+		height: 100%;
+		@media (max-width: 768px) {
+			flex-direction: column;
+		}
 `;
 const Main = styled.main`
-	flex: 1 1 auto;
-	max-width: 80%;
-  height: 100%;
-  background-color: red;
+		flex: 1 1 auto;
+		max-width: 80%;
+		height: 100%;
+		background-color: red;
 `;
