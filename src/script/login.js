@@ -33,37 +33,44 @@ const RegistryFields = styled.ul`
 	padding: 0;
 	list-style: none;
 `;
-const Warningbox = styled.div`
-	
-`;
 export class Login extends Component {
 	constructor(props) {
 		super(props);
-		this.form = document.getElementById('login-box');
+
 		this.onLogin = (event) => {
 			event.preventDefault();
-			/*const key = this.form.loginUserName.value;
-			const password = this.form.loginPassword.value;
 
+			const key = document.getElementById('loginUserName').value;
+			const password = document.getElementById('loginPassword').value;
+
+			if (key || password) {
+				this.addWarning();
+			}
 			if (key in data) {
 				if (data[key].password === password) {
 					this.props.history.push('/user');
-				}
-				else console.log('!');
-			}*/ /*else this.addWarning();*/
-			document.getElementById('main-container').setAttribute('logout', 'false');
+					document.getElementById('mainContainer').style.alignItems = 'stretch';
+				}	else this.addWarning();
+			} else this.addWarning();
+			document.getElementById('mainContainer').setAttribute('logout', 'false');
 		};
-		/*this.addWarning = () => {
-			WarningBox.innerHTML = 'Incorrect username or password.';
-			this.form.insertBefore(warningBox, document.getElementById('loginCaption'));
-		}*/
+
+		this.addWarning = () => {
+			if (document.getElementsByClassName('warning')[0]) {
+				return;
+			}
+			const warningBox = document.createElement('div');
+			warningBox.classList.add('warning');
+			warningBox.innerHTML = 'Incorrect username or password.';
+			document.getElementById('loginBox').insertBefore(warningBox, document.getElementById('loginCaption'));
+		}
 	}
 	render() {
 		return (
-			<LoginBox id="login-box" method="post" action="">
-				<Caption id="loginCaption">Sing in</Caption>
-				<MyField required="true" name="loginUserName" type="text" placeholder="Login" />
-				<MyField required name="loginPassword" type="password" />
+			<LoginBox id="loginBox" method="post" action="">
+				<Caption id="loginCaption">Sign in</Caption>
+				<MyField id="loginUserName" type="text" placeholder="Login" />
+				<MyField id="loginPassword" type="password" />
 				<RegistryFields>
 					<li><MyLink to='/registration'>Create an account</MyLink></li>
 					<li><MyLink to='/login/identify'>Forgot password?</MyLink></li>

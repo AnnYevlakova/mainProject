@@ -6,7 +6,7 @@ export default styled.nav`
 	justify-content: flex-start;
 	align-items: center;
 	width: 20%;
-	max-width: 310px;
+	max-width: 220px;
 	height: 100%;
 	padding: 10px 20px;
 	list-style: none;
@@ -14,7 +14,8 @@ export default styled.nav`
 		flex-direction: row;
 		justify-content: space-between;
 		width: 100%;
+		height: auto;
 		max-width: 100%;
-		padding: 5px 0 0;
+		padding: 5px 0;
   	}
 `;

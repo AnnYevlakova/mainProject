@@ -13,23 +13,29 @@ require('style-loader!css-loader!less-loader!./style/main.less');
 const MainContainer = styled.main`
 	display: flex;
 	justify-content: center;
-	align-items: ${props => (props.logout ? 'flex-start' : 'stretch')};
+	align-items: flex-start;
 	flex: 1 1 auto;
 	height: 70%;  
 `;
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.onClick = () => {
+			document.getElementById('mainContainer').style.alignItems = 'flex-start';
+		}
+	}
 	render() {
 		return (
 			<div className="container">
 			<header className="header">
 				<img className="logo" src={img} alt="" />
 				<nav className="header-nav">
-					<a className="about-us" href="https://www.itechart.com/">about us</a>
-					<MyLink  header to="/">log in</MyLink>
+					<a className="aboutUs" href="https://www.itechart.com/">about us</a>
+					<MyLink onClick={this.onClick} header to="/">log in</MyLink>
 				</nav>
 			</header>
-			<MainContainer logout="true" id="main-container">
+			<MainContainer id="mainContainer">
 				<Switch>
 					<Route exact path='/' component={Login}/>
 					<Route path='/registration' component={Registration}/>
@@ -52,6 +58,4 @@ ReactDOM.render(
 );
 
 module.hot.accept();
-
-
 

@@ -8,7 +8,7 @@ export default styled.input`
 		width: ${props => (props.nav ? '100%' : 'auto')};
 		height: 35px;
 		padding: 5px 15px;
-		margin: auto;
+		margin: 0 auto;
 		margin-top: ${props => (props.nav ? '40px' : '0')};
 		border: none;
 		color: ${bgColor};
@@ -21,14 +21,17 @@ export default styled.input`
 				color: ${accentColor};
 				background-color: ${bgColor};
 		}
-		&:last-child {
-			margin-bottom: ${props => (props.nav ? 'auto' : '0')};
+		@media (min-width: 768px) {
+			&:last-child {
+				margin-bottom: ${props => (props.nav ? 'auto' : '0')};
+			}
 		}
 		@media (max-width: 768px) {
 				width: auto;
 				margin-top: 0;
+				font-size: 1.1rem;
 		}
-		@media (max-width: 430px) {
+		@media (max-width: 480px) {
 				padding: 5px;
 		}
 `;

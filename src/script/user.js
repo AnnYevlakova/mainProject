@@ -32,7 +32,6 @@ const UserBox = styled.div`
 		flex: 1 1 auto;
 		align-items: stretch;
 		width: 100%;
-		height: 100%;
 		@media (max-width: 768px) {
 			flex-direction: column;
 		}
@@ -42,4 +41,7 @@ const Main = styled.main`
 		max-width: 80%;
 		height: 100%;
 		background-color: red;
+		@media (max-width: 768px) {
+				max-width: 100%;
+		}
 `;
