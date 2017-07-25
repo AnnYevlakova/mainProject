@@ -15,7 +15,8 @@ export default styled(Link)`
 		color: ${accentColor};
 	}
 	@media (max-width: 360px) {
+		font-size: ${props => (props.header ? '1.1rem' : 'inherit')};
 		width: ${props => (props.header ? 'auto' : '100%')};
 		margin-left: ${props => (props.header ? '10px' : '0')};
-  	}
+  }  
 `;

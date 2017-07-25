@@ -51,9 +51,34 @@ html, body {
 .aboutUs:hover {
   color: @accent-c;
 }
-.header-nav {
+.headerNav {
   display: flex;
   align-items: center;
+}
+.menuDropdown {
+  .aboutUs;
+  position: relative;
+  padding-left: 20px;
+  margin-left: 0;
+  list-style: none;
+}
+.logOut {
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  display: none;
+}
+@media (max-width: 340px) {
+  .aboutUs,
+  .menuDropdown {
+    font-size: 1.3rem;
+  }
+}
+.arrow {
+  padding: 0 0 0 5px;
+  border: none;
+  background-color: transparent;
+  outline: none;
 }
 
 /************ main-container*******************/

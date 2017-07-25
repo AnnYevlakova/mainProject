@@ -50,9 +50,8 @@ export class Login extends Component {
 				if (data[key].password === password) {
 					this.props.history.push('/user');
 					document.getElementById('mainContainer').style.alignItems = 'stretch';
-				}	else this.addWarning();
+					}	else this.addWarning();
 			} else this.addWarning();
-			document.getElementById('mainContainer').setAttribute('logout', 'false');
 		};
 
 		this.addWarning = () => {
@@ -80,4 +79,3 @@ export class Login extends Component {
 		);
 	}
 }
-
