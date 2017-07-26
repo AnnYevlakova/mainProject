@@ -16,6 +16,7 @@ export default styled.input`
 		text-transform: uppercase;	
 		cursor: pointer;
 		font-weight: 800;
+		box-shadow: -2px 4px 4px #737171;
 		&:hover {
 				border: 2px solid ${accentColor};
 				color: ${accentColor};

@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import Caption from './components/caption';
 import MainButton from './components/mainButton';
 import MyLink from './components/myLink';
+import Link from './components/link';
 import MyField from './components/myField';
-
+import MainContainer from './components/mainContainer';
+import img from 'file-loader!../img/logo.png';
 const data = require('./data.json');
 
 export const LoginBox = styled.form`
@@ -36,6 +38,7 @@ const RegistryFields = styled.ul`
 export class Login extends Component {
 	constructor(props) {
 		super(props);
+		this.status = '';
 
 		this.onLogin = (event) => {
 			event.preventDefault();
@@ -48,11 +51,10 @@ export class Login extends Component {
 			}
 			if (key in data) {
 				if (data[key].password === password) {
+					this.status = data[key].status;
 					this.props.history.push('/user');
-					document.getElementById('mainContainer').style.alignItems = 'stretch';
 				}	else this.addWarning();
 			} else this.addWarning();
-			document.getElementById('mainContainer').setAttribute('logout', 'false');
 		};
 
 		this.addWarning = () => {
@@ -67,16 +69,27 @@ export class Login extends Component {
 	}
 	render() {
 		return (
-			<LoginBox id="loginBox" method="post" action="">
-				<Caption id="loginCaption">Sign in</Caption>
-				<MyField id="loginUserName" type="text" placeholder="Login" />
-				<MyField id="loginPassword" type="password" />
-				<RegistryFields>
-					<li><MyLink to='/registration'>Create an account</MyLink></li>
-					<li><MyLink to='/login/identify'>Forgot password?</MyLink></li>
-				</RegistryFields>
-				<MainButton onClick={this.onLogin} id="login" type="submit" value="sign in"/>
-			</LoginBox>
+			<div className="box">
+				<header className="header">
+					<img className="logo" src={img} alt="" />
+					<nav className="headerNav" status={this.props.status}>
+						<Link header className="link" href="https://www.itechart.com/" target="_blank">about us</Link>
+						<MyLink onClick={this.onClick} header to="/">log in</MyLink>
+					</nav>
+				</header>
+				<MainContainer>
+					<LoginBox id="loginBox" method="post" action="">
+						<Caption id="loginCaption">Sign in</Caption>
+						<MyField id="loginUserName" type="text" placeholder="Login" />
+						<MyField id="loginPassword" type="password" />
+						<RegistryFields>
+							<li><MyLink to='/registration'>Create an account</MyLink></li>
+							<li><MyLink to='/login/identify'>Forgot password?</MyLink></li>
+						</RegistryFields>
+						<MainButton onClick={this.onLogin} id="login" type="submit" value="sign in"/>
+					</LoginBox>
+				</MainContainer>
+			</div>
 		);
 	}
 }

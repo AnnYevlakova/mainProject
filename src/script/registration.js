@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import MainButton from './components/mainButton';
 import MyField from './components/myField';
 import Caption from './components/caption';
+import Link from './components/link';
+import MyLink from './components/myLink';
+import MainContainer from './components/mainContainer';
 import { LoginBox } from './login';
-
+import img from 'file-loader!../img/logo.png';
 const data = require('./data.json');
 
 const RegistrationBox = LoginBox;
@@ -37,7 +40,6 @@ export class Registration extends Component {
 				this.props.history.push('/');
 			} else {
 				this.addWarning();
-				return;
 			}
 		};
 
@@ -54,14 +56,25 @@ export class Registration extends Component {
 	}
 	render() {
 		return (
-			<RegistrationBox id="registrationBox">
-				<Caption id="registryCaption">Registration</Caption>
-				<MyField id="userName" type="text" placeholder="Username" />
-				<MyField id="registryLogin" type="text" placeholder="Login (email address)" />
-				<MyField id="pas1" type="password" placeholder="Password" />
-				<MyField id="pas2" type="password" placeholder="Repeat password" />
-				<MainButton onClick={this.onRegistered} id="registration" type="button" value="create an account" />
-			</RegistrationBox>
+			<div className="box">
+				<header className="header">
+					<img className="logo" src={img} alt="" />
+					<nav className="headerNav">
+						<Link header className="link" href="https://www.itechart.com/" target="_blank">about us</Link>
+						<MyLink onClick={this.onClick} header to="/">log in</MyLink>
+					</nav>
+				</header>
+				<MainContainer>
+					<RegistrationBox id="registrationBox">
+						<Caption id="registryCaption">Registration</Caption>
+						<MyField id="userName" type="text" placeholder="Username" />
+						<MyField id="registryLogin" type="text" placeholder="Login (email address)" />
+						<MyField id="pas1" type="password" placeholder="Password" />
+						<MyField id="pas2" type="password" placeholder="Repeat password" />
+						<MainButton onClick={this.onRegistered} id="registration" type="button" value="create an account" />
+					</RegistrationBox>
+				</MainContainer>
+			</div>
     	);
   	}
 }
