@@ -18,7 +18,7 @@ export class Registration extends Component {
 			if (pas1 !== pas2) {
 				this.addWarning();
 				return false;
-			}
+			} 
 			return pas1;
 		};
 
@@ -37,6 +37,7 @@ export class Registration extends Component {
 				this.props.history.push('/');
 			} else {
 				this.addWarning();
+				return;
 			}
 		};
 
