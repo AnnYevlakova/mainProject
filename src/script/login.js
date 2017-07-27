@@ -52,7 +52,7 @@ export class Login extends Component {
 			if (key in data) {
 				if (data[key].password === password) {
 					this.status = data[key].status;
-					this.props.history.push('/user');
+					this.props.history.push('/main');
 				}	else this.addWarning();
 			} else this.addWarning();
 		};
@@ -65,7 +65,7 @@ export class Login extends Component {
 			warningBox.classList.add('warning');
 			warningBox.innerHTML = 'Incorrect username or password.';
 			document.getElementById('loginBox').insertBefore(warningBox, document.getElementById('loginCaption'));
-		}
+		};
 	}
 	render() {
 		return (
@@ -74,7 +74,7 @@ export class Login extends Component {
 					<img className="logo" src={img} alt="" />
 					<nav className="headerNav" status={this.props.status}>
 						<Link header className="link" href="https://www.itechart.com/" target="_blank">about us</Link>
-						<MyLink onClick={this.onClick} header to="/">log in</MyLink>
+						<MyLink login onClick={this.onClick} header to="/">log in</MyLink>
 					</nav>
 				</header>
 				<MainContainer>
@@ -83,8 +83,8 @@ export class Login extends Component {
 						<MyField id="loginUserName" type="text" placeholder="Login" />
 						<MyField id="loginPassword" type="password" />
 						<RegistryFields>
-							<li><MyLink to='/registration'>Create an account</MyLink></li>
-							<li><MyLink to='/login/identify'>Forgot password?</MyLink></li>
+							<li><MyLink login to='/registration'>Create an account</MyLink></li>
+							<li><MyLink login to='/login/identify'>Forgot password?</MyLink></li>
 						</RegistryFields>
 						<MainButton onClick={this.onLogin} id="login" type="submit" value="sign in"/>
 					</LoginBox>

@@ -57,6 +57,9 @@ html, body {
   list-style: none;
   background-color: @light-c;
 }
+.menuDropdown a {
+  text-transform: uppercase;
+}
 .fa-user {
   font-size: 2.0rem;
 }
@@ -98,7 +101,20 @@ html, body {
 }
 .infoNav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: auto;
+  min-height: 40px;
+  background-color: #9a9696;
+}
+@media (max-width: 500px) {
+  .infoNav {
+    justify-content: space-between;
+  }
+}
+.row {
+
 }
 /************ footer *******************/
 .footer {

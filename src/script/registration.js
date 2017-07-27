@@ -11,7 +11,7 @@ const data = require('./data.json');
 
 const RegistrationBox = LoginBox;
 
-export class Registration extends Component {
+class Registration extends Component {
 	constructor(props) {
 		super(props);
 
@@ -21,7 +21,7 @@ export class Registration extends Component {
 			if (pas1 !== pas2) {
 				this.addWarning();
 				return false;
-			} 
+			}
 			return pas1;
 		};
 
@@ -35,7 +35,7 @@ export class Registration extends Component {
 				data[login] = {
 					name: login,
 					password: this.checkPassword(),
-					status: 'user'
+					status: 'user',
 				};
 				this.props.history.push('/');
 			} else {
@@ -44,7 +44,7 @@ export class Registration extends Component {
 		};
 
 		this.addWarning = () => {
-			if(document.getElementsByClassName('warning')[0]) {
+			if (document.getElementsByClassName('warning')[0]) {
 				return;
 			}
 			const warningBox = document.createElement('div');
@@ -75,6 +75,7 @@ export class Registration extends Component {
 					</RegistrationBox>
 				</MainContainer>
 			</div>
-    	);
-  	}
+		);
+	}
 }
+export default Registration;

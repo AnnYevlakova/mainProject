@@ -10,7 +10,7 @@ export default styled.input`
 		padding: 5px 15px;
 		margin: 0 auto;
 		margin-top: ${props => (props.nav ? '40px' : '0')};
-		border: none;
+		border: 2px solid ${accentColor};
 		color: ${bgColor};
 		background-color: ${accentColor};
 		text-transform: uppercase;	
@@ -18,7 +18,6 @@ export default styled.input`
 		font-weight: 800;
 		box-shadow: -2px 4px 4px #737171;
 		&:hover {
-				border: 2px solid ${accentColor};
 				color: ${accentColor};
 				background-color: ${bgColor};
 		}

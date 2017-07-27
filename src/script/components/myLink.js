@@ -11,9 +11,9 @@ export default styled(Link)`
 	display: ${props => (props.menuItem ? 'none' : 'block')};
 	width: ${props => (props.menuItem ? '100px' : 'auto')};
 	margin-left: ${props => (props.header ? '40px' : '0')};
-	padding: ${props => (props.menuItem ? '0 3px' : 'inherit')};
+	padding: ${props => (props.menuItem ? '0 3px' : props.mainBox ? '0 10px' : 'inherit')};
 	color: ${darkColor};
-	background-color: ${props => (props.menuItem ? '#9a9696' : 'inherit')};
+	background-color: ${props => (props.mainBox || props.menuItem ? '#9a9696' : 'transparent')};
 	font-size: ${props => (props.menuItem ? '1.4rem' : 'inherit')};	
 	text-align: ${props => (props.menuItem ? 'right' : 'inherit')};
 	text-decoration: none;	
@@ -23,8 +23,12 @@ export default styled(Link)`
 	&:hover {
 		color: ${accentColor};
 	}
-	@media (max-width: 360px) {
+	@media (max-width: 350px) {
 		width: ${props => (props.header ? 'auto' :  props.menuItem ? '100px' : '100%')};
 		margin-left: ${props => (props.header ? '10px' : '0')};
-  	}
+		padding: ${props => (props.mainBox ? '0 50px' : '')};
+  }
+	@media (max-width: 910px) {
+    padding: ${props => (props.mainBox ? '0 20px' : '')};
+	}
 `;
