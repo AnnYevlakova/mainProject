@@ -17,6 +17,7 @@ export default styled.input`
 		cursor: pointer;
 		font-weight: 800;
 		box-shadow: -2px 4px 4px #737171;
+		outline: none;
 		&:hover {
 				color: ${accentColor};
 				background-color: ${bgColor};

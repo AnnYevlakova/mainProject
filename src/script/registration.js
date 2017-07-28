@@ -7,8 +7,8 @@ import MyLink from './components/myLink';
 import MainContainer from './components/mainContainer';
 import { LoginBox } from './login';
 import img from 'file-loader!../img/logo.png';
-const data = require('./data.json');
 
+const data = require('./data.json');
 const RegistrationBox = LoginBox;
 
 class Registration extends Component {
@@ -30,12 +30,15 @@ class Registration extends Component {
 
 			const userName = document.getElementById('userName').value;
 			const login = document.getElementById('registryLogin').value;
-
+			const date = `${new Date().getFullYear()}-${new Date().getMonth() + 1} - ${new Date().getDate()}`;
 			if (this.checkPassword() && userName && login) {
 				data[login] = {
 					name: login,
-					password: this.checkPassword(),
 					status: 'user',
+					registered: date,
+					polls: 0,
+					actions: false,
+					password: this.checkPassword(),
 				};
 				this.props.history.push('/');
 			} else {

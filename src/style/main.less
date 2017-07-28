@@ -113,10 +113,102 @@ html, body {
     justify-content: space-between;
   }
 }
-.row {
-
+.userList {
+  width: 100%;
+  margin-top: 40px;
+  border: 1px solid @dark-c;
 }
-/************ footer *******************/
+.table {
+  min-height: 500px;
+}
+.searchLabel {
+  position: relative;;
+}
+.searchButton {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+.captionBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.row {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  width: 95%;
+  height: 50px;
+  margin: 0;
+  padding-left: 5%;
+  list-style: none;
+}
+.colorRow {
+  background-color: @light-c;
+  border-bottom: 1px solid @dark-c;
+}
+.colorRow:last-child {
+  background-color: @light-c;
+  border-top: 1px solid @dark-c;
+  border-bottom: none;
+}
+.cell {
+  width: 16%;
+  text-align: center;
+}
+.cell:first-child {
+  width: 42%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+.cell:nth-child(4) {
+  width: 10%;
+}
+.usersCount {
+  width: 70%;
+}
+.usersNav {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 45px;
+  width: 30%;
+}
+.usersNavButton {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin-left: 10px;
+  border: none;
+  background-color: transparent;
+  font-size: 2.8rem;
+  color: @dark-c;
+  outline: none;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .row {
+    font-size: 1.4rem;
+  }
+  .cell,
+  .cell:first-child,
+  .cell:nth-child(4) {
+    width: 20%;
+  }
+  .usersNavButton {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (max-width: 400px) {
+  .row {
+    font-size: 1.2rem;
+  }
+}
+
+  /************ footer *******************/
 .footer {
   height: 10%;
   color: @light-c;
