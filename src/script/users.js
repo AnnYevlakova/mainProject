@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Caption from './components/caption';
 import SearchInput from './components/searchInput';
+import { Actions } from './components/actions';
 
 const data = require('./data.json');
 
 const Div = styled.div`
 	width: 93%;
 	padding: 20px 5% 5% 2%;
+	@media (max-width: 768px) {
+		width: 94%;
+		padding: 3%;
+	}
 `;
 class Users extends Component {
 	componentDidMount() {
@@ -64,12 +70,19 @@ class Users extends Component {
 		};
 		this.renderRows = (arr) => {
 			document.getElementById('table').innerHTML = arr.join('');
+			const actionsBox = Array.from(document.getElementsByClassName('actionsBox'));
+			actionsBox.forEach((item) => {
+				ReactDOM.render(
+					<Actions />,
+					item,
+				);
+			});
 		};
 		this.getRow = () => {
 			const rows = [];
 			for (const key in data) {
 				const row = { name: key,
-					data: '<ul class="row"><li class="cell">' + data[key].name + '</li><li class="cell">' + data[key].status + '</li><li class="cell">' + data[key].registered + '</li><li class="cell">' + data[key].polls + '</li><li class="cell">' + data[key].actions + '</li></ul>' };
+					data: '<ul class="row"><li class="cell">' + data[key].name + '</li><li class="cell">' + data[key].status + '</li><li class="cell">' + data[key].registered + '</li><li class="cell">' + data[key].polls + '</li><li class="cell actionsBox"></li></ul>' };
 				rows.push(row);
 			}
 			rows.sort((a, b) => {
