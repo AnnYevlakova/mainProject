@@ -7,11 +7,21 @@ import MainButton from './components/mainButton';
 import { Actions } from './components/actions';
 import Link from './components/link';
 import Nav from './components/nav';
+import { Ul, Li } from './components/row';
 import { MenuDropdown } from './components/menuDropdown';
 import MainContainer from './components/mainContainer';
 import img from 'file-loader!../img/logo.png';
 
-const data = require('./data.json');
+const dataObj = require('./data.json');
+const data = [];
+
+for (let key in dataObj) {
+	data.push([key, dataObj[key].email, dataObj[key].status, dataObj[key].registered, dataObj[key].polls, dataObj[key].actions]);
+}
+data.sort((a, b) => {
+	if (a[0] > b[0]) return 1;
+	if (a[0] < b[0]) return -1;
+});
 
 const Div = styled.div`
 	width: 93%;
@@ -22,88 +32,82 @@ const Div = styled.div`
 	}
 `;
 class Users extends Component {
-	componentDidMount() {
-		const rows = this.getRow();
-		document.getElementById('usersCount').innerHTML = this.usersCount;
-		if (rows.length <= 5) {
-			this.renderRows(rows);
-		} else {
-			this.renderRows(rows.slice(0, 10));
-		}
-	}
 	constructor(props) {
 		super(props);
-		this.usersCount = 0;
-		this.users = [];
+		this.usersCount = data.length;
 		this.page = 0;
+
 		this.directTo = (event) => {
 			const direct = event.target.id;
 			this.props.history.push(`/${direct}`);
 		};
+
 		this.renderNewPage = (event) => {
 			let btn = event.target;
 			if (btn.tagName === 'I') {
 				btn = btn.parentElement;
 			}
 			const id = btn.id;
-			const lastPage = this.users % 10 ? 0 : 1;
-			const pageCount = (Math.floor(this.users.length / 10) - 1) + lastPage;
+			const lastPage = this.usersCount % 10 ? 1 : 0;
+			const pageCount = (Math.floor(this.usersCount / 10) - 1) + lastPage;
 			if (id === 'doubleLeft') {
 				if (this.page === 0) {
 					return;
 				} else {
 					this.page = 0;
-					this.renderRows(this.users.slice(0, 10));
+					ReactDOM.render(
+						<div>
+							{data.slice(0, 10).map((item, i) => <Ul key={i} id={item[0]}><Li>{item[0]}</Li><Li>{item[2]}</Li><Li>{item[3]}</Li><Li>{item[4]}</Li><Li><Actions/></Li></Ul>)}
+						</div>,
+						document.getElementById('table'),
+					);
 				}
 			} else if (id === 'left') {
 				if (this.page === 0) {
 					return;
 				} else {
 					this.page = this.page - 1;
-					this.renderRows(this.users.slice(this.page * 10, (this.page * 10) + 10));
+					ReactDOM.render(
+						<div>
+							{data.slice(this.page * 10, (this.page * 10) + 10).map((item, i) => <Ul key={i} id={item[0]}><Li>{item[0]}</Li><Li>{item[2]}</Li><Li>{item[3]}</Li><Li>{item[4]}</Li><Li><Actions/></Li></Ul>)}
+						</div>,
+						document.getElementById('table'),
+					);
 				}
 			} else if (id === 'right') {
 				if (this.page === pageCount) {
 					return;
 				} else {
 					this.page = this.page + 1;
-					this.renderRows(this.users.slice(this.page * 10, (this.page * 10) + 10));
+					ReactDOM.render(
+						<div>
+							{data.slice(this.page * 10, (this.page * 10) + 10).map((item, i) => <Ul key={i} id={item[0]}><Li>{item[0]}</Li><Li>{item[2]}</Li><Li>{item[3]}</Li><Li>{item[4]}</Li><Li><Actions/></Li></Ul>)}
+						</div>,
+						document.getElementById('table'),
+					);
 				}
 			} else if (id === 'doubleRight') {
 				if (this.page === pageCount) {
 					return;
 				} else {
 					this.page = pageCount;
-					this.renderRows(this.users.slice(this.page * 10));
+					ReactDOM.render(
+						<div>
+							{data.slice(this.page * 10).map((item, i) => <Ul key={i} id={item[0]}><Li>{item[0]}</Li><Li>{item[2]}</Li><Li>{item[3]}</Li><Li>{item[4]}</Li><Li><Actions/></Li></Ul>)}
+						</div>,
+						document.getElementById('table'),
+					);
 				}
 			}
 		};
-		this.renderRows = (arr) => {
-			document.getElementById('table').innerHTML = arr.join('');
-			const actionsBox = Array.from(document.getElementsByClassName('actionsBox'));
-			actionsBox.forEach((item) => {
-				ReactDOM.render(
-					<Actions />,
-					item,
-				);
-			});
-		};
-		this.getRow = () => {
-			const rows = [];
-			for (const key in data) {
-				const row = { name: key,
-					data: '<ul class="row"><li class="cell">' + key + '</li><li class="cell">' + data[key].status + '</li><li class="cell">' + data[key].registered + '</li><li class="cell">' + data[key].polls + '</li><li class="cell actionsBox"></li></ul>' };
-				rows.push(row);
+
+		/*this.showModal = (event) => {
+			let target = event.target;
+			if (target.classList.contains(('cell'))) {
+				target = target.parentElement;
 			}
-			rows.sort((a, b) => {
-				if (a.name > b.name) return 1;
-				if (a.name < b.name) return -1;
-			});
-			this.usersCount = rows.length;
-			const newRows = rows.map(item => item.data);
-			this.users = newRows;
-			return newRows;
-		};
+
+		}*/
 	}
 	render() {
 		return (
@@ -129,23 +133,25 @@ class Users extends Component {
 							<label className="searchLabel"><SearchInput type="search" placeholder="search..." /><i className="fa fa-search searchButton" aria-hidden="true" /></label>
 						</div>
 						<section className="userList">
-							<ul className="row colorRow">
-								<li className="cell">Name</li>
-								<li className="cell">Role</li>
-								<li className="cell">Registered</li>
-								<li className="cell">Polls</li>
-								<li className="cell">Actions</li>
-							</ul>
-							<div id="table" className="table"/>
-							<ul className="row colorRow">
-								<li className="usersCount">Users count: <span id="usersCount">0</span></li>
-								<li className="usersNav">
+							<Ul colorRow>
+								<Li>Name</Li>
+								<Li>Role</Li>
+								<Li>Registered</Li>
+								<Li>Polls</Li>
+								<Li>Actions</Li>
+							</Ul>
+							<div id="table" className="table">
+								{data.slice(0, 10).map((item, i) => <Ul key={i} id={item[0]}><Li>{item[0]}</Li><Li>{item[2]}</Li><Li>{item[3]}</Li><Li>{item[4]}</Li><Li><Actions/></Li></Ul>)}
+							</div>
+							<Ul colorRow>
+								<Li className="usersCount">Users count: <span id="usersCount">{this.usersCount}</span></Li>
+								<Li className="usersNav">
 									<button className="usersNavButton" id="doubleLeft" onClick={this.renderNewPage}><i className="fa fa-angle-double-left" aria-hidden="true" /></button>
 									<button className="usersNavButton" id="left" onClick={this.renderNewPage}><i className="fa fa-angle-left" aria-hidden="true" /></button>
 									<button className="usersNavButton" id="right" onClick={this.renderNewPage}><i className="fa fa-angle-right" aria-hidden="true" /></button>
 									<button className="usersNavButton" id="doubleRight" onClick={this.renderNewPage}><i className="fa fa-angle-double-right" aria-hidden="true" /></button>
-								</li>
-							</ul>
+								</Li>
+							</Ul>
 						</section>
 					</Div>
 				</MainContainer>

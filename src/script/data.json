@@ -1,6 +1,6 @@
 {
   "user1": {
-    "name": "user1",
+    "email": "user1",
     "status": "admin",
     "registered": "2016-2-20",
     "polls": 5,
@@ -8,7 +8,7 @@
     "password": "1111"
   },
   "user2": {
-    "name": "user2",
+    "email": "user2",
     "status": "user",
     "registered": "2017-1-20",
     "polls": 3,
@@ -16,7 +16,7 @@
     "password": "2222"
   },
   "ann": {
-    "name": "ann",
+    "email": "ann",
     "status": "admin",
     "registered": "2017-1-20",
     "polls": 1,
@@ -24,7 +24,7 @@
     "password": "1"
   },
   "dty7kjdt": {
-    "name": "dty7kjdt",
+    "email": "dty7kjdt",
     "status": "user",
     "registered": "2016-2-20",
     "polls": 5,
@@ -32,7 +32,7 @@
     "password": "1111"
   },
   "6tykst": {
-    "name": "6tykst",
+    "email": "6tykst",
     "status": "user",
     "registered": "2017-1-20",
     "polls": 3,
@@ -40,7 +40,7 @@
     "password": "2222"
   },
   "rtjrst6j": {
-    "name": "rtjrst6j",
+    "email": "rtjrst6j",
     "status": "user",
     "registered": "2017-1-20",
     "polls": 1,
@@ -48,7 +48,7 @@
     "password": "1"
   },
   "rjsrj": {
-    "name": "rjsrj",
+    "email": "rjsrj",
     "status": "user",
     "registered": "2016-2-20",
     "polls": 5,
@@ -56,7 +56,7 @@
     "password": "1111"
   },
   "ukylil": {
-    "name": "ukylil",
+    "email": "ukylil",
     "status": "user",
     "registered": "2017-1-20",
     "polls": 3,
@@ -64,7 +64,7 @@
     "password": "2222"
   },
   "s56ri56": {
-    "name": "s56ri56",
+    "email": "s56ri56",
     "status": "user",
     "registered": "2017-1-20",
     "polls": 1,
@@ -72,7 +72,7 @@
     "password": "1"
   },
   "tyubd": {
-    "name": "tyubd",
+    "email": "tyubd",
     "status": "user",
     "registered": "2017-1-20",
     "polls": 1,
@@ -80,7 +80,7 @@
     "password": "1"
   },
   "owbykxty": {
-    "name": "owbykxty",
+    "email": "owbykxty",
     "status": "user",
     "registered": "2016-2-20",
     "polls": 5,
@@ -88,7 +88,7 @@
     "password": "1111"
   },
   "ewrtjumzrfy": {
-    "name": "ewrtjumzrfy",
+    "email": "ewrtjumzrfy",
     "status": "user",
     "registered": "2017-1-20",
     "polls": 3,
@@ -96,7 +96,7 @@
     "password": "2222"
   },
   "rkulkrs": {
-    "name": "rkulkrs",
+    "email": "rkulkrs",
     "status": "user",
     "registered": "2017-1-20",
     "polls": 1,
