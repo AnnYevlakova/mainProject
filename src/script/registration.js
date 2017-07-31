@@ -18,22 +18,45 @@ class Registration extends Component {
 		this.checkPassword = () => {
 			const pas1 = document.getElementById('pas1').value;
 			const pas2 = document.getElementById('pas2').value;
-			if (pas1 !== pas2) {
-				this.addWarning();
-				return false;
-			}
-			return pas1;
+			if (!pas1 || !pas2) return false;
+			return pas1 !== pas2 ? false : pas1;
+		};
+
+		this.checkEmail = () => {
+			const email = document.getElementById('email').value;
+			return email.search(/.+@.+\..+/i) !== -1;
+		};
+
+		this.checkUserName = () => {
+			const userName = document.getElementById('userName').value;
+			return data[userName] === undefined;
 		};
 
 		this.onRegistered = (event) => {
 			event.preventDefault();
 
 			const userName = document.getElementById('userName').value;
-			const login = document.getElementById('registryLogin').value;
+			const email = document.getElementById('email').value;
 			const date = `${new Date().getFullYear()}-${new Date().getMonth() + 1} - ${new Date().getDate()}`;
-			if (this.checkPassword() && userName && login) {
-				data[login] = {
-					name: login,
+
+			if (!this.checkUserName()) {
+				this.addWarning('This Username exists. Try again.');
+				return;
+			}
+			if (!this.checkEmail()) {
+				this.addWarning('Email address is incorrect. Try again.');
+				return;
+			}
+			if (!this.checkPassword()) {
+				this.addWarning('Passwords do not match. Try again.');
+				return;
+			}
+			if (!userName) {
+				this.addWarning('Enter your Username.');
+				return;
+			} else {
+				data[userName] = {
+					email,
 					status: 'user',
 					registered: date,
 					polls: 0,
@@ -41,19 +64,17 @@ class Registration extends Component {
 					password: this.checkPassword(),
 				};
 				this.props.history.push('/');
-			} else {
-				this.addWarning();
 			}
 		};
 
-		this.addWarning = () => {
+		this.addWarning = (text) => {
 			if (document.getElementsByClassName('warning')[0]) {
-				return;
+				document.getElementsByClassName('warning')[0].remove();
 			}
 			const warningBox = document.createElement('div');
 
 			warningBox.classList.add('warning');
-			warningBox.innerHTML = 'There were problems creating your account. Try again.';
+			warningBox.innerHTML = text;
 			document.getElementById('registrationBox').insertBefore(warningBox, document.getElementById('registryCaption'));
 		};
 	}
@@ -71,7 +92,7 @@ class Registration extends Component {
 					<RegistrationBox id="registrationBox">
 						<Caption id="registryCaption">Registration</Caption>
 						<MyField id="userName" type="text" placeholder="Username" />
-						<MyField id="registryLogin" type="text" placeholder="Login (email address)" />
+						<MyField id="email" type="text" placeholder="Email address" />
 						<MyField id="pas1" type="password" placeholder="Password" />
 						<MyField id="pas2" type="password" placeholder="Repeat password" />
 						<MainButton onClick={this.onRegistered} id="registration" type="button" value="create an account" />

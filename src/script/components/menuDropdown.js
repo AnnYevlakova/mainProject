@@ -31,7 +31,6 @@ export class MenuDropdown extends Component {
 		return (
 			<ul className="menuDropdown"><i className="fa fa-user" aria-hidden="true" /><button onClick={this.openCloseMenuDropdown} data-status="closed" className="arrow" id="arrow">&#9660;</button>
 				<li><MyLink onClick={this.onClick} menuItem menuItem1 id="logOut" to="/">Log out</MyLink></li>
-				<li><MyLink menuItem menuItem2 to="/main">Main</MyLink></li>
 			</ul>
 		);
 	}

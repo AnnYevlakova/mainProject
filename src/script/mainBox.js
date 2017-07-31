@@ -33,8 +33,8 @@ export class MainBox extends Component {
 					<section>
 						<Route path='/main/education' component={Education}/>
 						<Route path='/main/benefits' component={Benefits}/>
-						<Route exact path='/main/forStudents' component={ForStudents} />
-						<Route exact path='/main/ourAdvantages' component={OurAdvantages} />
+						<Route path='/main/forStudents' component={ForStudents} />
+						<Route path='/main/ourAdvantages' component={OurAdvantages} />
 					</section>
 				</div>
 			</div>

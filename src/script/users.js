@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Caption from './components/caption';
 import SearchInput from './components/searchInput';
+import MainButton from './components/mainButton';
 import { Actions } from './components/actions';
+import Link from './components/link';
+import Nav from './components/nav';
+import { MenuDropdown } from './components/menuDropdown';
+import MainContainer from './components/mainContainer';
+import img from 'file-loader!../img/logo.png';
 
 const data = require('./data.json');
 
@@ -30,6 +36,10 @@ class Users extends Component {
 		this.usersCount = 0;
 		this.users = [];
 		this.page = 0;
+		this.directTo = (event) => {
+			const direct = event.target.id;
+			this.props.history.push(`/${direct}`);
+		};
 		this.renderNewPage = (event) => {
 			let btn = event.target;
 			if (btn.tagName === 'I') {
@@ -82,7 +92,7 @@ class Users extends Component {
 			const rows = [];
 			for (const key in data) {
 				const row = { name: key,
-					data: '<ul class="row"><li class="cell">' + data[key].name + '</li><li class="cell">' + data[key].status + '</li><li class="cell">' + data[key].registered + '</li><li class="cell">' + data[key].polls + '</li><li class="cell actionsBox"></li></ul>' };
+					data: '<ul class="row"><li class="cell">' + key + '</li><li class="cell">' + data[key].status + '</li><li class="cell">' + data[key].registered + '</li><li class="cell">' + data[key].polls + '</li><li class="cell actionsBox"></li></ul>' };
 				rows.push(row);
 			}
 			rows.sort((a, b) => {
@@ -97,31 +107,49 @@ class Users extends Component {
 	}
 	render() {
 		return (
-			<Div>
-				<div className="captionBox">
-					<Caption cap>Users</Caption>
-					<label className="searchLabel"><SearchInput type="search" placeholder="search..." /><i className="fa fa-search searchButton" aria-hidden="true" /></label>
-				</div>
-				<section className="userList">
-					<ul className="row colorRow">
-						<li className="cell">Name</li>
-						<li className="cell">Role</li>
-						<li className="cell">Registered</li>
-						<li className="cell">Polls</li>
-						<li className="cell">Actions</li>
-					</ul>
-					<div id="table" className="table"/>
-					<ul className="row colorRow">
-						<li className="usersCount">Users count: <span id="usersCount">0</span></li>
-						<li className="usersNav">
-							<button className="usersNavButton" id="doubleLeft" onClick={this.renderNewPage}><i className="fa fa-angle-double-left" aria-hidden="true" /></button>
-							<button className="usersNavButton" id="left" onClick={this.renderNewPage}><i className="fa fa-angle-left" aria-hidden="true" /></button>
-							<button className="usersNavButton" id="right" onClick={this.renderNewPage}><i className="fa fa-angle-right" aria-hidden="true" /></button>
-							<button className="usersNavButton" id="doubleRight" onClick={this.renderNewPage}><i className="fa fa-angle-double-right" aria-hidden="true" /></button>
-						</li>
-					</ul>
-				</section>
-			</Div>
+			<div className="box">
+				<header className="header">
+					<img className="logo" src={img} alt=""/>
+					<nav className="headerNav">
+						<Link header className="link" href="https://www.itechart.com/" target="_blank">about us</Link>
+						<MenuDropdown/>
+					</nav>
+				</header>
+				<MainContainer user>
+					<Nav>
+						<MainButton id="main" onClick={this.directTo} nav type="button" value="Main"/>
+						<MainButton id="newPoll" onClick={this.directTo} nav type="button" value="New poll"/>
+						<MainButton id="myPolls" onClick={this.directTo} nav type="button" value="My polls"/>
+						<MainButton id="pollTemplates" onClick={this.directTo} nav type="button" value="Poll templates"/>
+						<MainButton id="users" onClick={this.directTo} nav type="button" value="Users"/>
+					</Nav>
+					<Div>
+						<div className="captionBox">
+							<Caption cap>Users</Caption>
+							<label className="searchLabel"><SearchInput type="search" placeholder="search..." /><i className="fa fa-search searchButton" aria-hidden="true" /></label>
+						</div>
+						<section className="userList">
+							<ul className="row colorRow">
+								<li className="cell">Name</li>
+								<li className="cell">Role</li>
+								<li className="cell">Registered</li>
+								<li className="cell">Polls</li>
+								<li className="cell">Actions</li>
+							</ul>
+							<div id="table" className="table"/>
+							<ul className="row colorRow">
+								<li className="usersCount">Users count: <span id="usersCount">0</span></li>
+								<li className="usersNav">
+									<button className="usersNavButton" id="doubleLeft" onClick={this.renderNewPage}><i className="fa fa-angle-double-left" aria-hidden="true" /></button>
+									<button className="usersNavButton" id="left" onClick={this.renderNewPage}><i className="fa fa-angle-left" aria-hidden="true" /></button>
+									<button className="usersNavButton" id="right" onClick={this.renderNewPage}><i className="fa fa-angle-right" aria-hidden="true" /></button>
+									<button className="usersNavButton" id="doubleRight" onClick={this.renderNewPage}><i className="fa fa-angle-double-right" aria-hidden="true" /></button>
+								</li>
+							</ul>
+						</section>
+					</Div>
+				</MainContainer>
+			</div>
 		);
 	}
 }
