@@ -23,7 +23,7 @@ export class MainBox extends Component {
 				<div className="info">
 					<nav className="infoNav">
 						<Link mainBox href="https://www.itechart.com/company/" target="_blank">About us</Link>
-						<MyLink mainBox to='/main/education'>Education</MyLink>
+						<MyLink mainBox to='/main/'>Education</MyLink>
 						<MyLink mainBox to='/main/benefits'>Benefits</MyLink>
 						<MyLink mainBox to='/main/forStudents'>For students</MyLink>
 						<MyLink mainBox to='/main/ourAdvantages'>Our advantages</MyLink>
@@ -31,7 +31,7 @@ export class MainBox extends Component {
 						<Link mainBox href="https://www.itechart.com/company/contacts/" target="_blank">Contacts</Link>
 					</nav>
 					<section>
-						<Route path='/main/education' component={Education}/>
+						<Route exact path='/main/' component={Education}/>
 						<Route path='/main/benefits' component={Benefits}/>
 						<Route path='/main/forStudents' component={ForStudents} />
 						<Route path='/main/ourAdvantages' component={OurAdvantages} />

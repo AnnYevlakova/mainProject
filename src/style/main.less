@@ -108,6 +108,18 @@ html, body {
   min-height: 40px;
   background-color: #9a9696;
 }
+.usersNavButton {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin-left: 10px;
+  border: none;
+  background-color: transparent;
+  font-size: 2.8rem;
+  color: @dark-c;
+  outline: none;
+  cursor: pointer;
+}
 @media (max-width: 500px) {
   .infoNav {
     justify-content: space-between;
@@ -140,56 +152,6 @@ html, body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-}
-
-.cell:first-child {
-  width: 42%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: left;
-}
-.cell:nth-child(4) {
-  width: 10%;
-}
-.usersCount {
-  width: 70%;
-}
-.usersNav {
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 40px;
-  width: 30%;
-}
-.usersNavButton {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  margin-left: 10px;
-  border: none;
-  background-color: transparent;
-  font-size: 2.8rem;
-  color: @dark-c;
-  outline: none;
-  cursor: pointer;
-}
-@media (max-width: 600px) {
-  .row {
-    font-size: 1.4rem;
-  }
-  .cell,
-  .cell:first-child,
-  .cell:nth-child(4) {
-    width: 20%;
-  }
-  .usersNavButton {
-    width: 30px;
-    height: 30px;
-  }
-}
-@media (max-width: 400px) {
-  .row {
-    font-size: 1.2rem;
-  }
 }
 
   /************ footer *******************/

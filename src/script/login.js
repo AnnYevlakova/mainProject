@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import Caption from './components/caption';
 import MainButton from './components/mainButton';
@@ -7,7 +8,6 @@ import Link from './components/link';
 import MyField from './components/myField';
 import MainContainer from './components/mainContainer';
 import img from 'file-loader!../img/logo.png';
-const data = require('./data.json');
 
 export const LoginBox = styled.form`
 	display: flex;
@@ -39,21 +39,28 @@ export class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.status = '';
+		this.id = '';
+		this.users = [];
 
 		this.onLogin = (event) => {
 			event.preventDefault();
 
-			const key = document.getElementById('loginUserName').value;
+			const userName = document.getElementById('loginUserName').value;
 			const password = document.getElementById('loginPassword').value;
-
-			if (key || password) {
+			let data = '';
+			if (userName || password) {
 				this.addWarning();
 			}
-			if (key in data) {
-				if (data[key].password === password) {
-					this.status = data[key].status;
-					this.props.history.push('/main');
-				}	else this.addWarning();
+			if (this.users.some((item) => {
+				if (item.name === userName && item.password === password) {
+					data = [item.id, item.status];
+					return true;
+				}
+				return false;
+			})) {
+				this.status = data[1];
+				this.id = data[0];
+				this.props.history.push('/main');
 			} else this.addWarning();
 		};
 
@@ -66,6 +73,14 @@ export class Login extends Component {
 			warningBox.innerHTML = 'Incorrect username or password.';
 			document.getElementById('loginBox').insertBefore(warningBox, document.getElementById('loginCaption'));
 		};
+	}
+	componentDidMount() {
+		axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
+			.then((data) => {
+				this.users = data.data;
+				this.usersCount = data.data.length;
+				return this.users;
+			});
 	}
 	render() {
 		return (

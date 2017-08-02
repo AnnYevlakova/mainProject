@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import MainButton from './components/mainButton';
 import MyField from './components/myField';
 import Caption from './components/caption';
@@ -8,28 +9,33 @@ import MainContainer from './components/mainContainer';
 import { LoginBox } from './login';
 import img from 'file-loader!../img/logo.png';
 
-const data = require('./data.json');
 const RegistrationBox = LoginBox;
 
 class Registration extends Component {
 	constructor(props) {
 		super(props);
+		this.users = [];
+		this.usersCount = 0;
 
 		this.checkPassword = () => {
 			const pas1 = document.getElementById('pas1').value;
 			const pas2 = document.getElementById('pas2').value;
+
 			if (!pas1 || !pas2) return false;
+
 			return pas1 !== pas2 ? false : pas1;
 		};
 
 		this.checkEmail = () => {
 			const email = document.getElementById('email').value;
+
 			return email.search(/.+@.+\..+/i) !== -1;
 		};
 
 		this.checkUserName = () => {
 			const userName = document.getElementById('userName').value;
-			return data[userName] === undefined;
+
+			return !this.users.some(item => item.name === userName);
 		};
 
 		this.onRegistered = (event) => {
@@ -37,7 +43,7 @@ class Registration extends Component {
 
 			const userName = document.getElementById('userName').value;
 			const email = document.getElementById('email').value;
-			const date = `${new Date().getFullYear()}-${new Date().getMonth() + 1} - ${new Date().getDate()}`;
+			const date = +(new Date());
 
 			if (!this.checkUserName()) {
 				this.addWarning('This Username exists. Try again.');
@@ -55,14 +61,16 @@ class Registration extends Component {
 				this.addWarning('Enter your Username.');
 				return;
 			} else {
-				data[userName] = {
-					email,
-					status: 'user',
-					registered: date,
-					polls: 0,
-					actions: false,
-					password: this.checkPassword(),
-				};
+				axios.post('https://5981a9d2139db000114a2d9c.mockapi.io/users/',
+					{
+						id: this.usersCount + 1,
+						registered: date,
+						name: userName,
+						email,
+						status: 'user',
+						polls: 0,
+						password: this.checkPassword(),
+					});
 				this.props.history.push('/');
 			}
 		};
@@ -77,6 +85,14 @@ class Registration extends Component {
 			warningBox.innerHTML = text;
 			document.getElementById('registrationBox').insertBefore(warningBox, document.getElementById('registryCaption'));
 		};
+	}
+	componentDidMount() {
+		axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
+			.then((data) => {
+				this.users = data.data;
+				this.usersCount = data.data.length;
+				return this.users;
+			});
 	}
 	render() {
 		return (

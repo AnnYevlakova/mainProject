@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { Login } from './script/login';
 import Main from './script/main';
 import NewPolls from './script/newPolls';

@@ -33,6 +33,8 @@ export default styled.input`
 				font-size: 1.1rem;
 		}
 		@media (max-width: 480px) {
-				padding: 5px;
+				padding: 2px;
+				border-width: 1px;
+				font-size: 1.0rem;
 		}
 `;
