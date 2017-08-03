@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
-import styled from 'styled-components';
-/*import Caption from './components/caption';
-import MyLink from './components/myLink';
-import Link from './components/link';
-import Education from './education'
-import { Route } from 'react-router-dom';
-import img1 from 'file-loader!../img/img1.jpg';
-import img2 from 'file-loader!../img/img1-1.jpg';*/
+import store from './store';
+import Caption from './components/caption';
+import { Ul, Li } from './components/row';
+import Div from './components/container';
+import MyField from './components/myField';
 
 export class UserInfo extends Component {
 	constructor(props) {
@@ -16,21 +12,37 @@ export class UserInfo extends Component {
 		this.data = [];
 	}
 	componentDidMount() {
-		axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
-			.then((data) => {
-				this.data = data.data;
-				ReactDOM.render(
-					<div>
-						{this.data.map((item, i) => <ul key={i} id={item.id}><li>{item.name}</li><li>{item.email}</li><li>{item.registered}</li><li>{item.status}</li><li>{item.password}</li></ul>)}
-					</div>,
-					document.getElementById('userInfoBox'),
-				);
-				return data;
-			});
+		if (store.getState().showProf === 'my') {
+			ReactDOM.render(
+				<Ul userInfo>
+					<Li userInfo>{store.getState().user.name}</Li>
+					<Li userInfo>{store.getState().user.email}</Li>
+					<Li userInfo>{store.getState().user.registered}</Li>
+					<Li userInfo>{store.getState().user.status}</Li>
+					<Li userInfo>{store.getState().user.password}</Li>
+				</Ul>,
+				document.getElementById('userInfoBox'),
+			);
+		} else {
+			const data = store.getState().users[store.getState().showProf - 1];
+			ReactDOM.render(
+				<div>
+					<Caption cap>User Info</Caption>
+					<Ul userInfo>
+						<Li userInfo><label>Username: <MyField type="text" placeholder={data.name} /></label></Li>
+						<Li userInfo><label>Email address: <MyField type="text" placeholder={data.email} /></label></Li>
+						<Li userInfo>You was registered: {data.registered}</Li>
+						<Li userInfo>Status: {data.status}</Li>
+						<Li userInfo><label>Password: <MyField type="text" placeholder={data.password} /></label></Li>
+					</Ul>
+				</div>,
+				document.getElementById('userInfoBox'),
+			);
+		}
 	}
 	render() {
 		return (
-			<ul id="userInfoBox" />
+			<Div id="userInfoBox" />
 		);
 	}
 }

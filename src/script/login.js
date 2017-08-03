@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import store from './store';
 import Caption from './components/caption';
 import MainButton from './components/mainButton';
 import MyLink from './components/myLink';
@@ -38,30 +39,39 @@ const RegistryFields = styled.ul`
 export class Login extends Component {
 	constructor(props) {
 		super(props);
-		this.status = '';
-		this.id = '';
-		this.users = [];
 
 		this.onLogin = (event) => {
 			event.preventDefault();
 
 			const userName = document.getElementById('loginUserName').value;
 			const password = document.getElementById('loginPassword').value;
-			let data = '';
+			let id = null;
 			if (userName || password) {
 				this.addWarning();
 			}
-			if (this.users.some((item) => {
-				if (item.name === userName && item.password === password) {
-					data = [item.id, item.status];
-					return true;
-				}
-				return false;
-			})) {
-				this.status = data[1];
-				this.id = data[0];
-				this.props.history.push('/main');
-			} else this.addWarning();
+			axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
+				.then((usersData) => {
+					store.dispatch({
+						type: 'addUsers',
+						users: usersData.data,
+					});
+					console.log(store.getState().users);
+					return store;
+				}).then((storeObj) => {
+					if (storeObj.getState().users.some((item) => {
+						if (item.name === userName && item.password === password) {
+							id = item.id;
+							return true;
+						}
+						return false;
+					})) {
+						store.dispatch({
+							type: 'login',
+							id,
+						});
+						this.props.history.push('/main');
+					} else this.addWarning();
+				});
 		};
 
 		this.addWarning = () => {
@@ -75,12 +85,11 @@ export class Login extends Component {
 		};
 	}
 	componentDidMount() {
-		axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
-			.then((data) => {
-				this.users = data.data;
-				this.usersCount = data.data.length;
-				return this.users;
-			});
+		if (localStorage.getItem('lp')) {
+			document.getElementById('loginUserName').value = localStorage.getItem('lp').split('-')[0];
+			document.getElementById('loginPassword').value = localStorage.getItem('lp').split('-')[1];
+			document.getElementById('login').click();
+		}
 	}
 	render() {
 		return (

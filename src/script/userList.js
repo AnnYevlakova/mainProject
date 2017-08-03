@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import store from './store';
 import axios from 'axios';
-import styled from 'styled-components';
 import Caption from './components/caption';
+import Div from './components/container';
 import SearchInput from './components/searchInput';
 import { Ul, Li } from './components/row';
 import { Actions } from './components/actions';
 
-const Div = styled.div`
-	width: 93%;
-	padding: 20px 5% 5% 2%;
-	@media (max-width: 768px) {
-		width: 94%;
-		padding: 3%;
-	}
-`;
-
 export class UserList extends Component {
 	constructor(props) {
 		super(props);
-		this.users = [];
-		this.usersCount = 0;
+		this.users = store.getState().users ? store.getState().users : JSON.parse(localStorage.getItem('users'));
 		this.page = 0;
 
 		this.showModal = (event) => {
@@ -28,6 +19,10 @@ export class UserList extends Component {
 			if (target.tagName === 'LI') {
 				target = target.parentElement;
 			}
+			store.dispatch({
+				type: 'showProfile',
+				target: target.id,
+			});
 			this.props.history.push('/users/userInfo');
 		};
 		this.renderNewPage = (event) => {
@@ -36,8 +31,12 @@ export class UserList extends Component {
 				btn = btn.parentElement;
 			}
 			const id = btn.id;
-			const lastPage = this.usersCount % 10 ? 1 : 0;
-			const pageCount = (Math.floor(this.usersCount / 10) - 1) + lastPage;
+			const lastPage = this.users.length % 10 ? 1 : 0;
+			const pageCount = (Math.floor(this.users.length / 10) - 1) + lastPage;
+			this.users.sort((a, b) => {
+				if (a.name > b.name) return 1;
+				if (a.name < b.name) return -1;
+			});
 			if (id === 'doubleLeft') {
 				if (this.page === 0) {
 					return;
@@ -96,6 +95,10 @@ export class UserList extends Component {
 					const date = new Date(user.registered);
 					user.registered = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 					return user;
+				});
+				this.users.sort((a, b) => {
+					if (a.name > b.name) return 1;
+					if (a.name < b.name) return -1;
 				});
 				this.usersCount = this.users.length;
 				document.getElementById('usersCount').innerHTML = this.usersCount;

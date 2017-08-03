@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const lightColor = '#e3e3e3';
 const darkColor = '#333333';
+const accentColor = '#eb1c23';
 
 export default styled.input`
 	margin-bottom: 20px;
@@ -10,6 +11,6 @@ export default styled.input`
 	font-size: 1.6rem;
 	outline: none;
 	&:focus{
-		box-shadow: inset 2px -2px 7px 0px ${lightColor};
+		border: 1px solid ${accentColor};
 	}
 `;

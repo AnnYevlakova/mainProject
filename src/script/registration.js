@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import store from './store';
 import MainButton from './components/mainButton';
 import MyField from './components/myField';
 import Caption from './components/caption';
@@ -14,8 +15,6 @@ const RegistrationBox = LoginBox;
 class Registration extends Component {
 	constructor(props) {
 		super(props);
-		this.users = [];
-		this.usersCount = 0;
 
 		this.checkPassword = () => {
 			const pas1 = document.getElementById('pas1').value;
@@ -35,7 +34,7 @@ class Registration extends Component {
 		this.checkUserName = () => {
 			const userName = document.getElementById('userName').value;
 
-			return !this.users.some(item => item.name === userName);
+			return !store.getState().users.some(item => item.name === userName);
 		};
 
 		this.onRegistered = (event) => {
@@ -89,9 +88,10 @@ class Registration extends Component {
 	componentDidMount() {
 		axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
 			.then((data) => {
-				this.users = data.data;
-				this.usersCount = data.data.length;
-				return this.users;
+				store.dispatch({
+					type: 'addUsers',
+					users: data.data
+				});
 			});
 	}
 	render() {

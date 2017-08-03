@@ -11,12 +11,6 @@ import Registration from './script/registration';
 require('style-loader!css-loader!less-loader!./style/main.less');
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-		this.onClick = () => {
-			document.getElementById('mainContainer').style.alignItems = 'flex-start';
-		};
-	}
 	render() {
 		return (
 			<Router>
