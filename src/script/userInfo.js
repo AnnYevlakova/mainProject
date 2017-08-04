@@ -1,41 +1,53 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import store from './store';
-import Caption from './components/caption';
-import { Ul, Li } from './components/row';
 import Div from './components/container';
-import MyField from './components/myField';
+import UserInfoForAdmin from './components/userInfoForAdmin';
+import UserInfoForUser from './components/userInfoForUser';
+import UserInfoClosed from './components/userInfoClosed';
 
 export class UserInfo extends Component {
 	constructor(props) {
 		super(props);
 		this.data = [];
+		this.saveUserData = () => {
+			const userName = document.getElementById('userName').value || this.data.name || store.getState().user.name;
+			const email = document.getElementById('email').value || this.data.email || store.getState().user.email;
+			const status = document.getElementById('status').value || this.data.status || store.getState().user.status;
+			const password = document.getElementById('status').value || this.data.password || store.getState().user.password;
+			axios.put(`https://5981a9d2139db000114a2d9c.mockapi.io/users/${this.data.id || store.getState().user.id}`, {
+				id: this.data.id || store.getState().user.id,
+				registered: this.data.registered || store.getState().registered,
+				name: userName,
+				email,
+				status,
+				polls: this.data.polls || store.getState().polls,
+				password,
+			});
+		};
 	}
 	componentDidMount() {
-		if (store.getState().showProf === 'my') {
+		if (store.getState().showProf === 'my' && store.getState().user.status === 'user') {
 			ReactDOM.render(
-				<Ul userInfo>
-					<Li userInfo>{store.getState().user.name}</Li>
-					<Li userInfo>{store.getState().user.email}</Li>
-					<Li userInfo>{store.getState().user.registered}</Li>
-					<Li userInfo>{store.getState().user.status}</Li>
-					<Li userInfo>{store.getState().user.password}</Li>
-				</Ul>,
+				<UserInfoForUser store={store}/>,
+				document.getElementById('userInfoBox'),
+			);
+		} else if (store.getState().showProf === 'my' && store.getState().user.status === 'admin') {
+			ReactDOM.render(
+				<UserInfoForAdmin data={store.getState().user}/>,
+				document.getElementById('userInfoBox'),
+			);
+		} else if (store.getState().user.status === 'admin') {
+			this.data = store.getState().users[store.getState().showProf - 1];
+			ReactDOM.render(
+				<UserInfoForAdmin data={this.data}/>,
 				document.getElementById('userInfoBox'),
 			);
 		} else {
-			const data = store.getState().users[store.getState().showProf - 1];
+			this.data = store.getState().users[store.getState().showProf - 1];
 			ReactDOM.render(
-				<div>
-					<Caption cap>User Info</Caption>
-					<Ul userInfo>
-						<Li userInfo><label>Username: <MyField type="text" placeholder={data.name} /></label></Li>
-						<Li userInfo><label>Email address: <MyField type="text" placeholder={data.email} /></label></Li>
-						<Li userInfo>You was registered: {data.registered}</Li>
-						<Li userInfo>Status: {data.status}</Li>
-						<Li userInfo><label>Password: <MyField type="text" placeholder={data.password} /></label></Li>
-					</Ul>
-				</div>,
+				<UserInfoClosed data={this.data}/>,
 				document.getElementById('userInfoBox'),
 			);
 		}

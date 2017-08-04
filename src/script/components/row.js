@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const lightColor = '#e3e3e3';
 const darkColor = '#333333';
+const accentColor = '#eb1c23';
 
 export const Ul = styled.ul`
 	display: flex;
@@ -13,7 +14,7 @@ export const Ul = styled.ul`
   margin: ${props => (props.userInfo ? '40px 0 0 0' : '0')};
   padding-left: ${props => (props.userInfo ? '0' : '5%')};
   list-style: none;
-  background-color: ${props => (props.colorRow ? lightColor : 'inherit')};
+  background-color: ${props => (props.colorRow ? lightColor : '#ffffff')};
   border-bottom: ${props => (props.colorRow ? `1px solid ${darkColor}` : 'inherit')};
   &:last-child {
     border-bottom: none;
@@ -29,20 +30,26 @@ export const Ul = styled.ul`
 export const Li = styled.li`
 	width: ${props => (props.usersNav ? '30%' : props.userInfo ? '100%' : '16%')};
 	padding-right: ${props => (props.usersNav ? '4%' : '0')};
+	margin-bottom: ${props => (props.userInfo ? '20px' : '0')};
 	display: ${props => (props.usersNav ? 'flex' : 'block')};
 	justify-content: ${props => (props.usersNav ? 'flex-end' : 'center')};
   text-align: ${props => (props.userInfo ? 'left' : 'center')};
   &:first-child {
+    cursor: ${props => (props.userInfo ? 'default' : props.usersCount ? 'default' : props.non ? 'default' : 'pointer')};
 	  width: ${props => (props.usersCount ? '70%' : props.userInfo ? '100%' : '42%')};
 	  overflow: ${props => (props.userInfo ? 'visible' : 'hidden')}; 
 	  text-overflow: ellipsis;
 	  text-align: left;
+	  &:hover {
+	    color: ${props => (props.userInfo ? 'inherit' :
+			props.usersCount ? 'inherit' : props.non ? 'inherit' : accentColor)};
+	  }
 	}
 	@media (max-width: 600px) {
 	&:first-child {
-	  width: ${props => (props.usersCount ? '70%' : '20%')};
+	  width: ${props => (props.usersCount ? '70%' : props.userInfo ? '100%' : '20%')};
 	 }
-		width: ${props => (props.usersNav ? '30%' : '20%')};
+		width: ${props => (props.usersNav ? '30%' : props.userInfo ? '100%' : '20%')};
 	}
 	@media (max-width: 500px) {
 `;

@@ -21,7 +21,7 @@ export default styled(Link)`
 	text-transform: ${props => (props.header ? 'uppercase' : 'inherit')};
 	cursor: pointer;
 	&:hover {
-		color: ${accentColor};
+		color: ${props => (props.mainBox ? '#ffffff' : props.login ? accentColor : accentColor)};
 	}
 	@media (max-width: 350px) {
 		width: ${props => (props.header ? 'auto' :  props.menuItem ? '100px' : '100%')};

@@ -21,11 +21,13 @@ export const LoginBox = styled.form`
 	padding: 20px 30px;
 	margin-top: 10%;
 	border: 1px solid #e3e3e3;
+	background-color: #ffffff;
 	@media (max-width: 600px) {
 		width: 90%;
 		max-width: 90%;
 		padding: 5px;
 		font-size: 1.6rem;
+		margin: 10% auto 0 auto;
 	}
 `;
 const RegistryFields = styled.ul`
@@ -55,7 +57,6 @@ export class Login extends Component {
 						type: 'addUsers',
 						users: usersData.data,
 					});
-					console.log(store.getState().users);
 					return store;
 				}).then((storeObj) => {
 					if (storeObj.getState().users.some((item) => {
@@ -84,11 +85,9 @@ export class Login extends Component {
 			document.getElementById('loginBox').insertBefore(warningBox, document.getElementById('loginCaption'));
 		};
 	}
-	componentDidMount() {
+	componentWillMount() {
 		if (localStorage.getItem('lp')) {
-			document.getElementById('loginUserName').value = localStorage.getItem('lp').split('-')[0];
-			document.getElementById('loginPassword').value = localStorage.getItem('lp').split('-')[1];
-			document.getElementById('login').click();
+			this.props.history.push('/main');
 		}
 	}
 	render() {

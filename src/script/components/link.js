@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const darkColor = '#333333';
 const accentColor = '#eb1c23';
+
 export default styled.a`
 	display: ${props => (props.mainBox ? 'block' : 'inherit')};
 	height: ${props => (props.mainBox ? '100%' : 'auto')};
@@ -13,7 +14,7 @@ export default styled.a`
 	text-transform: ${props => (props.header ? 'uppercase' : 'inherit')};
 	background-color: ${props => (props.mainBox ? '#9a9696' : 'inherit')};
 	&:hover {
-		color: ${accentColor};
+		color: ${props => (props.mainBox ? '#ffffff' : accentColor)};
 	}
 	@media (max-width: 350px) {
 		font-size: 1.3rem;

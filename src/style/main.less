@@ -17,7 +17,7 @@ html, body {
   flex-direction: column;
   min-width: 320px;
   min-height: 100%;
-  background-color: @bg;
+  background-color: rgb(244, 244, 244);
   font-size: 1.6rem;
 }
 .container {
@@ -26,15 +26,17 @@ html, body {
   flex: 1 1 auto;
   height: 100%;
 }
-
+.userInfoLabel {
+  display: block;
+  width: 70%;
+}
 /************ header *******************/
 .header {
   display: flex;
   justify-content: space-between;
   height: 70px;
   padding: 5px 20px;
-  border-bottom: 1px solid @dark-c;
-  background-color: @light-c;
+  background-color: @bg;
 }
 .logo {
   width: auto;
@@ -55,7 +57,7 @@ html, body {
   padding-left: 20px;
   margin-left: 0;
   list-style: none;
-  background-color: @light-c;
+  background-color: transparent;
 }
 .menuDropdown a {
   text-transform: uppercase;
@@ -119,6 +121,9 @@ html, body {
   color: @dark-c;
   outline: none;
   cursor: pointer;
+}
+.wrong {
+  border: 1px solid @accent-c;
 }
 @media (max-width: 500px) {
   .infoNav {

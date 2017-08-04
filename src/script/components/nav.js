@@ -8,7 +8,7 @@ export default styled.nav`
 	width: 20%;
 	max-width: 220px;
 	height: 100%;
-	padding: 10px 20px;
+	padding: 40px 20px;
 	list-style: none;
 	@media (max-width: 768px) {
 		flex-direction: row;

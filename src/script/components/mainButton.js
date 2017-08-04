@@ -2,25 +2,27 @@ import styled from 'styled-components';
 
 const bgColor = '#ffffff';
 const accentColor = '#eb1c23';
+const darkColor = '#333333';
+const lightColor = '#e3e3e3';
 
 export default styled.input`
 		display: block;
 		width: ${props => (props.nav ? '100%' : 'auto')};
-		height: 35px;
-		padding: 5px 15px;
-		margin: 0 auto;
-		margin-top: ${props => (props.nav ? '40px' : '0')};
-		border: 2px solid ${accentColor};
-		color: ${bgColor};
-		background-color: ${accentColor};
+		height: 40px;
+		padding: 10px 15px;
+		margin: ${props => (props.userInfo ? '0 auto 0 0 ' : props.nav ? '0' : '0 auto')};
+		border: none;
+		border-bottom: 1px solid ${lightColor};
+		color: ${props => (props.nav ? darkColor : bgColor)};
+		background-color: ${props => (props.nav ? bgColor : accentColor)};
 		text-transform: uppercase;	
 		cursor: pointer;
-		font-weight: 800;
-		box-shadow: -2px 4px 4px #737171;
+		font-weight: bold;
 		outline: none;
 		&:hover {
-				color: ${accentColor};
-				background-color: ${bgColor};
+				color: ${bgColor};
+				border-bottom: 1px solid ${accentColor};
+				background-color: ${accentColor};
 		}
 		@media (min-width: 768px) {
 			&:last-child {
@@ -33,7 +35,7 @@ export default styled.input`
 				font-size: 1.1rem;
 		}
 		@media (max-width: 480px) {
-				padding: 2px;
+				padding: ${props => (props.nav ? '2px' : '2px 10px')};
 				border-width: 1px;
 				font-size: 1.0rem;
 		}

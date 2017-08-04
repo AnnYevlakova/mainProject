@@ -15,7 +15,9 @@ const RegistrationBox = LoginBox;
 class Registration extends Component {
 	constructor(props) {
 		super(props);
-
+		this.onFocus = (event) => {
+			event.target.classList.remove('wrong');
+		}
 		this.checkPassword = () => {
 			const pas1 = document.getElementById('pas1').value;
 			const pas2 = document.getElementById('pas2').value;
@@ -34,7 +36,7 @@ class Registration extends Component {
 		this.checkUserName = () => {
 			const userName = document.getElementById('userName').value;
 
-			return !store.getState().users.some(item => item.name === userName);
+			return userName || !store.getState().users.some(item => item.name === userName);
 		};
 
 		this.onRegistered = (event) => {
@@ -42,22 +44,27 @@ class Registration extends Component {
 
 			const userName = document.getElementById('userName').value;
 			const email = document.getElementById('email').value;
-			const date = +(new Date());
+			const dateNow = new Date();
+			const date = `${dateNow.getFullYear()}-${dateNow.getMonth() + 1}-${dateNow.getDate()}`;
 
-			if (!this.checkUserName()) {
-				this.addWarning('This Username exists. Try again.');
-				return;
-			}
-			if (!this.checkEmail()) {
-				this.addWarning('Email address is incorrect. Try again.');
-				return;
-			}
-			if (!this.checkPassword()) {
-				this.addWarning('Passwords do not match. Try again.');
-				return;
-			}
-			if (!userName) {
-				this.addWarning('Enter your Username.');
+			if (!this.checkPassword() || !this.checkEmail() || !this.checkUserName() || !userName) {
+				if (!this.checkPassword()) {
+					this.addWarning('Passwords do not match. Try again.');
+					document.getElementById('pas1').classList.add('wrong');
+					document.getElementById('pas2').classList.add('wrong');
+				}
+				if (!this.checkEmail()) {
+					this.addWarning('Email address is incorrect. Try again.');
+					document.getElementById('email').classList.add('wrong');
+				}
+				if (!this.checkUserName()) {
+					this.addWarning('This Username exists. Try again.');
+					document.getElementById('userName').classList.add('wrong');
+				}
+				if (!userName) {
+					this.addWarning('Enter your Username.');
+					document.getElementById('userName').classList.add('wrong');
+				}
 				return;
 			} else {
 				axios.post('https://5981a9d2139db000114a2d9c.mockapi.io/users/',
@@ -90,9 +97,14 @@ class Registration extends Component {
 			.then((data) => {
 				store.dispatch({
 					type: 'addUsers',
-					users: data.data
+					users: data.data,
 				});
 			});
+	}
+	componentWillMount() {
+		if (localStorage.getItem('lp')) {
+			this.props.history.push('/main');
+		}
 	}
 	render() {
 		return (
@@ -107,10 +119,10 @@ class Registration extends Component {
 				<MainContainer>
 					<RegistrationBox id="registrationBox">
 						<Caption id="registryCaption">Registration</Caption>
-						<MyField id="userName" type="text" placeholder="Username" />
-						<MyField id="email" type="text" placeholder="Email address" />
-						<MyField id="pas1" type="password" placeholder="Password" />
-						<MyField id="pas2" type="password" placeholder="Repeat password" />
+						<MyField onFocus={this.onFocus} id="userName" type="text" placeholder="Username" />
+						<MyField onFocus={this.onFocus} id="email" type="text" placeholder="Email address" />
+						<MyField onFocus={this.onFocus} id="pas1" type="password" placeholder="Password" />
+						<MyField onFocus={this.onFocus} id="pas2" type="password" placeholder="Repeat password" />
 						<MainButton onClick={this.onRegistered} id="registration" type="button" value="create an account" />
 					</RegistrationBox>
 				</MainContainer>

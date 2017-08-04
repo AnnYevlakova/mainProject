@@ -15,10 +15,6 @@ export class UserList extends Component {
 		this.page = 0;
 
 		this.showModal = (event) => {
-			let target = event.target;
-			if (target.tagName === 'LI') {
-				target = target.parentElement;
-			}
 			store.dispatch({
 				type: 'showProfile',
 				target: target.id,
@@ -44,7 +40,13 @@ export class UserList extends Component {
 					this.page = 0;
 					ReactDOM.render(
 						<div>
-							{this.users.slice(0, 10).map((item, i) => <Ul onClick={this.showModal} key={i} id={item.id}><Li>{item.name}</Li><Li>{item.status}</Li><Li>{item.registered}</Li><Li>{item.polls}</Li><Li><Actions/></Li></Ul>)}
+							{this.users.slice(0, 10).map((item, i) => <Ul key={i} id={item.id}>
+								<Li onClick={this.showModal} >{item.name}</Li>
+								<Li>{item.status}</Li>
+								<Li>{item.registered}</Li>
+								<Li>{item.polls}</Li>
+								<Li><Actions/></Li>
+							</Ul>)}
 						</div>,
 						document.getElementById('table'),
 					);
@@ -56,7 +58,16 @@ export class UserList extends Component {
 					this.page = this.page - 1;
 					ReactDOM.render(
 						<div>
-							{this.users.slice(this.page * 10, (this.page * 10) + 10).map((item, i) => <Ul onClick={this.showModal} key={i} id={item.id}><Li>{item.name}</Li><Li>{item.status}</Li><Li>{item.registered}</Li><Li>{item.polls}</Li><Li><Actions/></Li></Ul>)}
+							{this.users.slice(this.page * 10, (this.page * 10) + 10).map((item, i) => {
+								return <Ul key={i} id={item.id}>
+									<Li onClick={this.showModal} >{item.name}</Li>
+									<Li>{item.status}</Li>
+									<Li>{item.registered}</Li>
+									<Li>{item.polls}</Li>
+									<Li><Actions/></Li>
+								</Ul>;
+							})
+							}
 						</div>,
 						document.getElementById('table'),
 					);
@@ -68,7 +79,16 @@ export class UserList extends Component {
 					this.page = this.page + 1;
 					ReactDOM.render(
 						<div>
-							{this.users.slice(this.page * 10, (this.page * 10) + 10).map((item, i) => <Ul onClick={this.showModal} key={i} id={item.id}><Li>{item.name}</Li><Li>{item.status}</Li><Li>{item.registered}</Li><Li>{item.polls}</Li><Li><Actions/></Li></Ul>)}
+							{this.users.slice(this.page * 10, (this.page * 10) + 10).map((item, i) => {
+								return <Ul key={i} id={item.id}>
+									<Li onClick={this.showModal} >{item.name}</Li>
+									<Li>{item.status}</Li>
+									<Li>{item.registered}</Li>
+									<Li>{item.polls}</Li>
+									<Li><Actions/></Li>
+								</Ul>;
+							})
+							}
 						</div>,
 						document.getElementById('table'),
 					);
@@ -80,7 +100,13 @@ export class UserList extends Component {
 					this.page = pageCount;
 					ReactDOM.render(
 						<div>
-							{this.users.slice(this.page * 10).map((item, i) => <Ul onClick={this.showModal} key={i} id={item.id}><Li>{item.name}</Li><Li>{item.status}</Li><Li>{item.registered}</Li><Li>{item.polls}</Li><Li><Actions/></Li></Ul>)}
+							{this.users.slice(this.page * 10).map((item, i) => <Ul key={i} id={item.id}>
+								<Li onClick={this.showModal} >{item.name}</Li>
+								<Li>{item.status}</Li>
+								<Li>{item.registered}</Li>
+								<Li>{item.polls}</Li>
+								<Li><Actions/></Li>
+							</Ul>)}
 						</div>,
 						document.getElementById('table'),
 					);
@@ -104,7 +130,13 @@ export class UserList extends Component {
 				document.getElementById('usersCount').innerHTML = this.usersCount;
 				ReactDOM.render(
 					<div>
-						{this.users.slice(0, 10).map((item, i) => <Ul onClick={this.showModal} key={i} id={item.id}><Li>{item.name}</Li><Li>{item.status}</Li><Li>{item.registered}</Li><Li>{item.polls}</Li><Li><Actions/></Li></Ul>)}
+						{this.users.slice(0, 10).map((item, i) => <Ul key={i} id={item.id}>
+							<Li onClick={this.showModal} >{item.name}</Li>
+							<Li>{item.status}</Li>
+							<Li>{item.registered}</Li>
+							<Li>{item.polls}</Li>
+							<Li><Actions/></Li>
+						</Ul>)}
 					</div>,
 					document.getElementById('table'),
 				);
@@ -116,11 +148,14 @@ export class UserList extends Component {
 			<Div>
 				<div className="captionBox">
 					<Caption cap>Users</Caption>
-					<label className="searchLabel"><SearchInput type="search" placeholder="search..." /><i className="fa fa-search searchButton" aria-hidden="true" /></label>
+					<label className="searchLabel">
+						<SearchInput type="search" placeholder="search..." />
+						<i className="fa fa-search searchButton" aria-hidden="true" />
+					</label>
 				</div>
 				<section className="userList">
 					<Ul colorRow>
-						<Li>Name</Li>
+						<Li non>Name</Li>
 						<Li>Role</Li>
 						<Li>Registered</Li>
 						<Li>Polls</Li>
@@ -130,10 +165,18 @@ export class UserList extends Component {
 					<Ul colorRow>
 						<Li usersCount>Users count: <span id="usersCount">{this.usersCount}</span></Li>
 						<Li usersNav>
-							<button className="usersNavButton" id="doubleLeft" onClick={this.renderNewPage}><i className="fa fa-angle-double-left" aria-hidden="true" /></button>
-							<button className="usersNavButton" id="left" onClick={this.renderNewPage}><i className="fa fa-angle-left" aria-hidden="true" /></button>
-							<button className="usersNavButton" id="right" onClick={this.renderNewPage}><i className="fa fa-angle-right" aria-hidden="true" /></button>
-							<button className="usersNavButton" id="doubleRight" onClick={this.renderNewPage}><i className="fa fa-angle-double-right" aria-hidden="true" /></button>
+							<button className="usersNavButton" id="doubleLeft" onClick={this.renderNewPage}>
+								<i className="fa fa-angle-double-left" aria-hidden="true" />
+							</button>
+							<button className="usersNavButton" id="left" onClick={this.renderNewPage}>
+								<i className="fa fa-angle-left" aria-hidden="true" />
+							</button>
+							<button className="usersNavButton" id="right" onClick={this.renderNewPage}>
+								<i className="fa fa-angle-right" aria-hidden="true" />
+							</button>
+							<button className="usersNavButton" id="doubleRight" onClick={this.renderNewPage}>
+								<i className="fa fa-angle-double-right" aria-hidden="true" />
+							</button>
 						</Li>
 					</Ul>
 				</section>
