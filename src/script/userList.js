@@ -15,6 +15,7 @@ export class UserList extends Component {
 		this.page = 0;
 
 		this.showModal = (event) => {
+			const target = event.target.closest('ul');
 			store.dispatch({
 				type: 'showProfile',
 				target: target.id,
@@ -29,10 +30,6 @@ export class UserList extends Component {
 			const id = btn.id;
 			const lastPage = this.users.length % 10 ? 1 : 0;
 			const pageCount = (Math.floor(this.users.length / 10) - 1) + lastPage;
-			this.users.sort((a, b) => {
-				if (a.name > b.name) return 1;
-				if (a.name < b.name) return -1;
-			});
 			if (id === 'doubleLeft') {
 				if (this.page === 0) {
 					return;
@@ -45,7 +42,7 @@ export class UserList extends Component {
 								<Li>{item.status}</Li>
 								<Li>{item.registered}</Li>
 								<Li>{item.polls}</Li>
-								<Li><Actions/></Li>
+								<Li><Actions showModal={this.showModal}/></Li>
 							</Ul>)}
 						</div>,
 						document.getElementById('table'),
@@ -64,7 +61,7 @@ export class UserList extends Component {
 									<Li>{item.status}</Li>
 									<Li>{item.registered}</Li>
 									<Li>{item.polls}</Li>
-									<Li><Actions/></Li>
+									<Li><Actions showModal={this.showModal}/></Li>
 								</Ul>;
 							})
 							}
@@ -85,7 +82,7 @@ export class UserList extends Component {
 									<Li>{item.status}</Li>
 									<Li>{item.registered}</Li>
 									<Li>{item.polls}</Li>
-									<Li><Actions/></Li>
+									<Li><Actions showModal={this.showModal}/></Li>
 								</Ul>;
 							})
 							}
@@ -105,13 +102,35 @@ export class UserList extends Component {
 								<Li>{item.status}</Li>
 								<Li>{item.registered}</Li>
 								<Li>{item.polls}</Li>
-								<Li><Actions/></Li>
+								<Li><Actions showModal={this.showModal}/></Li>
 							</Ul>)}
 						</div>,
 						document.getElementById('table'),
 					);
 				}
 			}
+		};
+		this.search = (event) => {
+			const value = event.target.value;
+			const data = [];
+			const users = store.getState().users || JSON.parse(localStorage.getItem('users'));
+			users.forEach((item) => {
+				if (item.name.indexOf(value) !== -1) {
+					data.push(item);
+				}
+			});
+			ReactDOM.render(
+				<div>
+					{data.slice(0, 10).map((item, i) => <Ul key={i} id={item.id}>
+						<Li onClick={this.showModal} >{item.name}</Li>
+						<Li>{item.status}</Li>
+						<Li>{item.registered}</Li>
+						<Li>{item.polls}</Li>
+						<Li><Actions showModal={this.showModal}/></Li>
+					</Ul>)}
+				</div>,
+				document.getElementById('table'),
+			);
 		};
 	}
 	componentDidMount() {
@@ -127,6 +146,7 @@ export class UserList extends Component {
 					if (a.name < b.name) return -1;
 				});
 				this.usersCount = this.users.length;
+				store.dispatch({ type: 'addUsers', users: this.users });
 				document.getElementById('usersCount').innerHTML = this.usersCount;
 				ReactDOM.render(
 					<div>
@@ -135,7 +155,7 @@ export class UserList extends Component {
 							<Li>{item.status}</Li>
 							<Li>{item.registered}</Li>
 							<Li>{item.polls}</Li>
-							<Li><Actions/></Li>
+							<Li><Actions showModal={this.showModal}/></Li>
 						</Ul>)}
 					</div>,
 					document.getElementById('table'),
@@ -149,7 +169,7 @@ export class UserList extends Component {
 				<div className="captionBox">
 					<Caption cap>Users</Caption>
 					<label className="searchLabel">
-						<SearchInput type="search" placeholder="search..." />
+						<SearchInput onChange={this.search} type="search" placeholder="search..." />
 						<i className="fa fa-search searchButton" aria-hidden="true" />
 					</label>
 				</div>

@@ -53,6 +53,10 @@ export class Login extends Component {
 			}
 			axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
 				.then((usersData) => {
+					usersData.data.sort((a, b) => {
+						if (a.name > b.name) return 1;
+						if (a.name < b.name) return -1;
+					});
 					store.dispatch({
 						type: 'addUsers',
 						users: usersData.data,
@@ -86,7 +90,7 @@ export class Login extends Component {
 		};
 	}
 	componentWillMount() {
-		if (localStorage.getItem('lp')) {
+		if (localStorage.getItem('id')) {
 			this.props.history.push('/main');
 		}
 	}

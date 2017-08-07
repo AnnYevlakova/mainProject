@@ -6,11 +6,11 @@ const darkColor = '#333333';
 const lightColor = '#e3e3e3';
 
 export default styled.input`
-		display: block;
+		display: ${props => (props.userInfo ? 'inline' : 'block')};
 		width: ${props => (props.nav ? '100%' : 'auto')};
 		height: 40px;
 		padding: 10px 15px;
-		margin: ${props => (props.userInfo ? '0 auto 0 0 ' : props.nav ? '0' : '0 auto')};
+		margin: ${props => (props.userInfo ? '0 20px 0 0 ' : props.nav ? '0' : '0 auto')};
 		border: none;
 		border-bottom: 1px solid ${lightColor};
 		color: ${props => (props.nav ? darkColor : bgColor)};

@@ -12,6 +12,6 @@ export default styled.input`
 	font-size: 1.6rem;
 	outline: none;
 	&:focus{
-		border: 1px solid ${accentColor};	
+		box-shadow: inset 2px -2px 7px 0px ${lightColor};;	
 	}
 `;

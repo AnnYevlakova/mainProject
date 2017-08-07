@@ -10,4 +10,7 @@ export default styled.input`
 		border: 1px solid #e3e3e3;
 		box-shadow: inset 2px -2px 7px 0px ${lightColor};
 	}
+	&::-webkit-search-cancel-button {		
+		-webkit-appearance: none;
+	}
 `;

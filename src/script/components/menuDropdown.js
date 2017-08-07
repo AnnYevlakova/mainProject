@@ -34,8 +34,11 @@ export class MenuDropdown extends Component {
 		};
 
 		this.openCloseMenuDropdown = (event) => {
-			const btn = event.target;
-			const items = Array.from(document.querySelectorAll('.menuDropdown li a'));
+			let btn = event.target;
+			if (btn.classList.contains('fa')) {
+				btn = document.getElementById('arrow');
+			}
+			const items = Array.from(document.querySelectorAll('.menuDropdown li'));
 			if (btn.dataset.status === 'closed') {
 				items.forEach((item) => {
 					item.style.display = 'block';
@@ -54,13 +57,13 @@ export class MenuDropdown extends Component {
 	render() {
 		return (
 			<ul className="menuDropdown">
-				<i className="fa fa-user" aria-hidden="true" />
+				<i onClick={this.openCloseMenuDropdown} className="fa fa-user" aria-hidden="true" />
 				<button onClick={this.openCloseMenuDropdown} data-status="closed" className="arrow" id="arrow">&#9660;</button>
-				<li>
-					<MyLink onClick={this.onClick} menuItem menuItem1 id="toTheMyProfile" to="/users/userInfo">my profile</MyLink>
+				<li className="menuItem menuItem1">
+					<MyLink onClick={this.onClick} id="toTheMyProfile" to="/users/userInfo">my profile</MyLink>
 				</li>
-				<li>
-					<MyLink onClick={this.onClick} menuItem menuItem2 id="logOut" to="/">Log out</MyLink>
+				<li className="menuItem menuItem2">
+					<MyLink onClick={this.onClick} id="logOut" to="/">Log out</MyLink>
 				</li>
 			</ul>
 		);

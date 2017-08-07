@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import Caption from './caption';
 import { Ul, Li } from './row';
+import MainButton from './mainButton';
 
 class UserInfoClosed extends Component {
 	constructor(props) {
 		super(props);
+		this.back = () => {
+			history.back();
+		};
 	}
 	render() {
 		return(
@@ -16,6 +20,9 @@ class UserInfoClosed extends Component {
 					<Li userInfo>Status: {this.props.data.status}</Li>
 					<Li userInfo>Count of polls: {this.props.data.polls}</Li>
 					<Li userInfo>You was registered: {this.props.data.registered}</Li>
+					<Li userInfo>
+						<MainButton onClick={this.back} userInfo type="button" value="back" />
+					</Li>
 				</Ul>
 			</div>
 		);

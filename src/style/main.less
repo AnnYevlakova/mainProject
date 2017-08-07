@@ -54,7 +54,7 @@ html, body {
 }
 .menuDropdown {
   position: relative;
-  padding-left: 20px;
+  padding-left: 30px;
   margin-left: 0;
   list-style: none;
   background-color: transparent;
@@ -64,12 +64,33 @@ html, body {
 }
 .fa-user {
   font-size: 2.0rem;
+  cursor: pointer;
 }
 .arrow {
-  padding: 0 0 0 10px;
+  padding: 0 0 0 5px;
   border: none;
   background-color: transparent;
   outline: none;
+  font-size: 2.0rem;
+  cursor: pointer;
+}
+.menuItem{
+  position: absolute;
+  right: 0;
+  display: none;
+  width: 150px;
+  height: 25px;
+  padding: 5px 3px;
+  background-color: #e3e3e3;
+  font-size: 1.4rem;
+  text-align: right;
+  z-index: 100;
+}
+.menuItem1 {
+  bottom: -35px;
+}
+.menuItem2 {
+  bottom: -70px;
 }
 /************ main-container*******************/
 .warning {
@@ -121,6 +142,9 @@ html, body {
   color: @dark-c;
   outline: none;
   cursor: pointer;
+}
+.usersNavButton:hover {
+  color: @accent-c;
 }
 .wrong {
   border: 1px solid @accent-c;

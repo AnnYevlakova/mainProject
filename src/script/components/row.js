@@ -14,7 +14,7 @@ export const Ul = styled.ul`
   margin: ${props => (props.userInfo ? '40px 0 0 0' : '0')};
   padding-left: ${props => (props.userInfo ? '0' : '5%')};
   list-style: none;
-  background-color: ${props => (props.colorRow ? lightColor : '#ffffff')};
+  background-color: ${props => (props.colorRow ? lightColor : '#f4f4f4')};
   border-bottom: ${props => (props.colorRow ? `1px solid ${darkColor}` : 'inherit')};
   &:last-child {
     border-bottom: none;

@@ -39,13 +39,13 @@ export class UserInfo extends Component {
 				document.getElementById('userInfoBox'),
 			);
 		} else if (store.getState().user.status === 'admin') {
-			this.data = store.getState().users[store.getState().showProf - 1];
+			this.data = store.getState().users[store.getState().showProf];
 			ReactDOM.render(
 				<UserInfoForAdmin data={this.data}/>,
 				document.getElementById('userInfoBox'),
 			);
 		} else {
-			this.data = store.getState().users[store.getState().showProf - 1];
+			this.data = store.getState().users[store.getState().showProf];
 			ReactDOM.render(
 				<UserInfoClosed data={this.data}/>,
 				document.getElementById('userInfoBox'),
