@@ -28,11 +28,11 @@ export const Ul = styled.ul`
   }
 `;
 export const Li = styled.li`
-	width: ${props => (props.usersNav ? '30%' : props.userInfo ? '100%' : '16%')};
-	padding-right: ${props => (props.usersNav ? '4%' : '0')};
+	width: ${props => (props.nav ? '30%' : props.userInfo ? '100%' : '16%')};
+	padding-right: ${props => (props.nav ? '4%' : '0')};
 	margin-bottom: ${props => (props.userInfo ? '20px' : '0')};
-	display: ${props => (props.usersNav ? 'flex' : 'block')};
-	justify-content: ${props => (props.usersNav ? 'flex-end' : 'center')};
+	display: ${props => (props.nav ? 'flex' : 'block')};
+	justify-content: ${props => (props.nav ? 'flex-end' : 'center')};
   text-align: ${props => (props.userInfo ? 'left' : 'center')};
   &:first-child {
     cursor: ${props => (props.userInfo ? 'default' : props.usersCount ? 'default' : props.non ? 'default' : 'pointer')};
@@ -49,7 +49,7 @@ export const Li = styled.li`
 	&:first-child {
 	  width: ${props => (props.usersCount ? '70%' : props.userInfo ? '100%' : '20%')};
 	 }
-		width: ${props => (props.usersNav ? '30%' : props.userInfo ? '100%' : '20%')};
+		width: ${props => (props.nav ? '30%' : props.userInfo ? '100%' : '20%')};
 	}
 	@media (max-width: 500px) {
 `;

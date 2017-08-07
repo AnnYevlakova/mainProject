@@ -18,7 +18,7 @@ class UserInfoClosed extends Component {
 					<Li userInfo>Username: {this.props.data.name}</Li>
 					<Li userInfo>Email address: {this.props.data.email}</Li>
 					<Li userInfo>Status: {this.props.data.status}</Li>
-					<Li userInfo>Count of polls: {this.props.data.polls}</Li>
+					<Li userInfo>Count of polls: {this.props.data.polls.length}</Li>
 					<Li userInfo>You was registered: {this.props.data.registered}</Li>
 					<Li userInfo>
 						<MainButton onClick={this.back} userInfo type="button" value="back" />

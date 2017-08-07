@@ -38,7 +38,7 @@ class UserInfoForAdmin extends Component {
 					<Li userInfo>
 						<label>Password: <MyField userInfo id="password" type="text" placeholder={this.props.data.password} /></label>
 					</Li>
-					<Li userInfo>Count of polls: {this.props.data.polls}</Li>
+					<Li userInfo>Count of polls: {this.props.data.polls.length}</Li>
 					<Li userInfo>You was registered: {this.props.data.registered}</Li>
 					<Li userInfo>
 						<MainButton onClick={this.back} userInfo type="button" value="back" />

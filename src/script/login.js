@@ -63,19 +63,25 @@ export class Login extends Component {
 					});
 					return store;
 				}).then((storeObj) => {
-					if (storeObj.getState().users.some((item) => {
-						if (item.name === userName && item.password === password) {
-							id = item.id;
-							return true;
-						}
-						return false;
-					})) {
-						store.dispatch({
-							type: 'login',
-							id,
+					axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/polls')
+						.then((data) => {
+							store.dispatch({ type: 'addPolls', polls: data.data });
+						})
+						.then((data) => {
+							if (storeObj.getState().users.some((item) => {
+								if (item.name === userName && item.password === password) {
+									id = item.id;
+									return true;
+								}
+								return false;
+							})) {
+								store.dispatch({
+									type: 'login',
+									id,
+								});
+								this.props.history.push('/main');
+							} else this.addWarning();
 						});
-						this.props.history.push('/main');
-					} else this.addWarning();
 				});
 		};
 

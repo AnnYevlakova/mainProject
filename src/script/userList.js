@@ -41,7 +41,7 @@ export class UserList extends Component {
 								<Li onClick={this.showModal} >{item.name}</Li>
 								<Li>{item.status}</Li>
 								<Li>{item.registered}</Li>
-								<Li>{item.polls}</Li>
+								<Li>{item.polls.length}</Li>
 								<Li><Actions showModal={this.showModal}/></Li>
 							</Ul>)}
 						</div>,
@@ -60,7 +60,7 @@ export class UserList extends Component {
 									<Li onClick={this.showModal} >{item.name}</Li>
 									<Li>{item.status}</Li>
 									<Li>{item.registered}</Li>
-									<Li>{item.polls}</Li>
+									<Li>{item.polls.length}</Li>
 									<Li><Actions showModal={this.showModal}/></Li>
 								</Ul>;
 							})
@@ -81,7 +81,7 @@ export class UserList extends Component {
 									<Li onClick={this.showModal} >{item.name}</Li>
 									<Li>{item.status}</Li>
 									<Li>{item.registered}</Li>
-									<Li>{item.polls}</Li>
+									<Li>{item.polls.length}</Li>
 									<Li><Actions showModal={this.showModal}/></Li>
 								</Ul>;
 							})
@@ -101,7 +101,7 @@ export class UserList extends Component {
 								<Li onClick={this.showModal} >{item.name}</Li>
 								<Li>{item.status}</Li>
 								<Li>{item.registered}</Li>
-								<Li>{item.polls}</Li>
+								<Li>{item.polls.length}</Li>
 								<Li><Actions showModal={this.showModal}/></Li>
 							</Ul>)}
 						</div>,
@@ -125,7 +125,7 @@ export class UserList extends Component {
 						<Li onClick={this.showModal} >{item.name}</Li>
 						<Li>{item.status}</Li>
 						<Li>{item.registered}</Li>
-						<Li>{item.polls}</Li>
+						<Li>{item.polls.length}</Li>
 						<Li><Actions showModal={this.showModal}/></Li>
 					</Ul>)}
 				</div>,
@@ -154,7 +154,7 @@ export class UserList extends Component {
 							<Li onClick={this.showModal} >{item.name}</Li>
 							<Li>{item.status}</Li>
 							<Li>{item.registered}</Li>
-							<Li>{item.polls}</Li>
+							<Li>{item.polls.length}</Li>
 							<Li><Actions showModal={this.showModal}/></Li>
 						</Ul>)}
 					</div>,
@@ -184,7 +184,7 @@ export class UserList extends Component {
 					<div id="table" className="table" />
 					<Ul colorRow>
 						<Li usersCount>Users count: <span id="usersCount">{this.usersCount}</span></Li>
-						<Li usersNav>
+						<Li nav>
 							<button className="usersNavButton" id="doubleLeft" onClick={this.renderNewPage}>
 								<i className="fa fa-angle-double-left" aria-hidden="true" />
 							</button>

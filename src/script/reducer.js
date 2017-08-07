@@ -1,6 +1,6 @@
 export default function (state = {}, action) {
 	switch (action.type) {
-	case 'login':
+		case 'login':
 		let userPos = null;
 		state.users.forEach((item, i) => {
 			if (item.id === action.id) {
@@ -12,15 +12,17 @@ export default function (state = {}, action) {
 			login: true,
 			users: state.users,
 			user: state.users[userPos],
+			polls: state.polls,
 		};
 	case 'addUsers':
 		localStorage.setItem('users', JSON.stringify(action.users));
 		return {
 			login: state.login || true,
 			users: action.users,
-			user: state.user || localStorage.length === 2 ?
+			user: state.user || localStorage.length === 3 ?
 				JSON.parse(localStorage.getItem('users'))[localStorage.getItem('id').split('-')[1]] :
 				'',
+			polls: state.polls ? state.polls : '',
 		};
 	case 'showProfile':
 		const usersData = state.users || JSON.parse(localStorage.getItem('users'));
@@ -35,6 +37,7 @@ export default function (state = {}, action) {
 			user: state.user || JSON.parse(localStorage.getItem('users'))[pos],
 			users: state.users || JSON.parse(localStorage.getItem('users')),
 			showProf: action.target === 'my' ? action.target : pos,
+			polls: state.polls,
 		};
 	case 'deleteItem':
 		const users = JSON.parse(localStorage.getItem('users'));
@@ -52,6 +55,14 @@ export default function (state = {}, action) {
 			user: state.user || JSON.parse(localStorage.getItem('users'))[localStorage.getItem('lp').split('-')[2] - 1],
 			users,
 			showProf: null,
+			polls: state.polls,
+		};
+	case 'addPolls':
+		localStorage.setItem('polls', JSON.stringify(action.polls));
+		return {
+			user: state.user,
+			users: state.users,
+			polls: action.polls,
 		};
 	default:
 		return state;

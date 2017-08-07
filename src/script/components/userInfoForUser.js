@@ -43,7 +43,7 @@ class UserInfoForUser extends Component {
 							<MyField userInfo id="password" type="text" placeholder={this.props.store.getState().user.password} />
 						</label>
 					</Li>
-					<Li userInfo>Count of polls: {this.props.store.getState().user.polls}</Li>
+					<Li userInfo>Count of polls: {this.props.store.getState().user.polls.length}</Li>
 					<Li userInfo>You was registered: {this.props.store.getState().user.registered}</Li>
 					<Li userInfo>
 						<MainButton onClick={this.back} userInfo type="button" value="back" />
