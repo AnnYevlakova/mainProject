@@ -6,13 +6,13 @@ const darkColor = '#333333';
 const lightColor = '#e3e3e3';
 
 export default styled.input`
-		display: ${props => (props.userInfo ? 'inline' : 'block')};
+		display: ${props => (props.inline ? 'inline' : 'block')};
 		width: ${props => (props.nav ? '100%' : 'auto')};
-		height: 40px;
-		padding: 10px 15px;
-		margin: ${props => (props.userInfo ? '0 20px 0 0 ' : props.nav ? '0' : '0 auto')};
-		border: none;
-		border-bottom: 1px solid ${lightColor};
+		height: ${props => (props.caption ? '30px' : '40px')};
+		padding: ${props => (props.caption ? '0 5px' : '10px 15px')};
+		margin: ${props => (props.inline ? '0 10px 5px 0 ' : props.caption ? '0 auto 0 20px' : props.nav ? '0' : '0 auto')};
+		border: ${props => (props.nav ? 'none' : `1px solid ${accentColor}`)};
+		border-bottom: ${props => (props.inline ? `1px solid ${accentColor}` : `1px solid ${lightColor}`)};
 		color: ${props => (props.nav ? darkColor : bgColor)};
 		background-color: ${props => (props.nav ? bgColor : accentColor)};
 		text-transform: uppercase;	
@@ -20,9 +20,10 @@ export default styled.input`
 		font-weight: bold;
 		outline: none;
 		&:hover {
-				color: ${bgColor};
+				color: ${props => (props.nav ? bgColor : accentColor)};
+				border: ${props => (props.nav ? 'none' : `1px solid ${accentColor}`)};
 				border-bottom: 1px solid ${accentColor};
-				background-color: ${accentColor};
+				background-color: ${props => (props.nav ? accentColor : bgColor)};
 		}
 		@media (min-width: 768px) {
 			&:last-child {

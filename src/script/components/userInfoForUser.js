@@ -16,7 +16,7 @@ class UserInfoForUser extends Component {
 			const id = store.getState().user.id;
 			axios.delete(`https://5981a9d2139db000114a2d9c.mockapi.io/users/${id}`)
 				.then((response) => {
-					store.dispatch({ type: 'deleteItem', id });
+					store.dispatch({ type: 'deleteUser', id });
 					localStorage.clear();
 					document.getElementById('logOut').click();
 				});
@@ -46,9 +46,9 @@ class UserInfoForUser extends Component {
 					<Li userInfo>Count of polls: {this.props.store.getState().user.polls.length}</Li>
 					<Li userInfo>You was registered: {this.props.store.getState().user.registered}</Li>
 					<Li userInfo>
-						<MainButton onClick={this.back} userInfo type="button" value="back" />
-						<MainButton onClick={this.saveUserData} userInfo type="button" value="save" />
-						<MainButton onClick={this.delete} userInfo type="button" value="delete" />
+						<MainButton onClick={this.back} inline type="button" value="back" />
+						<MainButton onClick={this.saveUserData} inline type="button" value="save" />
+						<MainButton onClick={this.delete} inline type="button" value="delete" />
 					</Li>
 				</Ul>
 			</div>

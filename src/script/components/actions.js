@@ -1,25 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
 import axios from 'axios';
 import store from '../store';
 import { Ul, Li } from './row';
+import Btn from './btn';
 
-const Btn = styled.button`
-	width: 20px;
-  height: 20px;
-  padding: 0;
-  margin-left: 10px;
-  border: none;
-  background-color: transparent;
-  font-size: 2.4rem;
-  outline: none;
-  cursor: pointer;
-  @media (max-width: 500px) {
-    margin-left: 5px;
-    font-size: 2.0rem;   
-   }
-`;
+
 export class Actions extends Component {
 	constructor(props) {
 		super(props);
@@ -28,7 +14,7 @@ export class Actions extends Component {
 			const id = target.id;
 			axios.delete(`https://5981a9d2139db000114a2d9c.mockapi.io/users/${id}`)
 			target.remove();
-			store.dispatch({ type: 'deleteItem', id });
+			store.dispatch({ type: 'deleteUser', id });
 			ReactDOM.render(
 				<div>
 					{store.getState().users.slice(0, 10).map((item, i) => <Ul key={i} id={item.id}>

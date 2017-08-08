@@ -8,8 +8,8 @@ export default styled.h4`
 	margin-right: ${props => (props.mainBox ? 'auto' : 'inherit')};
 	@media (max-width: 1070px) {
 		position: ${props => (props.mainBox ? 'absolute' : 'relative')};
-		top: ${props => (props.mainBox ? '50%' : 'relative')};
-		margin: ${props => (props.mainBox ? '0' : 'inherit')};
+		top: ${props => (props.mainBox ? '50%' : 'relative')};		
+		margin: ${props => (props.mainBox ? '0' : '10px 0')};
 		left: ${props => (props.mainBox ? '20px' : 'relative')};
 		color: ${props => (props.mainBox ? '#ffffff' : 'inherit')};		
 		text-shadow: ${props => (props.mainBox ? '5px 4px 17px' : 'none')}; 

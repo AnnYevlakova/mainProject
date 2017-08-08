@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { Login } from './script/login';
 import Main from './script/main';
-import NewPolls from './script/newPolls';
+import NewPoll from './script/newPoll';
 import MyPolls from './script/myPolls';
 import Users from './script/users';
 import Registration from './script/registration';
@@ -19,8 +19,9 @@ class App extends Component {
 					<Route path='/registration' component={Registration}/>
 					<Route path='/main' component={Main} />
 					<Route path='/users' component={Users} />
-					<Route path='/newPolls' component={NewPolls} />
+					<Route path='/newPoll' component={NewPoll} />
 					<Route path='/myPolls' component={MyPolls} />
+					<Route path='/poll' component={MyPolls} />
 					<footer className="footer">
 						<p>Copyright @ 2017 iTechArt</p>
 					</footer>

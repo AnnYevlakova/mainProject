@@ -28,7 +28,7 @@ class Users extends Component {
 						<MenuDropdown/>
 					</nav>
 				</header>
-				<MainContainer user>
+				<MainContainer main>
 					<Nav>
 						<MainButton id="main" onClick={this.directTo} nav type="button" value="Main"/>
 						<MainButton id="newPoll" onClick={this.directTo} nav type="button" value="New poll"/>

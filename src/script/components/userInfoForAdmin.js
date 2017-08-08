@@ -16,7 +16,7 @@ class UserInfoForAdmin extends Component {
 			const id = store.getState().showProf;
 			axios.delete(`https://5981a9d2139db000114a2d9c.mockapi.io/users/${id}`)
 				.then((response) => {
-					store.dispatch({ type: 'deleteItem', id });
+					store.dispatch({ type: 'deleteUser', id });
 					history.back();
 				});
 		};
@@ -41,9 +41,9 @@ class UserInfoForAdmin extends Component {
 					<Li userInfo>Count of polls: {this.props.data.polls.length}</Li>
 					<Li userInfo>You was registered: {this.props.data.registered}</Li>
 					<Li userInfo>
-						<MainButton onClick={this.back} userInfo type="button" value="back" />
-						<MainButton onClick={this.saveUserData} userInfo type="button" value="save" />
-						<MainButton onClick={this.delete} userInfo type="button" value="delete" />
+						<MainButton onClick={this.back} inline type="button" value="back" />
+						<MainButton onClick={this.saveUserData} inline type="button" value="save" />
+						<MainButton onClick={this.delete} inline type="button" value="delete" />
 					</Li>
 				</Ul>
 			</div>

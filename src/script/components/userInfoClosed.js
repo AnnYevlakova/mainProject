@@ -21,7 +21,7 @@ class UserInfoClosed extends Component {
 					<Li userInfo>Count of polls: {this.props.data.polls.length}</Li>
 					<Li userInfo>You was registered: {this.props.data.registered}</Li>
 					<Li userInfo>
-						<MainButton onClick={this.back} userInfo type="button" value="back" />
+						<MainButton onClick={this.back} inline type="button" value="back" />
 					</Li>
 				</Ul>
 			</div>

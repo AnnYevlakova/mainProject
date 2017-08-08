@@ -183,18 +183,18 @@ export class UserList extends Component {
 					</Ul>
 					<div id="table" className="table" />
 					<Ul colorRow>
-						<Li usersCount>Users count: <span id="usersCount">{this.usersCount}</span></Li>
+						<Li count>Users count: <span id="usersCount">{this.usersCount}</span></Li>
 						<Li nav>
-							<button className="usersNavButton" id="doubleLeft" onClick={this.renderNewPage}>
+							<button className="navButton" id="doubleLeft" onClick={this.renderNewPage}>
 								<i className="fa fa-angle-double-left" aria-hidden="true" />
 							</button>
-							<button className="usersNavButton" id="left" onClick={this.renderNewPage}>
+							<button className="navButton" id="left" onClick={this.renderNewPage}>
 								<i className="fa fa-angle-left" aria-hidden="true" />
 							</button>
-							<button className="usersNavButton" id="right" onClick={this.renderNewPage}>
+							<button className="navButton" id="right" onClick={this.renderNewPage}>
 								<i className="fa fa-angle-right" aria-hidden="true" />
 							</button>
-							<button className="usersNavButton" id="doubleRight" onClick={this.renderNewPage}>
+							<button className="navButton" id="doubleRight" onClick={this.renderNewPage}>
 								<i className="fa fa-angle-double-right" aria-hidden="true" />
 							</button>
 						</Li>

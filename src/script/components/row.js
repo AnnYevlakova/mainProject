@@ -35,19 +35,19 @@ export const Li = styled.li`
 	justify-content: ${props => (props.nav ? 'flex-end' : 'center')};
   text-align: ${props => (props.userInfo ? 'left' : 'center')};
   &:first-child {
-    cursor: ${props => (props.userInfo ? 'default' : props.usersCount ? 'default' : props.non ? 'default' : 'pointer')};
-	  width: ${props => (props.usersCount ? '70%' : props.userInfo ? '100%' : '42%')};
+    cursor: ${props => (props.userInfo ? 'default' : props.count ? 'default' : props.non ? 'default' : 'pointer')};
+	  width: ${props => (props.count ? '70%' : props.userInfo ? '100%' : '42%')};
 	  overflow: ${props => (props.userInfo ? 'visible' : 'hidden')}; 
 	  text-overflow: ellipsis;
 	  text-align: left;
 	  &:hover {
 	    color: ${props => (props.userInfo ? 'inherit' :
-			props.usersCount ? 'inherit' : props.non ? 'inherit' : accentColor)};
+			props.count ? 'inherit' : props.non ? 'inherit' : accentColor)};
 	  }
 	}
 	@media (max-width: 600px) {
 	&:first-child {
-	  width: ${props => (props.usersCount ? '70%' : props.userInfo ? '100%' : '20%')};
+	  width: ${props => (props.count ? '70%' : props.userInfo ? '100%' : '20%')};
 	 }
 		width: ${props => (props.nav ? '30%' : props.userInfo ? '100%' : '20%')};
 	}
