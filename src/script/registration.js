@@ -74,7 +74,7 @@ class Registration extends Component {
 						name: userName,
 						email,
 						status: 'user',
-						polls: 0,
+						polls: [],
 						password: this.checkPassword(),
 					});
 				this.props.history.push('/');

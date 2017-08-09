@@ -19,7 +19,7 @@ class QRating extends Component {
 	}
 	render() {
 		return (
-			<MyDiv id={this.props.number}>
+			<MyDiv id={this.props.number} data-type="QRating">
 				<header>
 					<span>{this.props.number}. <i className="fa fa-star-o" aria-hidden="true" /></span>
 					<MyTextArea placeholder="Question" />
@@ -30,7 +30,7 @@ class QRating extends Component {
 						Required
 					</Label>
 					<Btn poll type="button" id="saveBtnForQRating" onClick={this.props.save}>save</Btn>
-					<Btn poll type="button">delete</Btn>
+					<Btn poll type="button" onClick={this.props.delete}>delete</Btn>
 				</footer>
 			</MyDiv>
 		);

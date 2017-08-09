@@ -19,7 +19,7 @@ class QScale extends Component {
 	}
 	render() {
 		return (
-			<MyDiv id={this.props.number}>
+			<MyDiv id={this.props.number} data-type="QScale">
 				<header>
 					<span>{this.props.number}. <i className="fa fa-battery-half" aria-hidden="true" /></span>
 					<MyTextArea placeholder="Question" />
@@ -32,7 +32,7 @@ class QScale extends Component {
 						Required
 					</Label>
 					<Btn poll type="button" id="saveBtnForQScale" onClick={this.props.save}>save</Btn>
-					<Btn poll type="button">delete</Btn>
+					<Btn poll type="button" onClick={this.props.delete}>delete</Btn>
 				</footer>
 			</MyDiv>
 		);

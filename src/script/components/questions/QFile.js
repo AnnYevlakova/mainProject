@@ -19,7 +19,7 @@ class QFile extends Component {
 	}
 	render() {
 		return (
-			<MyDiv id={this.props.number}>
+			<MyDiv id={this.props.number} data-type="QFile">
 				<header>
 					<span>{this.props.number}. <i className="fa fa-file" aria-hidden="true" /></span>
 					<MyTextArea placeholder="Question" />
@@ -29,8 +29,8 @@ class QFile extends Component {
 						<MyField data-id='requiredField' checkbox onChange={this.isRequired} type="checkbox"/>
 						Required
 					</Label>
-					<Btn poll type="button" id="saveBtnForQFile" onClick={this.props.save}>save</Btn>
-					<Btn poll type="button">delete</Btn>
+					<Btn poll type="button" onClick={this.props.save}>save</Btn>
+					<Btn poll type="button" onClick={this.props.delete}>delete</Btn>
 				</footer>
 			</MyDiv>
 		);

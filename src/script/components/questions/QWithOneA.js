@@ -19,26 +19,26 @@ class QWithOneA extends Component {
 	}
 	render() {
 		return (
-			<MyDiv id={this.props.number}>
+			<MyDiv id={this.props.number} data-type="QWithOneA">
 				<header>
 					<span>{this.props.number}. <i className="fa fa-list" aria-hidden="true" /></span>
-					<MyTextArea placeholder="Question" />
+					<MyTextArea data-type="question" placeholder="Question" />
 				</header>
 				<ul>
 					<li>
-						<Label className="label"><MyField poll type="text" placeholder="answer1"/></Label>
+						<Label className="label"><MyField poll data-type="answer" type="text" placeholder="answer1"/></Label>
 					</li>
 					<li>
-						<Label className="label"><MyField poll type="text" placeholder="answer2"/></Label>
+						<Label className="label"><MyField poll data-type="answer" type="text" placeholder="answer2"/></Label>
 					</li>
 					<li>
-						<Label className="label"><MyField poll type="text" placeholder="answer3"/></Label>
+						<Label className="label"><MyField poll data-type="answer" type="text" placeholder="answer3"/></Label>
 					</li>
 					<li>
-						<Label className="label"><MyField poll type="text" placeholder="answer4"/></Label>
+						<Label className="label"><MyField poll data-type="answer" type="text" placeholder="answer4"/></Label>
 					</li>
 					<li>
-						<Label className="label"><MyField poll type="text" placeholder="answer5"/></Label>
+						<Label className="label"><MyField poll data-type="answer" type="text" placeholder="answer5"/></Label>
 					</li>
 				</ul>
 				<footer>
@@ -47,7 +47,7 @@ class QWithOneA extends Component {
 						Required
 					</Label>
 					<Btn poll type="button" id="saveBtnForQWithOneA" onClick={this.props.save}>save</Btn>
-					<Btn poll type="button">delete</Btn>
+					<Btn poll type="button" onClick={this.props.delete}>delete</Btn>
 				</footer>
 			</MyDiv>
 		);
