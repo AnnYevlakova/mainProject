@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 import MainButton from './components/mainButton';
 import Caption from './components/caption';
 import store from './store';
@@ -11,6 +11,11 @@ import Label from './components/label';
 import EmptyTempl from './components/emptyTempl';
 import QWithOneA from './components/questions/QWithOneA';
 import QWithSeveralA from './components/questions/QWithSeveralA';
+import QText from './components/questions/QText';
+import QFile from './components/questions/QFile';
+import QRating from './components/questions/QRating';
+import QScale from './components/questions/QScale';
+import Btn from './components/btn';
 
 import { MenuDropdown } from './components/menuDropdown';
 import MainContainer from './components/mainContainer';
@@ -20,18 +25,46 @@ class NewPoll extends Component {
 	constructor(props) {
 		super(props);
 		this.questions = [];
+		this.questionsData = [];
 		this.polls = store.getState().userPolls;
 		this.questionsCount = 0;
-		this.required = false;
+		this.required = true;
 		this.directTo = (event) => {
 			const direct = event.target.id;
 			this.props.history.push(`/${direct}`);
 		};
+		this.addQ = (event) => {
+			const target = event.target;
+			this.questionsCount ++;
+			this.questions.push(target.id);
+			const questions = this.questions;
+			ReactDOM.render(
+				<div>
+					{questions.map((item, i) => {
+						if (item === 'QWithOneA') return <QWithOneA required={this.required} number={i + 1} save={this.saveQ}/>;
+						if (item === 'QWithSeveralA') return <QWithSeveralA required={this.required} number={i + 1} save={this.saveQ}/>;
+						if (item === 'QText') return <QText required={this.required} number={i + 1} save={this.saveQ}/>;
+						if (item === 'QFile') return <QFile required={this.required} number={i + 1} save={this.saveQ}/>;
+						if (item === 'QRating') return <QRating required={this.required} number={i + 1} save={this.saveQ}/>;
+						if (item === 'QScale') return <QScale required={this.required} number={i + 1} save={this.saveQ}/>;
+					})}
+				</div>,
+				document.getElementById('pollsContainer'),
+			);
+		};
+		this.saveQ = (event) => {
+			const btn = event.target;
+			const Qdata = {};
+		};
 		this.isRequired = (event) => {
-			if (event.target.value === 'on') {
+			let fieldsArray = Array.from(document.querySelectorAll('input[data-id="requiredField"]'));
+			fieldsArray = fieldsArray.map(item => item.closest('label'));
+			if (event.target.checked === true) {
 				this.required = true;
+				fieldsArray.forEach(item => item.classList.remove('hidden'));
 			} else {
 				this.required = false;
+				fieldsArray.forEach(item => item.classList.add('hidden'));
 			}
 		};
 	}
@@ -71,27 +104,37 @@ class NewPoll extends Component {
 							<MainButton id="save" onClick={this.save} inline type="button" value="Save"/>
 							<MainButton id="saveAsTempl" onClick={this.saveAsTemplate} inline type="button" value="Save as Template"/>
 							<MainButton id="cancel" onClick={this.cancel} type="button" inline value="Cancel"/>
-							<Div pollContainer>
-								<QWithOneA required={this.required} number={this.questionsCount + 1}/>
-								<QWithSeveralA required={this.required} number={this.questionsCount + 1}/>
+							<Div pollContainer id="pollsContainer">
 								<EmptyTempl/>
 							</Div>
 						</Div>
 						<Div item2>
 							<section className="block">
 								<Caption>Question Type</Caption>
-								<p><i className="fa fa-list" aria-hidden="true" /> Question with one answer</p>
-								<p><i className="fa fa-list-ol" aria-hidden="true" /> Question with several answers</p>
-								<p><i className="fa fa-font" aria-hidden="true" /> Text</p>
-								<p><i className="fa fa-file" aria-hidden="true" /> File</p>
-								<p><i className="fa fa-star-o" aria-hidden="true" /> Rating</p>
-								<p><i className="fa fa-battery-half" aria-hidden="true" /> Scale</p>
+								<Btn block onClick={this.addQ} id="QWithOneA">
+									<i className="fa fa-list" aria-hidden="true" />
+									Question with one answer</Btn>
+								<Btn block onClick={this.addQ} id="QWithSeveralA">
+									<i className="fa fa-list-ol" aria-hidden="true" />
+									Question with several answers</Btn>
+								<Btn block onClick={this.addQ} id="QText">
+									<i className="fa fa-font" aria-hidden="true" />
+									Text</Btn>
+								<Btn block onClick={this.addQ} id="QFile">
+									<i className="fa fa-file" aria-hidden="true" />
+									File</Btn>
+								<Btn block onClick={this.addQ} id="QRating">
+									<i className="fa fa-star-o" aria-hidden="true" />
+									Rating</Btn>
+								<Btn block onClick={this.addQ} id="QScale">
+									<i className="fa fa-battery-half" aria-hidden="true" />
+									Scale</Btn>
 							</section>
 							<section className="block">
 								<Caption>Poll Options</Caption>
-								<Label><MyField onChange={this.isRequired} checkbox type="checkbox"/> Anonymous poll</Label>
-								<Label><MyField checked checkbox type="checkbox"/> Mark required fields</Label>
-								<Label><MyField checkbox type="checkbox"/> Process bar</Label>
+								<Label block><MyField onChange={this.isRequired} block type="checkbox"/> Anonymous poll</Label>
+								<Label block><MyField onChange={this.isRequired} block type="checkbox"/> Mark required fields</Label>
+								<Label block><MyField block type="checkbox"/> Process bar</Label>
 							</section>
 						</Div>
 					</Div>

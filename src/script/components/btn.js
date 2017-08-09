@@ -5,14 +5,15 @@ const lightColor = '#e3e3e3';
 const darkColor = '#333333';
 
 export default styled.button`
-	width: ${props => (props.poll ? 'auto' : '20px')};
+	width: ${props => (props.poll ? 'auto' : props.block ? '100%' : '20px')};
   height: 30px;
   padding: ${props => (props.poll ? '5px' : '0')};
-  margin-left: 10px;
+  margin-left: ${props => (props.block ? '0' : '10px')};
   border: ${props => (props.poll ? `1px solid ${lightColor}` : 'none')};
   background-color: transparent;
-  font-size: ${props => (props.poll ? '1.4rem' : '2.4rem')};
+  font-size: ${props => (props.poll || props.block ? '1.4rem' : '2.4rem')};
   color: ${darkColor};
+  text-align: ${props => (props.block ? 'left' : 'center')};
   outline: none;
   cursor: pointer;
   &:hover{

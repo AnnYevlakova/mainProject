@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
 export default styled.label`
-	display: block;
+	display: ${props => (props.block ? 'block' : 'inline')};
+	font-size: 1.4rem;
 `;
