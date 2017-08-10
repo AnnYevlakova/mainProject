@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import { Login } from './script/login';
+import ReactDOM from 'react-dom';
+
+import Login from './script/login';
 import Main from './script/main';
 import NewPoll from './script/newPoll';
 import MyPolls from './script/myPolls';

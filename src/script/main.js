@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { IndexRoute } from 'react-router';
-import MainButton from './components/mainButton';
-import Nav from './components/nav';
-import { MenuDropdown } from './components/menuDropdown';
-import Link from './components/link';
-import { MainBox } from './mainBox';
-import MainContainer from './components/mainContainer';
+
+import MainButton from './commonComponents/mainButton';
+import Navigation from './commonComponents/navigation';
+import MenuDropdown from './commonComponents/menuDropdown';
+import DefaultLink from './commonComponents/defaultLink';
+
+import MainBox from './componentsForMain/mainBox';
+import MainContainer from './commonComponents/mainContainer';
+
 import img from 'file-loader!../img/logo.png';
 
 const UserBox = styled.div`
@@ -26,6 +28,7 @@ const MainDiv = styled.main`
 				max-width: 100%;
 		}
 `;
+
 class Main extends Component {
 	constructor(props) {
 		super(props);
@@ -41,19 +44,19 @@ class Main extends Component {
 				<header className="header">
 					<img className="logo" src={img} alt=""/>
 					<nav className="headerNav">
-						<Link header className="link" href="https://www.itechart.com/" target="_blank">about us</Link>
+						<DefaultLink header className="link" href="https://www.itechart.com/" target="_blank">about us</DefaultLink>
 						<MenuDropdown/>
 					</nav>
 				</header>
 				<MainContainer user>
 					<UserBox>
-						<Nav>
+						<Navigation>
 							<MainButton id="main" onClick={this.directTo} nav type="button" value="Main"/>
 							<MainButton id="newPoll" onClick={this.directTo} nav type="button" value="New poll"/>
 							<MainButton id="myPolls" onClick={this.directTo} nav type="button" value="My polls"/>
 							<MainButton id="pollTemplates" onClick={this.directTo} nav type="button" value="Poll templates"/>
 							<MainButton id="users" onClick={this.directTo} nav type="button" value="Users"/>
-						</Nav>
+						</Navigation>
 						<MainDiv>
 							<MainBox/>
 						</MainDiv>
@@ -64,4 +67,3 @@ class Main extends Component {
 	}
 }
 export default Main;
-

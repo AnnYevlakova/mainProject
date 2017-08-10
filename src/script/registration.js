@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import store from './store';
-import MainButton from './components/mainButton';
-import MyField from './components/myField';
-import Caption from './components/caption';
-import Link from './components/link';
-import MyLink from './components/myLink';
-import MainContainer from './components/mainContainer';
-import { LoginBox } from './login';
+
 import img from 'file-loader!../img/logo.png';
+import store from './logic/store';
+
+import MainButton from './commonComponents/mainButton';
+import DefaultField from './commonComponents/defaultField';
+import Caption from './commonComponents/caption';
+import RouterLink from './commonComponents/routerLink';
+import DefaultLink from './commonComponents/defaultLink';
+import MainContainer from './commonComponents/mainContainer';
+import { LoginBox } from './login';
 
 const RegistrationBox = LoginBox;
 
 class Registration extends Component {
 	constructor(props) {
 		super(props);
+
 		this.onFocus = (event) => {
 			event.target.classList.remove('wrong');
-		}
+		};
+
 		this.checkPassword = () => {
 			const pas1 = document.getElementById('pas1').value;
 			const pas2 = document.getElementById('pas2').value;
@@ -65,6 +69,7 @@ class Registration extends Component {
 					this.addWarning('Enter your Username.');
 					document.getElementById('userName').classList.add('wrong');
 				}
+
 				return;
 			} else {
 				axios.post('https://5981a9d2139db000114a2d9c.mockapi.io/users/',
@@ -82,16 +87,17 @@ class Registration extends Component {
 		};
 
 		this.addWarning = (text) => {
+			const warningBox = document.createElement('div');
+
 			if (document.getElementsByClassName('warning')[0]) {
 				document.getElementsByClassName('warning')[0].remove();
 			}
-			const warningBox = document.createElement('div');
-
 			warningBox.classList.add('warning');
 			warningBox.innerHTML = text;
 			document.getElementById('registrationBox').insertBefore(warningBox, document.getElementById('registryCaption'));
 		};
 	}
+
 	componentDidMount() {
 		axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
 			.then((data) => {
@@ -101,28 +107,30 @@ class Registration extends Component {
 				});
 			});
 	}
+
 	componentWillMount() {
 		if (localStorage.getItem('lp')) {
 			this.props.history.push('/main');
 		}
 	}
+
 	render() {
 		return (
 			<div className="box">
 				<header className="header">
 					<img className="logo" src={img} alt="" />
 					<nav className="headerNav">
-						<Link header className="link" href="https://www.itechart.com/" target="_blank">about us</Link>
-						<MyLink onClick={this.onClick} header to="/">log in</MyLink>
+						<DefaultLink header className="link" href="https://www.itechart.com/" target="_blank">about us</DefaultLink>
+						<RouterLink onClick={this.onClick} header to="/">log in</RouterLink>
 					</nav>
 				</header>
 				<MainContainer>
 					<RegistrationBox id="registrationBox">
 						<Caption id="registryCaption">Registration</Caption>
-						<MyField onFocus={this.onFocus} id="userName" type="text" placeholder="Username" />
-						<MyField onFocus={this.onFocus} id="email" type="text" placeholder="Email address" />
-						<MyField onFocus={this.onFocus} id="pas1" type="password" placeholder="Password" />
-						<MyField onFocus={this.onFocus} id="pas2" type="password" placeholder="Repeat password" />
+						<DefaultField onFocus={this.onFocus} id="userName" type="text" placeholder="Username" />
+						<DefaultField onFocus={this.onFocus} id="email" type="text" placeholder="Email address" />
+						<DefaultField onFocus={this.onFocus} id="pas1" type="password" placeholder="Password" />
+						<DefaultField onFocus={this.onFocus} id="pas2" type="password" placeholder="Repeat password" />
 						<MainButton onClick={this.onRegistered} id="registration" type="button" value="create an account" />
 					</RegistrationBox>
 				</MainContainer>

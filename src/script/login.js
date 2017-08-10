@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import store from './store';
-import Caption from './components/caption';
-import MainButton from './components/mainButton';
-import MyLink from './components/myLink';
-import Link from './components/link';
-import MyField from './components/myField';
-import MainContainer from './components/mainContainer';
+import store from './logic/store';
+
+import Caption from './commonComponents/caption';
+import MainButton from './commonComponents/mainButton';
+import DefaultLink from './commonComponents/defaultLink';
+import RouterLink from './commonComponents/routerlink';
+import DefaultField from './commonComponents/defaultField';
+import MainContainer from './commonComponents/mainContainer';
+
 import img from 'file-loader!../img/logo.png';
 
 export const LoginBox = styled.form`
@@ -38,7 +40,8 @@ const RegistryFields = styled.ul`
 	padding: 0;
 	list-style: none;
 `;
-export class Login extends Component {
+
+class Login extends Component {
 	constructor(props) {
 		super(props);
 
@@ -48,6 +51,7 @@ export class Login extends Component {
 			const userName = document.getElementById('loginUserName').value;
 			const password = document.getElementById('loginPassword').value;
 			let id = null;
+
 			if (userName || password) {
 				this.addWarning();
 			}
@@ -61,6 +65,7 @@ export class Login extends Component {
 						type: 'addUsers',
 						users: usersData.data,
 					});
+
 					return store;
 				}).then((storeObj) => {
 					axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/polls')
@@ -73,6 +78,7 @@ export class Login extends Component {
 									id = item.id;
 									return true;
 								}
+
 								return false;
 							})) {
 								store.dispatch({
@@ -80,44 +86,49 @@ export class Login extends Component {
 									id,
 								});
 								this.props.history.push('/main');
-							} else this.addWarning();
+							} else {
+								this.addWarning();
+							}
 						});
 				});
 		};
 
 		this.addWarning = () => {
+			const warningBox = document.createElement('div');
+
 			if (document.getElementsByClassName('warning')[0]) {
 				return;
 			}
-			const warningBox = document.createElement('div');
 			warningBox.classList.add('warning');
 			warningBox.innerHTML = 'Incorrect username or password.';
 			document.getElementById('loginBox').insertBefore(warningBox, document.getElementById('loginCaption'));
 		};
 	}
+
 	componentWillMount() {
 		if (localStorage.getItem('id')) {
 			this.props.history.push('/main');
 		}
 	}
+
 	render() {
 		return (
 			<div className="box">
 				<header className="header">
 					<img className="logo" src={img} alt="" />
-					<nav className="headerNav" status={this.props.status}>
-						<Link header className="link" href="https://www.itechart.com/" target="_blank">about us</Link>
-						<MyLink login onClick={this.onClick} header to="/">log in</MyLink>
+					<nav className="headerNav">
+						<DefaultLink header className="link" href="https://www.itechart.com/" target="_blank">about us</DefaultLink>
+						<RouterLink login onClick={this.onClick} header to="/">log in</RouterLink>
 					</nav>
 				</header>
 				<MainContainer>
 					<LoginBox id="loginBox" method="post" action="">
 						<Caption id="loginCaption">Sign in</Caption>
-						<MyField id="loginUserName" type="text" placeholder="Login" />
-						<MyField id="loginPassword" type="password" />
+						<DefaultField id="loginUserName" type="text" placeholder="Login" />
+						<DefaultField id="loginPassword" type="password" />
 						<RegistryFields>
-							<li><MyLink login to='/registration'>Create an account</MyLink></li>
-							<li><MyLink login to='/login/identify'>Forgot password?</MyLink></li>
+							<li><RouterLink login to='/registration'>Create an account</RouterLink></li>
+							<li><RouterLink login to='/login/identify'>Forgot password?</RouterLink></li>
 						</RegistryFields>
 						<MainButton onClick={this.onLogin} id="login" type="submit" value="sign in"/>
 					</LoginBox>
@@ -126,4 +137,4 @@ export class Login extends Component {
 		);
 	}
 }
-
+export default Login;
