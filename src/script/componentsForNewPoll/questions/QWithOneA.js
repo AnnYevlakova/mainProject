@@ -4,12 +4,13 @@ import DefaultField from '../../commonComponents/defaultField';
 import Btn from '../../commonComponents/btn';
 import QuestionBox from '../questionBox';
 import InputContainer from '../../commonComponents/inputContainer';
-import TextareaField from '../../commonComponents/textareaField';
+import QFooter from '../questionFooter';
 
 class QWithOneA extends Component {
 	constructor(props) {
 		super(props);
 		this.required = true;
+		this.answers = [];
 
 		this.isRequired = (event) => {
 			if (event.target.value === 'on') {
@@ -18,50 +19,43 @@ class QWithOneA extends Component {
 				this.required = false;
 			}
 		};
+		this.setAnswer = (event) => {
+			const index = event.target.id;
+
+			this.answers.forEach((item, i) => {
+				if (i == index) {
+					item.checked = true;
+				} else {
+					item.checked = false;
+				}
+			});
+		};
 	}
 
+	componentDidMount() {
+		this.answers = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+	}
 	render() {
+		const data = this.props.data || { question: '', answers: ['', '', '', '', ''] };
 		return (
-			<QuestionBox  id={this.props.number} data-type="QWithOneA">
+			<QuestionBox id={this.props.number} data-type="QWithOneA">
 				<header>
-					<span>{this.props.number}. <i className="fa fa-list" aria-hidden="true" /></span>
-					<TextareaField data-type="question" placeholder="Question" />
+					<span>{this.props.number}.</span>
+					<span id="requiredMark">{this.props.required ? '*' : ''}</span>
+					<p>{data.question}</p>
 				</header>
 				<ul>
-					<li>
-						<InputContainer className="label">
-							<DefaultField poll data-type="answer" type="text" placeholder="answer1"/>
-						</InputContainer>
-					</li>
-					<li>
-						<InputContainer className="label">
-							<DefaultField poll data-type="answer" type="text" placeholder="answer2"/>
-						</InputContainer>
-					</li>
-					<li>
-						<InputContainer className="label">
-							<DefaultField poll data-type="answer" type="text" placeholder="answer3"/>
-						</InputContainer>
-					</li>
-					<li>
-						<InputContainer className="label">
-							<DefaultField poll data-type="answer" type="text" placeholder="answer4"/>
-						</InputContainer>
-					</li>
-					<li>
-						<InputContainer className="label">
-							<DefaultField poll data-type="answer" type="text" placeholder="answer5"/>
-						</InputContainer>
-					</li>
+					{data.answers.map((item, i) => {
+						return <InputContainer block key={i}>
+							<DefaultField id={i} onChange={this.setAnswer} checkbox type="checkbox"/>
+							{item}
+						</InputContainer>;
+					})}
 				</ul>
-				<footer>
-					<InputContainer className={this.props.required ? '' : 'hidden'}>
-						<DefaultField data-id='requiredField' checkbox onChange={this.isRequired} type="checkbox"/>
-						Required
-					</InputContainer>
-					<Btn poll type="button" id="saveBtnForQWithOneA" onClick={this.props.save}>save</Btn>
-					<Btn poll type="button" onClick={this.props.delete}>delete</Btn>
-				</footer>
+				<QFooter>
+					<Btn poll onClick={this.props.edit}>edit</Btn>
+					<Btn poll onClick={this.props.delete}>delete</Btn>
+				</QFooter>
 			</QuestionBox >
 		);
 	}

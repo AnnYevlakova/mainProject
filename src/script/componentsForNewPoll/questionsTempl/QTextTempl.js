@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
-
+import DefaultField from '../../commonComponents/defaultField';
 import Btn from '../../commonComponents/btn';
 import QuestionBox from '../questionBox';
-import QFooter from '../questionFooter';
+import InputContainer from '../../commonComponents/inputContainer';
 import TextareaField from '../../commonComponents/textareaField';
+import QFooter from '../questionFooter';
 
 class QText extends Component {
 	constructor(props) {
@@ -23,15 +24,17 @@ class QText extends Component {
 	render() {
 		const data = this.props.data || { question: '' };
 		return (
-			<QuestionBox  id={this.props.number} data-type="QText">
+			<QuestionBox  id={this.props.number} data-type="QTextTempl">
 				<header>
-					<span>{this.props.number}.</span>
-					<span id="requiredMark">{this.props.required ? '*' : ''}</span>
-					<p>{data.question}</p>
+					<span>{this.props.number}. <i className="fa fa-font" aria-hidden="true" /></span>
+					<TextareaField data-type="question" placeholder={data.question || 'Question'} />
 				</header>
-				<TextareaField placeholder="Enter your answer"/>
 				<QFooter>
-					<Btn poll onClick={this.props.edit}>edit</Btn>
+					<InputContainer className={this.props.required ? '' : 'hidden'}>
+						<DefaultField data-id='requiredField' checkbox onChange={this.isRequired} type="checkbox"/>
+						Required
+					</InputContainer>
+					<Btn poll onClick={this.props.save}>save</Btn>
 					<Btn poll onClick={this.props.delete}>delete</Btn>
 				</QFooter>
 			</QuestionBox >

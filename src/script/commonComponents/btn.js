@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { accentColor, lightColor, darkColor } from '../../style/colors';
 
 export default styled.button`
+	position: ${props => (props.clone ? 'absolute' : 'relative')};
+	top: ${props => (props.clone ? '45%' : '0')};
+	left: ${props => (props.clone ? '0' : '0')};
+	z-index: ${props => (props.clone ? '5' : '0')};
 	width: ${props => (props.poll ? 'auto' : props.block ? '100%' : '20px')};
   height: 30px;
   padding: ${props => (props.poll ? '5px' : '0')};

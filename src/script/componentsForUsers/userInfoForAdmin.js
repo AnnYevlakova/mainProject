@@ -47,7 +47,7 @@ class UserInfoForAdmin extends Component {
 					<Col userInfo>You was registered: {this.props.data.registered}</Col>
 					<Col userInfo>
 						<MainButton onClick={this.back} inline type="button" value="back" />
-						<MainButton onClick={this.saveUserData} inline type="button" value="save" />
+						<MainButton onClick={this.props.save} inline type="button" value="save" />
 						<MainButton onClick={this.delete} inline type="button" value="delete" />
 					</Col>
 				</Row>

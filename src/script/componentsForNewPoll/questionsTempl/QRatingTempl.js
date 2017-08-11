@@ -4,9 +4,10 @@ import DefaultField from '../../commonComponents/defaultField';
 import Btn from '../../commonComponents/btn';
 import QuestionBox from '../questionBox';
 import InputContainer from '../../commonComponents/inputContainer';
+import TextareaField from '../../commonComponents/textareaField';
 import QFooter from '../questionFooter';
 
-class QWithSeveralA extends Component {
+class QRating extends Component {
 	constructor(props) {
 		super(props);
 		this.required = true;
@@ -21,28 +22,23 @@ class QWithSeveralA extends Component {
 	}
 
 	render() {
-		const data = this.props.data || { question: '', answers: ['', '', '', '', ''] };
+		const data = this.props.data || { question: '' };
 		return (
-			<QuestionBox id={this.props.number} data-type="QWithSeveralA">
+			<QuestionBox id={this.props.number} data-type="QRatingTempl">
 				<header>
-					<span>{this.props.number}.</span>
-					<span id="requiredMark">{this.props.required ? '*' : ''}</span>
-					<p>{data.question}</p>
+					<span>{this.props.number}. <i className="fa fa-star-o" aria-hidden="true" /></span>
+					<TextareaField data-type="question" placeholder={data.question || 'Question'} />
 				</header>
-				<ul>
-					{data.answers.map((item, i) => {
-						return <InputContainer block key={i}>
-							<DefaultField checkbox type="checkbox"/>
-							{item}
-						</InputContainer>;
-					})}
-				</ul>
 				<QFooter>
-					<Btn poll onClick={this.props.edit}>edit</Btn>
+					<InputContainer className={this.props.required ? '' : 'hidden'}>
+						<DefaultField data-id='requiredField' checkbox onChange={this.isRequired} type="checkbox"/>
+						Required
+					</InputContainer>
+					<Btn poll onClick={this.props.save}>save</Btn>
 					<Btn poll onClick={this.props.delete}>delete</Btn>
 				</QFooter>
 			</QuestionBox>
 		);
 	}
 }
-export default QWithSeveralA;
+export default QRating;

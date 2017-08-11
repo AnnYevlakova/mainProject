@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import DefaultField from '../../commonComponents/defaultField';
 import Btn from '../../commonComponents/btn';
 import QuestionBox from '../questionBox';
-import InputContainer from '../../commonComponents/inputContainer';
-import TextareaField from '../../commonComponents/textareaField';
+import Box from '../../commonComponents/container';
+import QFooter from '../questionFooter';
 
 class QFile extends Component {
 	constructor(props) {
@@ -18,23 +18,31 @@ class QFile extends Component {
 				this.required = false;
 			}
 		};
+
+		this.upload = (event) => {
+			const fileName = event.target.value;
+			document.getElementById('fileName').innerHTML = fileName;
+		};
 	}
 
 	render() {
+		const data = this.props.data || { question: '' };
 		return (
 			<QuestionBox id={this.props.number} data-type="QFile">
 				<header>
-					<span>{this.props.number}. <i className="fa fa-file" aria-hidden="true" /></span>
-					<TextareaField data-type="question" placeholder="Question" />
+					<span>{this.props.number}.</span>
+					<span id="requiredMark">{this.props.required ? '*' : ''}</span>
+					<p>{data.question}</p>
 				</header>
-				<footer>
-					<InputContainer className={this.props.required ? '' : 'hidden'}>
-						<DefaultField data-id='requiredField' checkbox onChange={this.isRequired} type="checkbox"/>
-						Required
-					</InputContainer>
-					<Btn poll type="button" onClick={this.props.save}>save</Btn>
-					<Btn poll type="button" onClick={this.props.delete}>delete</Btn>
-				</footer>
+				<Box clone>
+					<DefaultField onChange={this.upload} transparent type="file"/>
+					<span id="fileName" className="fileName" />
+				</Box>
+				<Btn poll clone>Choose file</Btn>
+				<QFooter>
+					<Btn poll onClick={this.props.edit}>edit</Btn>
+					<Btn poll onClick={this.props.delete}>delete</Btn>
+				</QFooter>
 			</QuestionBox>
 		);
 	}
