@@ -74,7 +74,7 @@ class Registration extends Component {
 			} else {
 				axios.post('https://5981a9d2139db000114a2d9c.mockapi.io/users/',
 					{
-						id: this.usersCount + 1,
+						id: store.getState().users.length + 1,
 						registered: date,
 						name: userName,
 						email,
@@ -98,18 +98,8 @@ class Registration extends Component {
 		};
 	}
 
-	componentDidMount() {
-		axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
-			.then((data) => {
-				store.dispatch({
-					type: 'addUsers',
-					users: data.data,
-				});
-			});
-	}
-
 	componentWillMount() {
-		if (localStorage.getItem('lp')) {
+		if (localStorage.getItem('user')) {
 			this.props.history.push('/main');
 		}
 	}

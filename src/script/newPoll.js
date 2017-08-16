@@ -36,7 +36,7 @@ class NewPoll extends Component {
 		super(props);
 		this.questions = [];
 		this.questionsData = [];
-		this.polls = store.getState().userPolls;
+		this.polls = store.getState().userPolls || JSON.parse(localStorage.getItem('userPolls'));
 		this.questionsCount = 0;
 		this.required = false;
 		this.processBar = false;
@@ -143,7 +143,6 @@ class NewPoll extends Component {
 			});
 			document.getElementById('pollsContainer').innerHTML = '';
 			this.renderQ(this.questions);
-			console.log(this.questionsData);
 		};
 
 		this.addQ = (event) => {
@@ -169,6 +168,7 @@ class NewPoll extends Component {
 				}
 				if (this.questionsData[target.id - 1]) {
 					const existingAnswers = this.questionsData[target.id - 1].answers;
+
 					answers = answers.filter((item, i) => {
 						if (item.value === '' && existingAnswers[i]) {
 							return item;
@@ -187,6 +187,7 @@ class NewPoll extends Component {
 					});
 					answers = answers.map(item => item.value);
 				}
+
 				qData = {
 					type: this.questionsData[target.id - 1] ? this.questionsData[target.id - 1].type : type,
 					number: this.questionsData[target.id - 1] ? this.questionsData[target.id - 1].number : target.id,
@@ -199,6 +200,7 @@ class NewPoll extends Component {
 				if (!target.querySelector('textarea').value) {
 					target.querySelector('textarea').classList.add('wrong');
 				}
+
 				qData = {
 					type: this.questionsData[target.id - 1] ? this.questionsData[target.id - 1].type : type,
 					number: this.questionsData[target.id - 1] ? this.questionsData[target.id - 1].number : target.id,
@@ -233,7 +235,6 @@ class NewPoll extends Component {
 			}
 			this.questionsData[target.id - 1] = qData;
 			this.renderQ(this.questions);
-			console.log(this.questionsData);
 		};
 
 		this.cancelPoll = () => {
@@ -244,44 +245,31 @@ class NewPoll extends Component {
 		};
 
 		this.savePoll = () => {
-			const today = new Date();
-			const data = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-			const id = JSON.parse(localStorage.getItem('polls')).length + 1;
-			const pollData = {
-				id,
-				name: document.getElementById('pollName').value || `Poll #${this.polls.length + 1}`,
-				changed: data,
-				answers: [],
-				link: 'link',
-				results: [],
-				pollData: this.questionsData,
-			};
-			axios.post('https://5981a9d2139db000114a2d9c.mockapi.io/polls/', pollData);
-
-			const userData = store.getState().user;
-			axios.put(`https://5981a9d2139db000114a2d9c.mockapi.io/users/${id}`, {
-				id: userData.id,
-				registered: userData.registered,
-				name: userData.name,
-				email: userData.email,
-				status: userData.status,
-				polls: userData.polls.push(id),
-				password: userData.password,
-			});
-		};
-	}
-
-	componentWillMount() {
-		if (!store.getState().userPolls) {
-			store.dispatch({
-				type: 'setData',
-				users: JSON.parse(localStorage.getItem('users')),
-				user: JSON.parse(localStorage.getItem('users'))[localStorage.getItem('id').split('-')[1]],
-				polls: JSON.parse(localStorage.getItem('polls')),
-			});
-		}
-		this.polls = store.getState().userPolls;
-	}
+		    const today = new Date();
+            const data = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+            const id = JSON.parse(localStorage.getItem('polls')).length + 1;
+            const userData = store.getState().user;
+            const pollData = {
+                id,
+                name: document.getElementById('pollName').value || `Poll #${this.polls.length + 1}`,
+                changed: data,
+                answers: [],
+                link: 'link',
+                results: [],
+                pollData: this.questionsData,
+            };
+            axios.post('https://5981a9d2139db000114a2d9c.mockapi.io/polls/', pollData);
+            axios.put(`https://5981a9d2139db000114a2d9c.mockapi.io/users/${userData.id}`, {
+                id: userData.id,
+                registered: userData.registered,
+                name: userData.name,
+                email: userData.email,
+                status: userData.status,
+                polls: [...userData.polls, id],
+                password: userData.password,
+            });
+        }
+	};
 
 	render() {
 		return (

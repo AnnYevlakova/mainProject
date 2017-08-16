@@ -148,14 +148,6 @@ export class PollsList extends Component {
 	}
 
 	componentWillMount() {
-		if (!store.getState().userPolls) {
-			store.dispatch({
-				type: 'setData',
-				users: JSON.parse(localStorage.getItem('users')),
-				user: JSON.parse(localStorage.getItem('users'))[localStorage.getItem('id').split('-')[1]],
-				polls: JSON.parse(localStorage.getItem('polls')),
-			});
-		}
 		this.polls = store.getState().userPolls;
 	}
 

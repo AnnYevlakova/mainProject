@@ -25,18 +25,7 @@ class MyPolls extends Component {
 	}
 
 	componentWillMount() {
-		if (!store.getState().userPolls) {
-			store.dispatch({
-				type: 'setData',
-				users: JSON.parse(localStorage.getItem('users')),
-				user: JSON.parse(localStorage.getItem('users'))[localStorage.getItem('id').split('-')[1]],
-				polls: JSON.parse(localStorage.getItem('polls')),
-			});
-		}
 		this.polls = store.getState().userPolls;
-	}
-	componentDidMount() {
-		axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/polls/', pollData);
 	}
 
 	render() {

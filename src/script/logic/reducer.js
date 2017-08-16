@@ -1,18 +1,32 @@
+import axios from 'axios';
+
 export default function (state = {}, action) {
 	switch (action.type) {
 	case 'setData':
+		if (!action.user) {
+			return {
+				login: state.login || false,
+				users: action.users,
+				user: action.user || [],
+				polls: action.polls,
+			};
+		}
+
 		let userPolls = [];
 		const pollsList = action.user.polls;
 		const polls = action.polls;
 
-		polls.forEach((poll) => {
-			pollsList.forEach((item) => {
-				if (poll.id == item) {
-					userPolls.push(poll);
-				}
-			});
-		});
-		localStorage.setItem('userPolls', JSON.stringify(userPolls));
+        polls.forEach((poll) => {
+            pollsList.forEach((item) => {
+                if (poll.id == item) {
+                    userPolls.push(poll);
+                }
+            });
+        });
+        localStorage.setItem('users', JSON.stringify(action.users));
+        localStorage.setItem('polls', JSON.stringify(action.polls));
+        localStorage.setItem('user', JSON.stringify(action.user));
+        localStorage.setItem('userPolls', JSON.stringify(userPolls));
 
 		return {
 			login: true,
@@ -22,26 +36,36 @@ export default function (state = {}, action) {
 			userPolls,
 		};
 
-	case 'login':
+        case 'getData':
+            return {
+                login: true,
+                users: JSON.parse(localStorage.getItem('users')),
+                user: JSON.parse(localStorage.getItem('user')) || '',
+                polls: JSON.parse(localStorage.getItem('polls')) || '',
+                userPolls: JSON.parse(localStorage.getItem('userPolls')) || '',
+            };
+
+        case 'login':
 		let userPos = null;
 
 		state.users.forEach((item, i) => {
-			if (item.id === action.id) {
+			if (item.id === action.user.id) {
 				userPos = i;
 			}
 		});
-		localStorage.setItem('id', `${action.id}-${userPos}`);
+        localStorage.setItem('pos', state.users[userPos]);
+        localStorage.setItem('user', JSON.stringify(action.user));
 
 		return {
 			login: true,
 			users: state.users,
-			user: state.users[userPos],
+			user: action.user,
 			polls: state.polls,
+            userPolls: state.userPolls || [],
 		};
 
-	case 'addUsers':
+	/*case 'addUsers':
 		localStorage.setItem('users', JSON.stringify(action.users));
-
 		return {
 			login: state.login || true,
 			users: action.users,
@@ -49,10 +73,10 @@ export default function (state = {}, action) {
 				JSON.parse(localStorage.getItem('users'))[localStorage.getItem('id').split('-')[1]] :
 				'',
 			polls: state.polls ? state.polls : '',
-		};
+		};*/
 
 	case 'showProfile':
-		const usersData = state.users || JSON.parse(localStorage.getItem('users'));
+		const usersData = state.users;
 		let pos = null;
 
 		usersData.forEach((item, i) => {
@@ -63,10 +87,11 @@ export default function (state = {}, action) {
 
 		return {
 			login: state.login || true,
-			user: state.user || JSON.parse(localStorage.getItem('users'))[pos],
-			users: state.users || JSON.parse(localStorage.getItem('users')),
+			user: state.user,
+			users: state.users,
 			showProf: action.target === 'my' ? action.target : pos,
 			polls: state.polls,
+            userPolls: state.userPolls || [],
 		};
 
 	case 'deleteUser':
@@ -91,10 +116,9 @@ export default function (state = {}, action) {
 		};
 
 	case 'addPolls':
-		localStorage.setItem('polls', JSON.stringify(action.polls));
-
+	    localStorage.setItem('polls', JSON.stringify(action.polls));
 		return {
-			user: state.user,
+			user: state.user || [],
 			users: state.users,
 			polls: action.polls,
 		};

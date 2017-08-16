@@ -55,42 +55,29 @@ class Login extends Component {
 			if (userName || password) {
 				this.addWarning();
 			}
-			axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/users')
-				.then((usersData) => {
-					usersData.data.sort((a, b) => {
-						if (a.name > b.name) return 1;
-						if (a.name < b.name) return -1;
-					});
-					store.dispatch({
-						type: 'addUsers',
-						users: usersData.data,
-					});
+			axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/polls')
+                .then((data) => {
+			        store.dispatch({ type: 'addPolls', polls: data.data });
+			    })
+                .then((data) => {
+			        let user = null;
 
-					return store;
-				}).then((storeObj) => {
-					axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/polls')
-						.then((data) => {
-							store.dispatch({ type: 'addPolls', polls: data.data });
-						})
-						.then((data) => {
-							if (storeObj.getState().users.some((item) => {
-								if (item.name === userName && item.password === password) {
-									id = item.id;
-									return true;
-								}
-
-								return false;
-							})) {
-								store.dispatch({
-									type: 'login',
-									id,
-								});
-								this.props.history.push('/main');
-							} else {
-								this.addWarning();
-							}
-						});
-				});
+                    if (store.getState().users.some((item) => {
+                        if (item.name === userName && item.password === password) {
+                            user = item;
+                            return true;
+                        }
+                        return false;
+                    })) {
+                        store.dispatch({
+                            type: 'login',
+                            user,
+                        });
+                        this.props.history.push('/main');
+                    } else {
+                        this.addWarning();
+                    }
+                });
 		};
 
 		this.addWarning = () => {
@@ -106,7 +93,7 @@ class Login extends Component {
 	}
 
 	componentWillMount() {
-		if (localStorage.getItem('id')) {
+		if (localStorage.getItem('user')) {
 			this.props.history.push('/main');
 		}
 	}
