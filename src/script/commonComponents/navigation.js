@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import React, { Component } from "react";
+import propTypes from "prop-types";
 
-export default styled.nav`
+import RouterLink from "./routerLink";
+
+const Nav = styled.nav`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -19,3 +23,32 @@ export default styled.nav`
 		padding: 5px 0;
   	}
 `;
+
+class Navigation extends Component {
+    constructor(props) {
+        super(props);
+
+        this.directTo = (event) => {
+            const direct = event.target.id;
+
+            this.props.history.push(`/${direct}`);
+        };
+    }
+
+    render() {
+        return (
+            <Nav>
+                <RouterLink nav to="/main">Main</RouterLink>
+                <RouterLink nav to="/newPoll">New poll</RouterLink >
+                <RouterLink nav to="/myPolls">My poll</RouterLink>
+                <RouterLink nav to="/pollTemplates">Poll templates</RouterLink>
+                <RouterLink nav to="/users">Users</RouterLink>
+            </Nav>
+        );
+    }
+}
+
+Navigation.propTypes = {
+    history: propTypes.object,
+};
+export default Navigation;

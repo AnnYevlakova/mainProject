@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { darkColor } from '../../style/colors';
+import { darkColor } from "../../style/colors";
 
 export default styled.textarea`
 	display: block;

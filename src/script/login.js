@@ -1,37 +1,22 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
-import store from './logic/store';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import propTypes from "prop-types";
 
-import Caption from './commonComponents/caption';
-import MainButton from './commonComponents/mainButton';
-import DefaultLink from './commonComponents/defaultLink';
-import RouterLink from './commonComponents/routerlink';
-import DefaultField from './commonComponents/defaultField';
-import MainContainer from './commonComponents/mainContainer';
+import loginValidation from "./logic/validation/loginValidation";
+import loginAction from "./logic/actions/loginAction";
 
-import img from 'file-loader!../img/logo.png';
+import Caption from "./commonComponents/caption";
+import MainButton from "./commonComponents/mainButton";
+import DefaultLink from "./commonComponents/defaultLink";
+import RouterLink from "./commonComponents/routerlink";
+import MainContainer from "./commonComponents/mainContainer";
+import TextFieldGroup from "./commonComponents/textFieldGroup";
+import DefaultForm from "./commonComponents/defaultForm";
 
-export const LoginBox = styled.form`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: stretch;
-	width: 50%;
-	max-width: 450px;
-	height: auto;
-	padding: 20px 30px;
-	margin-top: 10%;
-	border: 1px solid #e3e3e3;
-	background-color: #ffffff;
-	@media (max-width: 600px) {
-		width: 90%;
-		max-width: 90%;
-		padding: 5px;
-		font-size: 1.6rem;
-		margin: 10% auto 0 auto;
-	}
-`;
+import img from "file-loader!../img/logo.png";
+
+
 const RegistryFields = styled.ul`
 	display: flex;
 	flex-wrap: wrap;
@@ -42,86 +27,112 @@ const RegistryFields = styled.ul`
 `;
 
 class Login extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
+        this.state = {
+            login: "",
+            password: "",
+            errors: {}
+        };
 
-		this.onLogin = (event) => {
-			event.preventDefault();
+        this.onChange = (event) => {
+            this.setState({ [event.target.name]: event.target.value });
+        };
 
-			const userName = document.getElementById('loginUserName').value;
-			const password = document.getElementById('loginPassword').value;
-			let id = null;
+        this.isValid = () => {
+            const { errors } = loginValidation(this.state);
 
-			if (userName || password) {
-				this.addWarning();
-			}
-			axios.get('https://5981a9d2139db000114a2d9c.mockapi.io/polls')
-                .then((data) => {
-			        store.dispatch({ type: 'addPolls', polls: data.data });
-			    })
-                .then((data) => {
-			        let user = null;
+            if (Object.keys(errors).length !== 0) {
+                this.setState({ errors });
+            }
 
-                    if (store.getState().users.some((item) => {
-                        if (item.name === userName && item.password === password) {
-                            user = item;
-                            return true;
-                        }
-                        return false;
-                    })) {
-                        store.dispatch({
-                            type: 'login',
-                            user,
-                        });
-                        this.props.history.push('/main');
+            return Object.keys(errors).length === 0;
+        };
+
+        this.onLogin = (event) => {
+            event.preventDefault();
+
+            if (this.isValid()) {
+                this.props.loginAction(this.state).then((data) => {
+                    if (data) {
+                        this.setState({ errors: data.errors });
                     } else {
-                        this.addWarning();
+                        this.props.history.push("/main");
                     }
                 });
-		};
+            }
+        };
+    }
 
-		this.addWarning = () => {
-			const warningBox = document.createElement('div');
+    componentWillMount() {
+        if (localStorage.jwtToken) {
+            this.props.history.push("/main");
+        }
+    }
 
-			if (document.getElementsByClassName('warning')[0]) {
-				return;
-			}
-			warningBox.classList.add('warning');
-			warningBox.innerHTML = 'Incorrect username or password.';
-			document.getElementById('loginBox').insertBefore(warningBox, document.getElementById('loginCaption'));
-		};
-	}
-
-	componentWillMount() {
-		if (localStorage.getItem('user')) {
-			this.props.history.push('/main');
-		}
-	}
-
-	render() {
-		return (
-			<div className="box">
-				<header className="header">
-					<img className="logo" src={img} alt="" />
-					<nav className="headerNav">
-						<DefaultLink header className="link" href="https://www.itechart.com/" target="_blank">about us</DefaultLink>
-						<RouterLink login onClick={this.onClick} header to="/">log in</RouterLink>
-					</nav>
-				</header>
-				<MainContainer>
-					<LoginBox id="loginBox" method="post" action="">
-						<Caption id="loginCaption">Sign in</Caption>
-						<DefaultField id="loginUserName" type="text" placeholder="Login" />
-						<DefaultField id="loginPassword" type="password" />
-						<RegistryFields>
-							<li><RouterLink login to='/registration'>Create an account</RouterLink></li>
-							<li><RouterLink login to='/login/identify'>Forgot password?</RouterLink></li>
-						</RegistryFields>
-						<MainButton onClick={this.onLogin} id="login" type="submit" value="sign in"/>
-					</LoginBox>
-				</MainContainer>
-			</div>
-		);
-	}
+    render() {
+        return (
+            <div className="box">
+                <header className="header">
+                    <img className="logo" src={img} alt="" />
+                    <nav className="headerNav">
+                        <DefaultLink header className="link" href="https://www.itechart.com/" target="_blank">about us</DefaultLink>
+                        <RouterLink login onClick={this.onClick} header to="/">log in</RouterLink>
+                    </nav>
+                </header>
+                <MainContainer>
+                    <DefaultForm id="loginBox" method="post" action="">
+                        {this.props.message
+                            ? <span className="flashMessage">{this.props.message}</span>
+                            : ""
+                        }
+                        {Object.keys(this.state.errors)[0]
+                            ? <span className="warning">{this.state.errors[Object.keys(this.state.errors)[0]]}</span>
+                            : ""
+                        }
+                        <Caption id="loginCaption">Sign in</Caption>
+                        <TextFieldGroup
+                            field="login"
+                            label="Login"
+                            value={this.state.login}
+                            errors={this.state.errors.login}
+                            onChange={this.onChange}
+                            type="text"
+                        />
+                        <TextFieldGroup
+                            field="password"
+                            label="Password"
+                            value={this.state.password}
+                            errors={this.state.errors.password}
+                            onChange={this.onChange}
+                            type="password"
+                        />
+                        <RegistryFields>
+                            <li><RouterLink login to="/registration">Create an account</RouterLink></li>
+                            <li><RouterLink login to="/passwordReset">Forgot password?</RouterLink></li>
+                        </RegistryFields>
+                        <MainButton
+                            type="submit"
+                            onClick={this.onLogin}
+                            id="login"
+                            value="sign in" />
+                    </DefaultForm>
+                </MainContainer>
+            </div>
+        );
+    }
 }
-export default Login;
+
+Login.propTypes = {
+    loginAction: propTypes.func,
+    history: propTypes.object,
+    message: propTypes.string,
+};
+
+function mapStateToProps(state) {
+    return {
+        message: state.message
+    };
+}
+
+export default connect(mapStateToProps, { loginAction })(Login);
