@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { accentColor, lightColor, darkColor } from "../../style/colors";
+import { accentColor, lightColor, darkColor } from "../../../style/colors";
 
 export default styled.button`
 	position: ${props => (props.clone ? "absolute" : "relative")};

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import propTypes from "prop-types";
 
 import store from "./logic/store";
-import img from "file-loader!../img/logo.png";
+import img from "file-loader!../../img/logo.png";
 
 import {
     isRequired, isWithProcessBar, renderQ, editQ, deleteQ, addQ, saveQ, savePoll,

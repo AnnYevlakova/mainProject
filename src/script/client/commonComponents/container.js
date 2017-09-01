@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { bgColor, lightColor } from "../../style/colors";
+import { bgColor, lightColor } from "../../../style/colors";
 
 export default styled.div`
 	position: relative;

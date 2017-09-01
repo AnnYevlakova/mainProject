@@ -9,7 +9,7 @@ import DefaultLink from "./commonComponents/defaultLink";
 import MainBox from "./componentsForMain/mainBox";
 import MainContainer from "./commonComponents/mainContainer";
 
-import img from "file-loader!../img/logo.png";
+import img from "file-loader!../../img/logo.png";
 
 const UserBox = styled.div`
 		display: flex;

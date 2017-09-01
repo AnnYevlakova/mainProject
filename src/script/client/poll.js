@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import store from "./logic/store";
-import img from "file-loader!../img/logo.png";
+import img from "file-loader!../../img/logo.png";
 
 
 import Caption from "./commonComponents/caption";

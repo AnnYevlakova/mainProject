@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { bgColor } from "../../style/colors";
+import { bgColor } from "../../../style/colors";
 
 export default styled.h4`
 	text-align: ${props => (props.cap ? "left" : "center")};

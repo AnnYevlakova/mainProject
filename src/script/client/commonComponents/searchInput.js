@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { lightColor } from "../../style/colors";
+import { lightColor } from "../../../style/colors";
 
 export default styled.input`
 	height: 30px;

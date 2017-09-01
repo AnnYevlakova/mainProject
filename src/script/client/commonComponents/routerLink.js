@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { accentColor, darkColor, bgColor, lightColor } from "../../style/colors";
+import { accentColor, darkColor, bgColor, lightColor } from "../../../style/colors";
 
 export default styled(Link)`
 	position: ${props => (props.menuItem ? "absolute" : "relative")};

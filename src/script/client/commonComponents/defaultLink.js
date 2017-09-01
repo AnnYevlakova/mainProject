@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { accentColor, darkColor, bgColor } from "../../style/colors";
+import { accentColor, darkColor, bgColor } from "../../../style/colors";
 
 export default styled.a`
 	display: ${props => (props.mainBox ? "block" : "inherit")};

@@ -4,16 +4,17 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import ReactDOM from "react-dom";
 import jwt from "jsonwebtoken";
 
-import store from "./script/logic/store";
+import store from "./script/client/logic/store";
 
-import Login from "./script/login";
-import Main from "./script/main";
-import NewPoll from "./script/newPoll";
-import MyPolls from "./script/myPolls";
-import Users from "./script/users";
-import Registration from "./script/registration";
-import Poll from "./script/poll";
-import PasswordReset from "./script/passwordReset";
+import Login from "./script/client/login";
+import Main from "./script/client/main";
+import NewPoll from "./script/client/newPoll";
+import MyPolls from "./script/client/myPolls";
+import Users from "./script/client/users";
+import Registration from "./script/client/registration";
+import Poll from "./script/client/poll";
+import SendEmail from "./script/client/sendEmail";
+import ResetPassword from "./script/client/resetPassword";
 
 require("style-loader!css-loader!less-loader!./style/main.less");
 
@@ -30,7 +31,8 @@ class App extends Component {
                 <div className="container">
                     <Route exact path="/" component={Login}/>
                     <Route path="/registration" component={Registration}/>
-                    <Route path="/passwordReset" component={PasswordReset}/>
+                    <Route path="/sendEmail" component={SendEmail}/>
+                    <Route path="/resetPassword" component={ResetPassword}/>
                     <Route path="/main" component={Main} />
                     <Route path="/users" component={Users} />
                     <Route path="/newPoll" component={NewPoll} />

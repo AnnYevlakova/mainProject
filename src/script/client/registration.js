@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import propTypes from "prop-types";
 
-import img from "file-loader!../img/logo.png";
+import img from "file-loader!../../img/logo.png";
 import addMessage from "./logic/actions/addMessage";
 
 import MainButton from "./commonComponents/mainButton";

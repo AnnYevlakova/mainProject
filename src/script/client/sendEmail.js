@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import propTypes from "prop-types";
+import validator from "validator";
 
-import addMessage from "./logic/actions/addMessage";
-import passwordResetValidation from "./logic/validation/passwordResetValidation";
+import { sendEmailAction } from "./logic/actions/resetPasswordAction";
 
 import Caption from "./commonComponents/caption";
 import MainButton from "./commonComponents/mainButton";
@@ -13,9 +13,9 @@ import MainContainer from "./commonComponents/mainContainer";
 import TextFieldGroup from "./commonComponents/textFieldGroup";
 import DefaultForm from "./commonComponents/defaultForm";
 
-import img from "file-loader!../img/logo.png";
+import img from "file-loader!../../img/logo.png";
 
-class PasswordReset extends Component {
+class SendEmail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,22 +27,35 @@ class PasswordReset extends Component {
             this.setState({ [event.target.name]: event.target.value });
         };
 
+        this.isValid = () => {
+            let errors = {};
+
+            if (!validator.isEmail(this.state.email)) {
+                errors.email = "Email is invalid";
+            }
+            if (validator.isEmpty(this.state.email)) {
+                errors.email = "Email is required";
+            }
+
+            return errors;
+        };
+
         this.onSubmit = (e) => {
             e.preventDefault();
-            const { errors } = passwordResetValidation(this.state);
+            let errors = this.isValid();
 
-            if (Object.keys(errors).length === 0) {
-                /*  axios({
-                    method: "post",
-                    url: "send.php",
-                    data: { email: this.state.email },
-                    dataType: "json"
-                });*/
-
-                this.props.addMessage("We sent you a link to reset your password.");
-                this.props.history.push("/");
+            if (!errors.email) {
+                this.props.sendEmailAction(this.state.email).then((res) => {
+                    if (res.length !== 0) {
+                        this.props.history.push("/resetPassword");
+                    } else {
+                        errors.email = "There is no user with such email";
+                        this.setState({ errors });
+                    }
+                });
+            } else {
+                this.setState({ errors });
             }
-            this.setState({ errors });
         };
     }
 
@@ -63,7 +76,7 @@ class PasswordReset extends Component {
                     </nav>
                 </header>
                 <MainContainer>
-                    <DefaultForm id="passwordReset" method="post" action="" onSubmit={this.onSubmit}>
+                    <DefaultForm id="sendEmail" method="POST" onSubmit={this.onSubmit}>
                         {Object.keys(this.state.errors).length !== 0
                             ? <span className="warning">{this.state.errors[Object.keys(this.state.errors)[0]]}</span>
                             : ""
@@ -79,8 +92,8 @@ class PasswordReset extends Component {
                         />
                         <MainButton
                             type="submit"
-                            id="passwordResetBtn"
-                            value="send password reset email" />
+                            id="sendEmailBtn"
+                            value="send email" />
                     </DefaultForm>
                 </MainContainer>
             </div>
@@ -88,8 +101,8 @@ class PasswordReset extends Component {
     }
 }
 
-PasswordReset.propTypes = {
+SendEmail.propTypes = {
     history: propTypes.object,
-    addMessage: propTypes.func,
+    sendEmailAction: propTypes.func,
 };
-export default connect(null, { addMessage })(PasswordReset);
+export default connect(null, { sendEmailAction })(SendEmail);

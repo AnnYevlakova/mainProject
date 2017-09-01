@@ -10,8 +10,8 @@ import Benefits from "./benefits";
 import ForStudents from "./forStudents";
 import OurAdvantages from "./ourAdvantages";
 
-import img1 from "file-loader!../../img/img1.jpg";
-import img2 from "file-loader!../../img/img1-1.jpg";
+import img1 from "file-loader!../../../img/img1.jpg";
+import img2 from "file-loader!../../../img/img1-1.jpg";
 
 const Image = styled.img`
 	display: ${props => (props.big ? "none" : "block")};

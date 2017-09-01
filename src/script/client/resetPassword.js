@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import propTypes from "prop-types";
 
-import loginValidation from "./logic/validation/loginValidation";
-import loginAction from "./logic/actions/loginAction";
+import addMessage from "./logic/actions/addMessage";
+import resetPasswordValidation from "./logic/validation/resetPasswordValidation";
+import { resetPasswordAction, sendEmailAction } from "./logic/actions/resetPasswordAction";
 
 import Caption from "./commonComponents/caption";
 import MainButton from "./commonComponents/mainButton";
@@ -14,24 +14,14 @@ import MainContainer from "./commonComponents/mainContainer";
 import TextFieldGroup from "./commonComponents/textFieldGroup";
 import DefaultForm from "./commonComponents/defaultForm";
 
-import img from "file-loader!../img/logo.png";
+import img from "file-loader!../../img/logo.png";
 
-
-const RegistryFields = styled.ul`
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	margin-top: 0;
-	padding: 0;
-	list-style: none;
-`;
-
-class Login extends Component {
+class ResetPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            login: "",
-            password: "",
+            pas1: "",
+            pas2: "",
             errors: {}
         };
 
@@ -40,7 +30,7 @@ class Login extends Component {
         };
 
         this.isValid = () => {
-            const { errors } = loginValidation(this.state);
+            const errors = resetPasswordValidation(this.state);
 
             if (Object.keys(errors).length !== 0) {
                 this.setState({ errors });
@@ -49,15 +39,17 @@ class Login extends Component {
             return Object.keys(errors).length === 0;
         };
 
-        this.onLogin = (event) => {
-            event.preventDefault();
+        this.onSubmit = (e) => {
+            e.preventDefault();
 
             if (this.isValid()) {
-                this.props.loginAction(this.state).then((data) => {
-                    if (data) {
-                        this.setState({ errors: data.errors });
+                this.props.resetPasswordAction(this.props.email, this.state.pas1).then((res) => {
+                    if (res === 200) {
+                        this.props.addMessage("Your password was successfully reset.");
+                        this.props.history.push("/");
                     } else {
-                        this.props.history.push("/main");
+                        const { errors } = res;
+                        this.setState({ errors });
                     }
                 });
             }
@@ -68,6 +60,11 @@ class Login extends Component {
         if (localStorage.jwtToken) {
             this.props.history.push("/main");
         }
+        if (this.props.email === undefined && localStorage.email) {
+            this.props.sendEmailAction(localStorage.getItem("email"));
+        } else if (!localStorage.email) {
+            this.props.history.push("/sendEmail");
+        }
     }
 
     render() {
@@ -77,45 +74,36 @@ class Login extends Component {
                     <img className="logo" src={img} alt="" />
                     <nav className="headerNav">
                         <DefaultLink header className="link" href="https://www.itechart.com/" target="_blank">about us</DefaultLink>
-                        <RouterLink login onClick={this.onClick} header to="/">log in</RouterLink>
+                        <RouterLink login header to="/">log in</RouterLink>
                     </nav>
                 </header>
                 <MainContainer>
-                    <DefaultForm id="loginBox" method="post" action="">
-                        {this.props.message
-                            ? <span className="flashMessage">{this.props.message}</span>
-                            : ""
-                        }
-                        {Object.keys(this.state.errors)[0]
+                    <DefaultForm id="resetPassword" method="POST" onSubmit={this.onSubmit}>
+                        {Object.keys(this.state.errors).length !== 0
                             ? <span className="warning">{this.state.errors[Object.keys(this.state.errors)[0]]}</span>
                             : ""
                         }
-                        <Caption id="loginCaption">Sign in</Caption>
+                        <Caption id="loginCaption">Reset your password</Caption>
                         <TextFieldGroup
-                            field="login"
-                            label="Login"
-                            value={this.state.login}
-                            errors={this.state.errors.login}
-                            onChange={this.onChange}
-                            type="text"
-                        />
-                        <TextFieldGroup
-                            field="password"
-                            label="Password"
-                            value={this.state.password}
-                            errors={this.state.errors.password}
+                            field="pas1"
+                            label="Enter new password"
+                            value={this.state.pas1}
+                            errors={this.state.errors.pas1}
                             onChange={this.onChange}
                             type="password"
                         />
-                        <RegistryFields>
-                            <li><RouterLink login to="/registration">Create an account</RouterLink></li>
-                            <li><RouterLink login to="/passwordReset">Forgot password?</RouterLink></li>
-                        </RegistryFields>
+                        <TextFieldGroup
+                            field="pas2"
+                            label="Password Confirmation"
+                            value={this.state.pas2}
+                            errors={this.state.errors.pas2}
+                            onChange={this.onChange}
+                            type="password"
+                        />
                         <MainButton
                             type="submit"
-                            onClick={this.onLogin}
-                            id="login"
-                            value="sign in" />
+                            id="passwordResetBtn"
+                            value="reset password" />
                     </DefaultForm>
                 </MainContainer>
             </div>
@@ -123,16 +111,17 @@ class Login extends Component {
     }
 }
 
-Login.propTypes = {
-    loginAction: propTypes.func,
+ResetPassword.propTypes = {
     history: propTypes.object,
-    message: propTypes.string,
+    resetPasswordAction: propTypes.func,
+    sendEmailAction: propTypes.func,
+    addMessage: propTypes.func,
+    email: propTypes.string,
 };
 
 function mapStateToProps(state) {
     return {
-        message: state.message
+        email: state.email
     };
 }
-
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(mapStateToProps, { addMessage, resetPasswordAction, sendEmailAction })(ResetPassword);

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Caption from "../commonComponents/caption";
 
-import src from "file-loader!../../img/education.jpg";
+import src from "file-loader!../../../img/education.jpg";
 
 export class Education extends Component {
     render() {

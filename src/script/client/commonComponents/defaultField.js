@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { lightColor, darkColor } from "../../style/colors";
+import { lightColor, darkColor } from "../../../style/colors";
 
 export default styled.input`
 	position: ${props => (props.transparent ? "absolute" : "relative")};

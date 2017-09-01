@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import propTypes from "prop-types";
 
-import { PollsList } from "./componentsForMyPoll/pollsList";
-/* import { PollInfo } from './componentsForMyPollpollInfo';*/
+import img from "file-loader!../../img/logo.png";
+
+import UserList from "./componentsForUsers/userList";
+import UserInfo from "./componentsForUsers/userInfo";
 import DefaultLink from "./commonComponents/defaultLink";
 import Navigation from "./commonComponents/navigation";
 import MenuDropdown from "./commonComponents/menuDropdown";
 import MainContainer from "./commonComponents/mainContainer";
 
-import img from "file-loader!../img/logo.png";
 
-class MyPolls extends Component {
+class Users extends Component {
     render() {
         return (
             <div className="box">
@@ -22,17 +23,17 @@ class MyPolls extends Component {
                         <MenuDropdown/>
                     </nav>
                 </header>
-                <MainContainer user>
+                <MainContainer main>
                     <Navigation />
-                    <Route exact path="/myPolls" component={PollsList} />
-                    {/* <Route path='/myPolls/pollInfo' component={PollInfo} />*/}
+                    <Route exact path="/users" component={UserList} />
+                    <Route path="/users/userInfo" component={UserInfo} />
                 </MainContainer>
             </div>
         );
     }
 }
 
-MyPolls.propTypes = {
+Users.propTypes = {
     history: propTypes.object,
 };
-export default MyPolls;
+export default Users;

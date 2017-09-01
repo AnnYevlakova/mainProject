@@ -6,6 +6,9 @@ export default function(state = {}, action) {
         case "addMessage":
             return { message: action.message };
 
+        case "setEmailForResettingPassword":
+            return { email: action.email };
+
             /* case "getData":
             return {
                 login: true,

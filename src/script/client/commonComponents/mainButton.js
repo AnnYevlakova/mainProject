@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { accentColor, bgColor } from "../../style/colors";
+import { accentColor, bgColor } from "../../../style/colors";
 
 export default styled.input`
     display: ${props => (props.inline ? "inline" : "block")};
