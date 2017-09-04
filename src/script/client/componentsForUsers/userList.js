@@ -13,6 +13,10 @@ import { Actions } from "../commonComponents/actions";
 class UserList extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            users: [],
+            page: 0,
+        };
         this.users = store.getState().users || JSON.parse(localStorage.getItem("users"));
         this.page = 0;
 
@@ -41,13 +45,9 @@ class UserList extends Component {
                     this.page = 0;
                     ReactDOM.render(
                         <div>
-                            {this.users.slice(0, 10).map((item, i) => <Row key={i} id={item.id}>
-                                <Col onClick={this.showModal} >{item.name}</Col>
-                                <Col>{item.status}</Col>
-                                <Col>{item.registered}</Col>
-                                <Col>{item.polls.length}</Col>
-                                <Col><Actions showModal={this.showModal}/></Col>
-                            </Row>)}
+                            {this.users.slice(0, 10).map((item, i) => {
+                                return <Row key={i} item={item} showModal={this.showModal}/>;
+                            })}
                         </div>,
                         document.getElementById("table"),
                     );

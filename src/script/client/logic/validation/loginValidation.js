@@ -1,7 +1,7 @@
 import Validator from "validator";
 
 export default function validateInput(data) {
-    let errors = {};
+    const errors = {};
 
     if (Validator.isEmpty(data.login)) {
         errors.login = "Login is required";

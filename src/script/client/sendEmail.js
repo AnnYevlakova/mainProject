@@ -28,7 +28,7 @@ class SendEmail extends Component {
         };
 
         this.isValid = () => {
-            let errors = {};
+            const errors = {};
 
             if (!validator.isEmail(this.state.email)) {
                 errors.email = "Email is invalid";
@@ -42,7 +42,7 @@ class SendEmail extends Component {
 
         this.onSubmit = (e) => {
             e.preventDefault();
-            let errors = this.isValid();
+            const errors = this.isValid();
 
             if (!errors.email) {
                 this.props.sendEmailAction(this.state.email).then((res) => {

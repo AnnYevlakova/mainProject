@@ -1,7 +1,7 @@
 import Validator from "validator";
 
 export default function(data) {
-    let errors = {};
+    const errors = {};
 
     if (Validator.isEmpty(data.username)) {
         errors.username = "Username is required";

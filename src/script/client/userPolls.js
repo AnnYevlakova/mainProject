@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import propTypes from "prop-types";
 
-import { PollsList } from "./componentsForMyPoll/pollsList";
+import { PollsList } from "./componentsForUserPoll/pollsList";
 /* import { PollInfo } from './componentsForMyPollpollInfo';*/
 import DefaultLink from "./commonComponents/defaultLink";
 import Navigation from "./commonComponents/navigation";

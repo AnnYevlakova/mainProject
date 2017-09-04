@@ -9,7 +9,7 @@ import store from "./script/client/logic/store";
 import Login from "./script/client/login";
 import Main from "./script/client/main";
 import NewPoll from "./script/client/newPoll";
-import MyPolls from "./script/client/myPolls";
+import UserPolls from "./script/client/userPolls";
 import Users from "./script/client/users";
 import Registration from "./script/client/registration";
 import Poll from "./script/client/poll";
@@ -36,7 +36,7 @@ class App extends Component {
                     <Route path="/main" component={Main} />
                     <Route path="/users" component={Users} />
                     <Route path="/newPoll" component={NewPoll} />
-                    <Route path="/myPolls" component={MyPolls} />
+                    <Route path="/userPolls" component={UserPolls} />
                     <Route path="/poll" component={MyPolls} />
                     <Route path="/poll" component={Poll} />
                     <footer className="footer">

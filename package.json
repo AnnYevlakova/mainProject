@@ -38,8 +38,7 @@
     ]
   },
   "scripts": {
-    "start": "webpack-dev-server --progress --watch --colors --hot --config ./webpack.config.js",
-    "server": "nodemon --watch server --exec babel-node -- src/script/server/passwordReset/server.js"
+    "start": "webpack-dev-server --progress --watch --colors --hot --config ./webpack.config.js"
   },
   "dependencies": {
     "axios": "^0.12.0",
