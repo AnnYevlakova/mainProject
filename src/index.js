@@ -37,7 +37,6 @@ class App extends Component {
                     <Route path="/users" component={Users} />
                     <Route path="/newPoll" component={NewPoll} />
                     <Route path="/userPolls" component={UserPolls} />
-                    <Route path="/poll" component={MyPolls} />
                     <Route path="/poll" component={Poll} />
                     <footer className="footer">
                         <p>Copyright @ 2017 iTechArt</p>

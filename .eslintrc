@@ -43,7 +43,7 @@
     "jsx-quotes": "error",
     "key-spacing": "error",
     "keyword-spacing": "error",
-    "linebreak-style":  ["error"],
+    "linebreak-style":  ["error", "windows"],
     "lines-around-directive": "error",
     "new-parens": "error",
     "newline-before-return": "error",
