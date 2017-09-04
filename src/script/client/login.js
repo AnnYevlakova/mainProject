@@ -9,7 +9,7 @@ import loginAction from "./logic/actions/loginAction";
 import Caption from "./commonComponents/caption";
 import MainButton from "./commonComponents/mainButton";
 import DefaultLink from "./commonComponents/defaultLink";
-import RouterLink from "./commonComponents/routerlink";
+import RouterLink from "./commonComponents/routerLink";
 import MainContainer from "./commonComponents/mainContainer";
 import TextFieldGroup from "./commonComponents/textFieldGroup";
 import DefaultForm from "./commonComponents/defaultForm";
