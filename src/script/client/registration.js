@@ -24,6 +24,7 @@ class Registration extends Component {
             pas1: "",
             pas2: "",
             errors: {},
+            status: "user",
         };
 
         this.onChange = (event) => {

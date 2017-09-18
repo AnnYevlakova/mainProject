@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { lightColor, darkColor } from "../../../style/colors";
+import { lightColor, darkColor, accentColor } from "../../../style/colors";
 
 export default styled.input`
 	position: ${props => (props.transparent ? "absolute" : "relative")};
@@ -19,7 +19,7 @@ export default styled.input`
 		box-shadow: ${props => (props.checkbox || props.range ? "none" : `inset 2px -2px 7px 0px ${lightColor}`)};	
 	}
 	&::-webkit-input-placeholder {
-    color: ${darkColor};
+    color: ${props => (props.withError ? accentColor : darkColor)};
 	},
 	&::-moz-placeholder {
     color: ${darkColor};

@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { connect, Provider } from "react-redux";
+import propTypes from "prop-types";
 
 import store from "../logic/store";
+import { showUserAction } from "../logic/actions/userActions";
+import { deleteUserAction } from "../logic/actions/userActions";
+import { deletePollAction } from "../logic/actions/pollActions";
 
 import RouterLink from "./routerLink";
 import UserInfoForUser from "../componentsForUsers/userInfoForUser";
@@ -11,22 +16,50 @@ class MenuDropdown extends Component {
     constructor(props) {
         super(props);
 
+        this.back = () => {
+            this.props.history.goBack();
+            if (window.location.pathname === "/users/userInfo") {
+                this.props.history.goBack();
+            }
+        };
+
+        this.delete = () => {
+            let id = this.props.id;
+
+            if (id === "my") {
+                id = this.props.user.id;
+                document.getElementById("logOut").click();
+            }
+            this.props.deleteUserAction(id);
+            this.props.deletePollAction(id);
+        };
+
         this.onClick = (event) => {
             const target = event.target;
 
             if (target.id === "toTheMyProfile") {
-                store.dispatch({
-                    type: "showProfile",
-                    target: "my",
-                });
-                if (window.location.pathname === "/users/userInfo" && store.getState().user.status === "user") {
+                this.props.showUserAction("my");
+                if (window.location.pathname === "/users/userInfo" && this.props.user.status === "user") {
                     ReactDOM.render(
-                        <UserInfoForUser store={store}/>,
+                        <Provider store={store}>
+                            <UserInfoForUser
+                                delete={this.delete}
+                                back={this.back}
+                                history={this.props.history}
+                            />
+                        </Provider>,
                         document.getElementById("userInfoBox"),
                     );
-                } else if (window.location.pathname === "/users/userInfo" && store.getState().user.status === "admin") {
+                } else if (window.location.pathname === "/users/userInfo" && this.props.user.status === "admin") {
                     ReactDOM.render(
-                        <UserInfoForAdmin data={store.getState().user}/>,
+                        <Provider store={store}>
+                            <UserInfoForAdmin
+                                delete={this.delete}
+                                data={this.props.user}
+                                back={this.back}
+                                history={this.props.history}
+                            />
+                        </Provider>,
                         document.getElementById("userInfoBox"),
                     );
                 }
@@ -73,4 +106,20 @@ class MenuDropdown extends Component {
         );
     }
 }
-export default MenuDropdown;
+
+MenuDropdown.propTypes = {
+    showUserAction: propTypes.func,
+    history: propTypes.object,
+    user: propTypes.object,
+    id: propTypes.string,
+    deleteUserAction: propTypes.func,
+    deletePollAction: propTypes.func,
+};
+
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        id: state.target,
+    };
+}
+export default connect(mapStateToProps, { showUserAction, deletePollAction, deleteUserAction })(MenuDropdown);

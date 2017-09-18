@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
+import { connect, Provider } from "react-redux";
+import propTypes from "prop-types";
 
 import store from "../logic/store";
-import update from "../logic/update";
+import { deleteUserAction } from "../logic/actions/userActions";
+import { deletePollAction } from "../logic/actions/pollActions";
 
 import Container from "../commonComponents/container";
 import UserInfoForAdmin from "./userInfoForAdmin";
@@ -13,47 +15,75 @@ import UserInfoClosed from "./userInfoClosed";
 class UserInfo extends Component {
     constructor(props) {
         super(props);
-        this.data = [];
 
-        this.saveUserData = () => {
-            const userName = document.getElementById("userName").value || store.getState().user.name;
-            const email = document.getElementById("email").value || store.getState().user.email;
-            const status = document.getElementById("status").value || store.getState().user.status;
-            const password = document.getElementById("password").value || store.getState().user.password;
+        this.back = () => {
+            this.props.history.goBack();
+        };
 
-            axios.put(`https://5981a9d2139db000114a2d9c.mockapi.io/users/${this.data.id || store.getState().user.id}`, {
-                id: store.getState().user.id,
-                registered: store.getState().registered,
-                name: userName,
-                email,
-                status,
-                polls: store.getState().user.polls,
-                password,
-            }).then(() => update());
+        this.delete = () => {
+            let id = this.props.id;
+
+            if (id === "my") {
+                id = this.props.user.id;
+                document.getElementById("logOut").click();
+            }
+            this.props.deleteUserAction(id);
+            this.props.deletePollAction(id);
+            this.props.history.push("/users");
         };
     }
 
     componentDidMount() {
-        if (store.getState().showProf === "my" && store.getState().user.status === "user") {
+        const id = this.props.id;
+
+        if (id === "my" && this.props.user.status === "user") {
             ReactDOM.render(
-                <UserInfoForUser save={this.saveUserData} store={store}/>,
+                <Provider store={store}>
+                    <UserInfoForUser
+                        delete={this.delete}
+                        back={this.back}
+                        history={this.props.history}
+                    />
+                </Provider>,
                 document.getElementById("userInfoBox"),
             );
-        } else if (store.getState().showProf === "my" && store.getState().user.status === "admin") {
+        } else if (id === "my" && this.props.user.status === "admin") {
             ReactDOM.render(
-                <UserInfoForAdmin save={this.saveUserData} data={store.getState().user}/>,
+                <Provider store={store}>
+                    <UserInfoForAdmin
+                        delete={this.delete}
+                        data={this.props.user}
+                        back={this.back}
+                        history={this.props.history}
+                    />
+                </Provider>,
                 document.getElementById("userInfoBox"),
             );
-        } else if (store.getState().user.status === "admin") {
-            this.data = store.getState().users[store.getState().showProf];
+        } else if (this.props.user.status === "admin") {
+            const data = this.props.users.filter(item => item.id === id);
+
             ReactDOM.render(
-                <UserInfoForAdmin save={this.saveUserData} data={store.getState().user[store.getState().showProf]}/>,
+                <Provider store={store}>
+                    <UserInfoForAdmin
+                        delete={this.delete}
+                        data={data[0]}
+                        history={this.props.history}
+                        back={this.back}
+                    />
+                </Provider>,
                 document.getElementById("userInfoBox"),
             );
         } else {
-            this.data = store.getState().users[store.getState().showProf];
+            const data = this.props.users.filter(item => item.id === id);
+
             ReactDOM.render(
-                <UserInfoClosed save={this.saveUserData} data={store.getState().users[store.getState().showProf]}/>,
+                <Provider store={store}>
+                    <UserInfoClosed
+                        data={data[0]}
+                        back={this.back}
+                        history={this.props.history}
+                    />
+                </Provider>,
                 document.getElementById("userInfoBox"),
             );
         }
@@ -65,4 +95,19 @@ class UserInfo extends Component {
         );
     }
 }
-export default UserInfo;
+UserInfo.propTypes = {
+    id: propTypes.string,
+    user: propTypes.object,
+    users: propTypes.array,
+    history: propTypes.object,
+    deleteUserAction: propTypes.func,
+    deletePollAction: propTypes.func,
+};
+function mapStateToProps(state) {
+    return {
+        id: state.target,
+        user: state.user,
+        users: state.users,
+    };
+}
+export default connect(mapStateToProps, { deletePollAction, deleteUserAction })(UserInfo);

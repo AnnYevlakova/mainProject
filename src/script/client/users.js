@@ -20,7 +20,7 @@ class Users extends Component {
                     <img className="logo" src={img} alt=""/>
                     <nav className="headerNav">
                         <DefaultLink header className="link" href="https://www.itechart.com/" target="_blank">about us</DefaultLink>
-                        <MenuDropdown/>
+                        <MenuDropdown history={this.props.history}/>
                     </nav>
                 </header>
                 <MainContainer main>
