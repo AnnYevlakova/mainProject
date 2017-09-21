@@ -2,29 +2,20 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import propTypes from "prop-types";
 
-import { PollsList } from "./componentsForUserPoll/pollsList";
-/* import { PollInfo } from './componentsForMyPollpollInfo';*/
-import DefaultLink from "./commonComponents/defaultLink";
+import PollsList from "./componentsForUserPoll/pollsList";
+import MainHeader from "./commonComponents/mainHeader";
+/* import { PollInfo } from './componentsForMyPollInfo';*/
 import Navigation from "./commonComponents/navigation";
-import MenuDropdown from "./commonComponents/menuDropdown";
 import MainContainer from "./commonComponents/mainContainer";
 
-import img from "file-loader!../../img/logo.png";
-
-class MyPolls extends Component {
+class UserPolls extends Component {
     render() {
         return (
             <div className="box">
-                <header className="header">
-                    <img className="logo" src={img} alt=""/>
-                    <nav className="headerNav">
-                        <DefaultLink header className="link" href="https://www.itechart.com/" target="_blank">about us</DefaultLink>
-                        <MenuDropdown/>
-                    </nav>
-                </header>
+                <MainHeader className="header" />
                 <MainContainer user>
                     <Navigation />
-                    <Route exact path="/myPolls" component={PollsList} />
+                    <Route exact path="/userPolls" component={PollsList} />
                     {/* <Route path='/myPolls/pollInfo' component={PollInfo} />*/}
                 </MainContainer>
             </div>
@@ -32,7 +23,7 @@ class MyPolls extends Component {
     }
 }
 
-MyPolls.propTypes = {
+UserPolls.propTypes = {
     history: propTypes.object,
 };
-export default MyPolls;
+export default UserPolls;

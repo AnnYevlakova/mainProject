@@ -30,16 +30,16 @@ export default styled(Link)`
 		background-color: ${props => (props.nav ? accentColor : "transparent")};
 	}
 	@media (max-width: 910px) {
-    padding: ${props => (props.mainBox ? "0 20px" : "2px 10px")};
+        padding: ${props => (props.mainBox ? "0 20px" : "2px 10px")};
 	}
 	@media (max-width: 768px) {
 		width: auto;
-		font-size: ${props => (props.nav ? "1.1rem" : "auto")};
+		font-size: ${props => (props.nav ? "1.1rem" : "inherit")};
 	}
 	@media (max-width: 480px) {
-		width: ${props => (props.header || props.nav ? "auto" : props.menuItem ? "100px" : "100%")};
+		width: ${props => (props.header ? "auto" : props.menuItem ? "100px" : props.nav ? "100%" : "inherit")};
 		margin-left: ${props => (props.header ? "10px" : "0")};
-		padding: ${props => (props.mainBox ? "0 50px" : "2px")};
+		padding: ${props => (props.mainBox ? "0 5px" : "2px")};
   }
 	
 `;

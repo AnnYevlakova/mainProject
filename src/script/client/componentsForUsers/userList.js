@@ -62,11 +62,11 @@ class UserList extends Component {
         };
 
         this.search = (event) => {
-            const value = event.target.value;
+            const value = event.target.value.toLowerCase();
             const data = [];
 
             this.props.users.forEach((item) => {
-                if (item.username.indexOf(value) !== -1) {
+                if (item.username.toLowerCase().indexOf(value) !== -1) {
                     data.push(item);
                 }
             });

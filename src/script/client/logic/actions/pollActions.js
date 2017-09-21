@@ -4,7 +4,7 @@ export function showPollAction(target) {
     return dispatch => {
         dispatch({
             type: "showProfile",
-            id: target.id,
+            id: target.id || target,
         });
     };
 }

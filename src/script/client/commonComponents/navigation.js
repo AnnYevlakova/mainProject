@@ -16,7 +16,7 @@ const Nav = styled.nav`
 	list-style: none;
 	@media (max-width: 768px) {
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: space-around;
 		width: 100%;
 		height: auto;
 		max-width: 100%;
@@ -39,8 +39,8 @@ class Navigation extends Component {
         return (
             <Nav>
                 <RouterLink nav to="/main">Main</RouterLink>
-                <RouterLink nav to="/newPoll">New poll</RouterLink >
-                <RouterLink nav to="/myPolls">My poll</RouterLink>
+                <RouterLink nav to="/newPoll" id="newPoll">New poll</RouterLink >
+                <RouterLink nav to="/userPolls">My polls</RouterLink>
                 <RouterLink nav to="/pollTemplates">Poll templates</RouterLink>
                 <RouterLink nav to="/users">Users</RouterLink>
             </Nav>

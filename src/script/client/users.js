@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import propTypes from "prop-types";
 
-import img from "file-loader!../../img/logo.png";
-
+import MainHeader from "./commonComponents/mainHeader";
 import UserList from "./componentsForUsers/userList";
 import UserInfo from "./componentsForUsers/userInfo";
-import DefaultLink from "./commonComponents/defaultLink";
 import Navigation from "./commonComponents/navigation";
-import MenuDropdown from "./commonComponents/menuDropdown";
 import MainContainer from "./commonComponents/mainContainer";
 
 
@@ -16,13 +13,7 @@ class Users extends Component {
     render() {
         return (
             <div className="box">
-                <header className="header">
-                    <img className="logo" src={img} alt=""/>
-                    <nav className="headerNav">
-                        <DefaultLink header className="link" href="https://www.itechart.com/" target="_blank">about us</DefaultLink>
-                        <MenuDropdown history={this.props.history}/>
-                    </nav>
-                </header>
+                <MainHeader className="header" />
                 <MainContainer main>
                     <Navigation />
                     <Route exact path="/users" component={UserList} />

@@ -15,7 +15,7 @@ export class UserTableRow extends Component {
                 <Col>{item.status}</Col>
                 <Col>{item.registered}</Col>
                 <Col>{poll.length}</Col>
-                <Col className="userActionBox" id={item.id}><Actions history={this.props.history} /></Col>
+                <Col className="userActionBox" id={item.id}><Actions target="actions" history={this.props.history} /></Col>
             </Row>
         );
     }

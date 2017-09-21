@@ -16,10 +16,11 @@ export default styled.a`
 		color: ${props => (props.mainBox ? bgColor : accentColor)};
 	}
 	@media (max-width: 350px) {
-		font-size: 1.3rem;
-		padding: ${props => (props.mainBox ? "0 50px" : "")};
+		padding: ${props => (props.mainBox ? "0 5px" : "0")};
+		margin-left: ${props => (props.mainBox ? "0px" : "10px")};
 	}
 	@media (max-width: 910px) {
-   padding: ${props => (props.mainBox ? "0 20px" : "")};
+	    padding: ${props => (props.mainBox ? "0 5px" : "inherit")};
+	    margin-left: ${props => (props.mainBox ? "0px" : "10px")};
 	}
 `;

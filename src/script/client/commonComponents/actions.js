@@ -16,7 +16,7 @@ export class Actions extends Component {
 
             const target = btn.closest(".userActionBox") || btn.closest(".pallBox");
 
-            if (target.classList.contains("userActionBox")) {
+            if (this.props.target === "users") {
                 this.deleteUser(target);
             } else {
                 this.deletePoll(target);
@@ -42,13 +42,14 @@ export class Actions extends Component {
             if (btn.tagName === "I") {
                 btn = btn.parentElement;
             }
-            const target = event.target.closest(".userActionBox") || event.target.closest(".pallActionBox");
+            const target = btn.closest(".userActionBox") || btn.closest(".pollActionBox");
 
-            if (target.classList.contains("userActionBox")) {
+            if (this.props.target === "users") {
                 this.props.showUserAction(target);
                 this.props.history.push("/users/userInfo");
             } else {
                 this.props.showPollAction(target);
+                this.props.history.push("/userPolls/pollInfo");
             }
         };
     }
@@ -75,6 +76,7 @@ Actions.propTypes = {
     users: propTypes.array,
     polls: propTypes.array,
     history: propTypes.object,
+    target: propTypes.string,
 };
 function mapStateToProps(state) {
     return {

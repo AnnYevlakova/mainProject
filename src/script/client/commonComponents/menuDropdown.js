@@ -91,10 +91,12 @@ class MenuDropdown extends Component {
             }
         };
     }
+
     render() {
         return (
             <ul className="menuDropdown">
                 <i onClick={this.openCloseMenuDropdown} className="fa fa-user" aria-hidden="true" />
+                <span>Hi, {this.props.user.username}</span>
                 <button onClick={this.openCloseMenuDropdown} data-status="closed" className="arrow" id="arrow">&#9660;</button>
                 <li className="menuItem menuItem1">
                     <RouterLink onClick={this.onClick} id="toTheMyProfile" to="/users/userInfo">my profile</RouterLink>
