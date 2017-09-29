@@ -72,6 +72,16 @@ html, body {
   font-size: 2.0rem;
   cursor: pointer;
 }
+button .fa-file,
+button .fa-user,
+button .fa-star-o,
+button .fa-star,
+button .fa-battery-half,
+button .fa-font,
+button .fa-list,
+button .fa-list-ol {
+  font-size: 2.0rem;
+}
 .fa-file,
 .fa-user,
 .fa-star-o,
@@ -210,12 +220,27 @@ html, body {
 }
 
 .block {
+  display: flex;
   min-width: 200px;
   border: 1px solid @light-c;
   background-color: @bg;
   padding: 0 0 0 5px;
   margin-bottom: 15px;
   font-size: 1.4rem;
+}
+.questionType {
+  margin: 0 30px;
+  outline: none;
+}
+@media(max-width: 650px) {
+  .questionType {
+    margin: 0 15px;
+  }
+}
+@media(max-width: 450px) {
+  .questionType {
+    margin: 0 5px;
+  }
 }
 .fileName {
   position: absolute;

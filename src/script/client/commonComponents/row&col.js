@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { accentColor, lightColor, darkColor } from "../../../style/colors";
+import { lightColor, darkColor } from "../../../style/colors";
 
 export const Row = styled.ul`
 	display: flex;
@@ -31,23 +31,17 @@ export const Col = styled.li`
 	margin-bottom: ${props => (props.userInfo ? "20px" : "0")};
 	display: ${props => (props.nav ? "flex" : "block")};
 	justify-content: ${props => (props.nav ? "flex-end" : "center")};
-  text-align: ${props => (props.userInfo ? "left" : "center")};
-  &:first-child {
-    cursor: ${props => (props.userInfo ? "default" : props.count ? "default" : props.non ? "default" : "pointer")};
-	  width: ${props => (props.count ? "70%" : props.userInfo ? "100%" : "42%")};
-	  overflow: ${props => (props.userInfo ? "visible" : "hidden")}; 
-	  text-overflow: ellipsis;
-	  text-align: left;
-	  &:hover {
-	    color: ${props => (props.userInfo ? "inherit" : props.count
-        ? "inherit" : props.non ? "inherit" : accentColor)};
-	  }
-	}
-	@media (max-width: 600px) {
-	&:first-child {
-	  width: ${props => (props.count ? "70%" : props.userInfo ? "100%" : "20%")};
-	 }
-		width: ${props => (props.nav ? "30%" : props.userInfo ? "100%" : "20%")};
-	}
-	@media (max-width: 500px) {
+    text-align: ${props => (props.userInfo ? "left" : "center")};
+    &:first-child {
+        width: ${props => (props.count ? "70%" : props.userInfo ? "100%" : "42%")};
+        overflow: ${props => (props.userInfo ? "visible" : "hidden")}; 
+        text-overflow: ellipsis;
+        text-align: left;
+    }
+    @media (max-width: 600px) {
+        &:first-child {
+            width: ${props => (props.count ? "70%" : props.userInfo ? "100%" : "20%")};
+        }
+        width: ${props => (props.nav ? "30%" : props.userInfo ? "100%" : "20%")};
+    }
 `;

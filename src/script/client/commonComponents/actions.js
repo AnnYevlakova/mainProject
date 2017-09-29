@@ -45,7 +45,11 @@ export class Actions extends Component {
             const target = btn.closest(".userActionBox") || btn.closest(".pollActionBox");
 
             if (this.props.target === "users") {
-                this.props.showUserAction(target);
+                if (target.id === this.props.user.id) {
+                    this.props.showUserAction("my");
+                } else {
+                    this.props.showUserAction(target);
+                }
                 this.props.history.push("/users/userInfo");
             } else {
                 this.props.showPollAction(target);

@@ -11,15 +11,6 @@ import QFooter from "../questionFooter";
 class QWithOneA extends Component {
     constructor(props) {
         super(props);
-        this.required = true;
-
-        this.isRequired = (event) => {
-            if (event.target.value === "on") {
-                this.required = true;
-            } else {
-                this.required = false;
-            }
-        };
     }
 
     render() {
@@ -35,34 +26,35 @@ class QWithOneA extends Component {
                     <li>
                         <InputContainer className="label">
                             <DefaultField poll data-type="answer" type="text" placeholder={data.answers[0] || "answer1"}/>
+                            <Btn onClick={this.props.deleteQField} id="0" deleteQField><i className="fa fa-times" aria-hidden="true" /></Btn>
                         </InputContainer>
                     </li>
                     <li>
                         <InputContainer className="label">
                             <DefaultField poll data-type="answer" type="text" placeholder={data.answers[1] || "answer2"} />
+                            <Btn onClick={this.props.deleteQField} id="1" deleteQField><i className="fa fa-times" aria-hidden="true" /></Btn>
                         </InputContainer>
                     </li>
                     <li>
                         <InputContainer className="label">
                             <DefaultField poll data-type="answer" type="text" placeholder={data.answers[2] || "answer3"} />
+                            <Btn onClick={this.props.deleteQField} id="2" deleteQField><i className="fa fa-times" aria-hidden="true" /></Btn>
                         </InputContainer>
                     </li>
                     <li>
                         <InputContainer className="label">
                             <DefaultField poll data-type="answer" type="text" placeholder={data.answers[3] || "answer4"} />
+                            <Btn onClick={this.props.deleteQField} id="3" deleteQField><i className="fa fa-times" aria-hidden="true" /></Btn>
                         </InputContainer>
                     </li>
                     <li>
                         <InputContainer className="label">
                             <DefaultField poll data-type="answer" type="text" placeholder={data.answers[4] || "answer5"} />
+                            <Btn onClick={this.props.deleteQField} id="4" deleteQField><i className="fa fa-times" aria-hidden="true" /></Btn>
                         </InputContainer>
                     </li>
                 </ul>
                 <QFooter>
-                    <InputContainer className={this.props.required ? "" : "hidden"}>
-                        <DefaultField data-id="requiredField" checkbox onChange={this.isRequired} type="checkbox"/>
-						Required
-                    </InputContainer>
                     <Btn poll onClick={this.props.save}>save</Btn>
                     <Btn poll onClick={this.props.delete}>delete</Btn>
                 </QFooter>
@@ -74,7 +66,7 @@ class QWithOneA extends Component {
 QWithOneA.propTypes = {
     save: propTypes.func,
     delete: propTypes.func,
-    required: propTypes.bool,
+    deleteQField: propTypes.func,
     number: propTypes.number,
     data: propTypes.string,
 };

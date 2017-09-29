@@ -55,6 +55,6 @@ QFile.propTypes = {
     delete: propTypes.func,
     required: propTypes.bool,
     number: propTypes.number,
-    data: propTypes.string,
+    data: propTypes.object,
 };
 export default QFile;

@@ -10,14 +10,6 @@ class QText extends Component {
     constructor(props) {
         super(props);
         this.required = true;
-
-        this.isRequired = (event) => {
-            if (event.target.value === "on") {
-                this.required = true;
-            } else {
-                this.required = false;
-            }
-        };
     }
 
     render() {
@@ -45,6 +37,6 @@ QText.propTypes = {
     delete: propTypes.func,
     required: propTypes.bool,
     number: propTypes.number,
-    data: propTypes.string,
+    data: propTypes.object,
 };
 export default QText;

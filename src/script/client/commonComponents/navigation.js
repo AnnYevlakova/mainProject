@@ -41,7 +41,6 @@ class Navigation extends Component {
                 <RouterLink nav to="/main">Main</RouterLink>
                 <RouterLink nav to="/newPoll" id="newPoll">New poll</RouterLink >
                 <RouterLink nav to="/userPolls">My polls</RouterLink>
-                <RouterLink nav to="/pollTemplates">Poll templates</RouterLink>
                 <RouterLink nav to="/users">Users</RouterLink>
             </Nav>
         );

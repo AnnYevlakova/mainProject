@@ -37,9 +37,9 @@ export default styled(Link)`
 		font-size: ${props => (props.nav ? "1.1rem" : "inherit")};
 	}
 	@media (max-width: 480px) {
-		width: ${props => (props.header ? "auto" : props.menuItem ? "100px" : props.nav ? "100%" : "inherit")};
+		width: ${props => (props.header || props.nav ? "auto" : props.menuItem ? "100px" : "inherit")};
 		margin-left: ${props => (props.header ? "10px" : "0")};
-		padding: ${props => (props.mainBox ? "0 5px" : "2px")};
+		padding: ${props => (props.mainBox ? "0 5px" : "2px 10px")};
   }
 	
 `;

@@ -27,3 +27,17 @@ export function deletePollAction(id) {
         });
     };
 }
+
+export function savePollAction(pollData) {
+    return dispatch => {
+        return axios.post("https://5981a9d2139db000114a2d9c.mockapi.io/polls", pollData)
+            .then(() => {
+                return axios.get("https://5981a9d2139db000114a2d9c.mockapi.io/polls");
+            }).then((polls) => {
+                dispatch({
+                    type: "addPolls",
+                    polls: polls.data,
+                });
+            });
+    };
+}

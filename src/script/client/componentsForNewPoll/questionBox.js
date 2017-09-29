@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default styled.div`
 	position: relative;
-	width: 94%;
+	width: 92%;
 	margin: 3%;
 	padding: 1%;
 	height: auto;

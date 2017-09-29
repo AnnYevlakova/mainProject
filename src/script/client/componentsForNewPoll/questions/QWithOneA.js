@@ -10,40 +10,34 @@ import QFooter from "../questionFooter";
 class QWithOneA extends Component {
     constructor(props) {
         super(props);
-        this.required = true;
-        this.answers = [];
-
-        this.isRequired = (event) => {
-            if (event.target.value === "on") {
-                this.required = true;
-            } else {
-                this.required = false;
-            }
+        this.state = {
+            answers: [],
         };
+
+        this.initialData = { question: "", answers: ["", "", "", "", ""] };
+
         this.setAnswer = (event) => {
             const index = event.target.id;
+            const answers = this.state.answers;
 
-            this.answers.forEach((item, i) => {
-                if (i == index) {
-                    item.checked = true;
-                } else {
-                    item.checked = false;
-                }
+            answers.forEach((item, i) => {
+                item.checked = Boolean(i === Number(index));
             });
+            this.setState({ answers });
         };
     }
 
     componentDidMount() {
-        this.answers = Array.from(document.querySelectorAll("input[type=\"checkbox\"]"));
+        this.setState({ answers: Array.from(document.querySelectorAll("input[type='checkbox']")) });
     }
+
     render() {
-        const data = this.props.data || { question: "", answers: ["", "", "", "", ""] };
+        const data = this.props.data || this.initialData;
 
         return (
-            <QuestionBox id={this.props.number} data-type="QWithOneA">
+            <QuestionBox id={this.props.number} data-type = "QWithOneA">
                 <header>
                     <span>{this.props.number}.</span>
-                    <span id="requiredMark">{this.props.required ? "*" : ""}</span>
                     <p>{data.question}</p>
                 </header>
                 <ul>
@@ -68,6 +62,6 @@ QWithOneA.propTypes = {
     delete: propTypes.func,
     required: propTypes.bool,
     number: propTypes.number,
-    data: propTypes.string,
+    data: propTypes.object,
 };
 export default QWithOneA;
